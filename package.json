@@ -1,0 +1,46 @@
+{
+  "name": "waviii.io",
+  "version": "1.1.0",
+  "homepage": "https://waviii.io/",
+  "dependencies": {
+    "@material-ui/core": "4.9.14",
+    "@types/react": "16.9.23",
+    "chart.js": "2.9.3",
+    "classnames": "2.2.6",
+    "history": "4.10.1",
+    "ipfs-http-client": "^33.1.1",
+    "node-sass": "4.13.1",
+    "perfect-scrollbar": "1.5.0",
+    "prop-types": "15.7.2",
+    "react": "16.13.0",
+    "react-chartjs-2": "2.9.0",
+    "react-countup": "^4.2.2",
+    "react-dom": "16.13.0",
+    "react-loadingg": "^1.7.2",
+    "react-notification-alert": "0.0.12",
+    "react-router-dom": "5.1.2",
+    "react-scripts": "3.4.0",
+    "reactstrap": "8.4.1",
+    "web3": "1.0.0-beta.55"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build && gulp licenses",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
+    "compile-scss": "node-sass src/assets/scss/waviii.scss src/assets/css/waviii.css",
+    "minify-sass": "node-sass src/assets/scss/waviii.scss src/assets/css/waviii.min.css --output-style compressed",
+    "map-sass": "node-sass src/assets/scss/waviii.scss src/assets/css/waviii.css --source-map true"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {}
+}
