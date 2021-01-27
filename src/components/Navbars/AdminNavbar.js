@@ -1,38 +1,36 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
-import Web3 from 'web3';
+import Web3 from "web3";
 // reactstrap components
 import {
-//  Button,
+  //  Button,
   Collapse,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
   Input,
-//  InputGroup,
+  //  InputGroup,
   NavbarBrand,
   Navbar,
   NavLink,
   Nav,
   Container,
-  Modal
+  Modal,
 } from "reactstrap";
 
-
 class AdminNavbar extends React.Component {
-
   async loadWeb3() {
     if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum)
-      await window.ethereum.enable()
-    }
-    else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider)
-    }
-    else {
-      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+      window.web3 = new Web3(window.ethereum);
+      await window.ethereum.enable();
+    } else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider);
+    } else {
+      window.alert(
+        "Non-Ethereum browser detected. You should consider trying MetaMask!"
+      );
     }
   }
 
@@ -41,7 +39,7 @@ class AdminNavbar extends React.Component {
     this.state = {
       collapseOpen: false,
       modalSearch: false,
-      color: "navbar-transparent"
+      color: "navbar-transparent",
     };
   }
   componentDidMount() {
@@ -54,11 +52,11 @@ class AdminNavbar extends React.Component {
   updateColor = () => {
     if (window.innerWidth < 993 && this.state.collapseOpen) {
       this.setState({
-        color: "bg-white"
+        color: "bg-white",
       });
     } else {
       this.setState({
-        color: "navbar-transparent"
+        color: "navbar-transparent",
       });
     }
   };
@@ -66,21 +64,21 @@ class AdminNavbar extends React.Component {
   toggleCollapse = () => {
     if (this.state.collapseOpen) {
       this.setState({
-        color: "navbar-transparent"
+        color: "navbar-transparent",
       });
     } else {
       this.setState({
-        color: "bg-white"
+        color: "bg-white",
       });
     }
     this.setState({
-      collapseOpen: !this.state.collapseOpen
+      collapseOpen: !this.state.collapseOpen,
     });
   };
   // this function is to open the Search modal
   toggleModalSearch = () => {
     this.setState({
-      modalSearch: !this.state.modalSearch
+      modalSearch: !this.state.modalSearch,
     });
   };
   render() {
@@ -94,7 +92,7 @@ class AdminNavbar extends React.Component {
             <div className="navbar-wrapper">
               <div
                 className={classNames("navbar-toggle d-inline", {
-                  toggled: this.props.sidebarOpened
+                  toggled: this.props.sidebarOpened,
                 })}
               >
                 <button
@@ -107,11 +105,11 @@ class AdminNavbar extends React.Component {
                   <span className="navbar-toggler-bar bar3" />
                 </button>
               </div>
-              <NavbarBrand href="#pablo" onClick={e => e.preventDefault()}>
+              <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
                 {this.props.brandText}
               </NavbarBrand>
             </div>
-            
+
             <button
               aria-expanded={false}
               aria-label="Toggle navigation"
@@ -126,7 +124,7 @@ class AdminNavbar extends React.Component {
               <span className="navbar-toggler-bar navbar-kebab" />
               <span className="navbar-toggler-bar navbar-kebab" />
             </button>
-            
+
             <Collapse navbar isOpen={this.state.collapseOpen}>
               <Nav className="ml-auto" navbar>
                 <UncontrolledDropdown nav>
@@ -135,24 +133,39 @@ class AdminNavbar extends React.Component {
                     color="default"
                     data-toggle="dropdown"
                     nav
-                    onClick={e => e.preventDefault()}
+                    onClick={(e) => e.preventDefault()}
                   >
                     <div className="photo">
-                      <img alt="..." src={require("assets/img/MBrassey-Logo.png")} />
+                      <img
+                        alt="..."
+                        src={require("assets/img/MBrassey-Logo.png")}
+                      />
                     </div>
                     <b className="caret d-none d-lg-block d-xl-block" />
                     <p className="d-lg-none">MBrassey</p>
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item"><a href="https://www.linkedin.com/in/MBrassey">LinkedIn</a></DropdownItem>
+                      <DropdownItem className="nav-item">
+                        <a href="https://www.linkedin.com/in/MBrassey">
+                          <span className="waviii drop-item">LinkedIn</span>
+                        </a>
+                      </DropdownItem>
                     </NavLink>
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item"><a href="https://github.com/MBrassey">GitHub</a></DropdownItem>
+                      <DropdownItem className="nav-item">
+                        <a href="https://github.com/MBrassey">
+                          <span className="waviii drop-item">GitHub</span>
+                        </a>
+                      </DropdownItem>
                     </NavLink>
                     <DropdownItem divider tag="li" />
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item"><a href="https://brassey.io">Portfolio</a></DropdownItem>
+                      <DropdownItem className="nav-item">
+                        <a href="https://brassey.io">
+                          <span className="waviii drop-item">Portfolio</span>
+                        </a>
+                      </DropdownItem>
                     </NavLink>
                   </DropdownMenu>
                 </UncontrolledDropdown>

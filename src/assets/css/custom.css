@@ -2,14 +2,22 @@
   font-family: "Syncopate", sans-serif;
 }
 
-p {
-    font-family: 'Syne', sans-serif;
-}
-
 .waviii-2 {
-    font-size: 16px;
+  font-size: 18px;
+  color: #a3de9e;
+  font-family: "Syne", sans-serif;
 }
 
-.nav-open {
-    margin-bottom: 30px;
+.price {
+  color: #2c91c7;
+  font-weight: 800;
+}
+
+.drop-item {
+    color: #141414;
+    font-weight: 800;
+  }
+
+a {
+  color: #2c91c7;
 }
