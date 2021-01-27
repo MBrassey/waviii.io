@@ -13,13 +13,13 @@ class Footer extends React.Component {
         <Container fluid>
           <Nav>
             <NavItem>
-              <NavLink href="https://github.com/luc1dLife" ><span class="waviii3">Whitepaper</span></NavLink>
+              <NavLink href="https://github.com/MBrassey" ><span class="waviii3">Whitepaper</span></NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/luc1dLife"><span class="waviii3">Source Code</span></NavLink>
+              <NavLink href="https://github.com/MBrassey"><span class="waviii3">Source Code</span></NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/luc1dLife"><span class="waviii3">About</span></NavLink>
+              <NavLink href="https://github.com/MBrassey"><span class="waviii3">About</span></NavLink>
             </NavItem>
           </Nav>
           <div className="copyright">

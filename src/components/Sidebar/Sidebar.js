@@ -3,6 +3,7 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
+import ParticlesBg from "particles-bg";
 
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
@@ -90,6 +91,7 @@ class Sidebar extends React.Component {
     }
     return (
       <div className="sidebar" data={bgColor}>
+        <ParticlesBg type="cobweb" num={4} bg={true} color="#2d93ca" />
         <div className="sidebar-wrapper" ref="sidebar">
           {logoImg !== null || logoText !== null ? (
             <div className="logo waviii">

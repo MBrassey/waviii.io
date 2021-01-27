@@ -100,7 +100,7 @@ class Dashboard extends React.Component {
                 </CardHeader>
                 <FadeIn>
                 <CardBody>
-                  <p className="waviii2">waviii has a fixed exchange rate of 1/100 with ETH. </p>
+                  <p className="waviii2">waviii has a fixed exchange rate of 1/100 with ETH. The total supply is 1 million waviii. </p>
                 </CardBody>
                 </FadeIn>
               </Card>

@@ -124,6 +124,7 @@ class Admin extends React.Component {
               {this.getRoutes(routes)}
               <Redirect from="*" to="/admin/dashboard" />
             </Switch>
+            <Footer></Footer>
           </div>
         </div>
         <FixedPlugin
@@ -131,6 +132,7 @@ class Admin extends React.Component {
           handleBgClick={this.handleBgClick}
         />
         </FadeIn>
+       
       </>
     );
   }

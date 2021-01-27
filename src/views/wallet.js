@@ -131,9 +131,12 @@ class Wallet extends React.Component {
           <div className="row">
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto" style={{ width: "90%" }}>
+                <FadeIn>
                 <img src={waviiiLogo} width="150" />
+                </FadeIn>
                 <br />
                 <br />
+                <FadeIn>
                 <h1 className="waviii">
                   <strong>
                     <CountUp
@@ -147,6 +150,7 @@ class Wallet extends React.Component {
                     waviii
                   </strong>
                 </h1>
+                </FadeIn>
                 <div className="card mb-4">
                   <div className="card-body">
                     <form
