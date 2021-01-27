@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import tokenLogo from '../assets/img/token-logo.png'
 import ethLogo from '../assets/img/eth-logo.png'
 import CountUp from 'react-countup'
+import FadeIn from "react-fade-in";
 
 class BuyForm extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class BuyForm extends Component {
 
   render() {
     return (
+      <FadeIn>
       <form className="mb-3" onSubmit={(event) => {
           event.preventDefault()
           let etherAmount
@@ -62,7 +64,7 @@ class BuyForm extends Component {
             disabled
           />
           <div className="input-group-append">
-            <div className="input-group-text">
+            <div className="input-group-text waviii">
             <strong>&nbsp;&nbsp;</strong>
               <img src={tokenLogo} height='29' alt=""/>
               <strong>&nbsp;  waviii</strong>
@@ -71,10 +73,11 @@ class BuyForm extends Component {
         </div>
         <div className="mb-5">
           <span className="float-left text-muted">Exchange Rate</span>
-          <span className="float-right text-muted">1 ETH = 100 waviii</span>
+          <span className="float-right text-muted waviii">1 ETH = 100 waviii</span>
         </div>
-        <button type="submit" className="btn btn-primary btn-block btn-lg">Buy waviii</button>
+        <button type="submit" className="btn btn-primary btn-block btn-lg waviii">Buy waviii</button>
       </form>
+      </FadeIn>
     );
   }
 }

@@ -3,6 +3,7 @@ import React from "react";
 import classNames from "classnames";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
+import FadeIn from "react-fade-in";
 
 // reactstrap components
 import {
@@ -18,6 +19,7 @@ import {
 
 // core components
 import { waviiiChart } from "variables/charts.js";
+import { fade } from "@material-ui/core";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -35,6 +37,7 @@ class Dashboard extends React.Component {
     return (
       <>
         <div className="content">
+          <FadeIn>
           <Row>
             <Col xs="12">
               <Card className="card-chart">
@@ -42,7 +45,7 @@ class Dashboard extends React.Component {
                   <Row>
                     <Col className="text-left" sm="6">
                       <h5 className="card-category">2020 - 2021</h5>
-                      <CardTitle tag="h2">waviii price</CardTitle>
+                      <CardTitle tag="h2" className="waviii">waviii price</CardTitle>
                     </Col>
                     <Col sm="6">
                       <ButtonGroup
@@ -87,18 +90,23 @@ class Dashboard extends React.Component {
               </Card>
             </Col>
           </Row>
+          </FadeIn>
+          <FadeIn>
           <Row>
             <Col lg="6" md="12">
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">waviii token</CardTitle>
+                  <CardTitle tag="h4" className="waviii">waviii token</CardTitle>
                 </CardHeader>
+                <FadeIn>
                 <CardBody>
-                  <p>waviii is teh best</p>
+                  <p className="waviii2">waviii has a fixed exchange rate of 1/100 with ETH. </p>
                 </CardBody>
+                </FadeIn>
               </Card>
             </Col>
           </Row>
+          </FadeIn>
         </div>
       </>
     );

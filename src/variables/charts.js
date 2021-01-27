@@ -26,7 +26,7 @@ let chart1_2_options = {
         },
         ticks: {
           suggestedMin: 0,
-          suggestedMax: 25,
+          suggestedMax: 14,
           padding: 20,
           fontColor: "#9a9a9a"
         }
@@ -64,7 +64,6 @@ let waviiiChart = {
 
     return {
       labels: [
-        "JAN",
         "FEB",
         "MAR",
         "APR",
@@ -75,11 +74,12 @@ let waviiiChart = {
         "SEP",
         "OCT",
         "NOV",
-        "DEC"
+        "DEC",
+        "JAN"
       ],
       datasets: [
         {
-          label: "waviii price",
+          label: "waviii price (USD) $",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: "#1f8ef1",
@@ -93,7 +93,7 @@ let waviiiChart = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: [10, 12, 10, 11, 9, 8, 10, 12, 13, 13, 12, 10]
+          data: [1, 1.3, 1.1, 1.7, 2, 2.4, 2.3, 4.3, 3.8, 3.6, 6.3, 13]
         }
       ]
     };

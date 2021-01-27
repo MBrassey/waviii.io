@@ -6,13 +6,14 @@ import AdminLayout from "layouts/Admin/Admin.js";
 
 import "assets/scss/waviii.scss";
 import "assets/css/nucleo-icons.css";
+import "assets/css/custom.css";
 
 const hist = createBrowserHistory();
 
 ReactDOM.render(
   <Router history={hist}>
     <Switch>
-      <Route path="/admin" render={props => <AdminLayout {...props} />} />
+      <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
       <Redirect from="/" to="/admin/Waviii" />
     </Switch>
   </Router>,

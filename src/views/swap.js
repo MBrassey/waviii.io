@@ -4,9 +4,11 @@ import Token from './abis/waviii2.json'
 import EthSwap from './abis/WavSwap.json'
 import BuySell from './BuySell'
 import { WaveTopBottomLoading } from 'react-loadingg'
+import FadeIn from "react-fade-in";
 
 // reactstrap components
 import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
+import { Fade } from '@material-ui/core'
 
 class Swap extends Component {
 
@@ -122,10 +124,11 @@ class Swap extends Component {
           <Row>
             <Col md="12">
               <Card>
+                <FadeIn>
                 <CardHeader>
 
                 <a  
-                    className="title right"
+                    className="title right waviii"
                     href={`https://etherscan.io/address/${this.state.account}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -133,6 +136,7 @@ class Swap extends Component {
                       <span>{this.state.account}</span>  
                   </a>
                 </CardHeader>
+                </FadeIn>
                 <CardBody className="all-icons">
 
                 <div className="content mr-auto ml-auto" style={{ width: "90%" }}>

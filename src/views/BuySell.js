@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import BuyForm from './BuyForm'
 import SellForm from './SellForm'
 import swapLogo from '../assets/img/swap_logo.gif'
+import FadeIn from "react-fade-in";
 
 class BuySell extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class BuySell extends Component {
     }
 
     return (
+      <FadeIn>
       <div id="content" className="mt-3"> 
         <div className="d-flex justify-content-between mb-3">
           <button
@@ -60,6 +62,7 @@ class BuySell extends Component {
         </div>
 
       </div>
+      </FadeIn>
     );
   }
 }

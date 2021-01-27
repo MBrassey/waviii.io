@@ -92,7 +92,7 @@ class Sidebar extends React.Component {
       <div className="sidebar" data={bgColor}>
         <div className="sidebar-wrapper" ref="sidebar">
           {logoImg !== null || logoText !== null ? (
-            <div className="logo">
+            <div className="logo waviii">
               {logoImg}
               {logoText}
             </div>
@@ -115,7 +115,7 @@ class Sidebar extends React.Component {
                     onClick={this.props.toggleSidebar}
                   >
                     <i className={prop.icon} />
-                    <p>{rtlActive ? prop.rtlName : prop.name}</p>
+                    <p className="waviii-2">{rtlActive ? prop.rtlName : prop.name}</p>
                   </NavLink>
                 </li>
               );
@@ -128,7 +128,6 @@ class Sidebar extends React.Component {
 }
 
 Sidebar.defaultProps = {
-  rtlActive: false,
   bgColor: "blue",
   routes: [{}]
 };

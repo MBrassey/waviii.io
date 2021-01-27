@@ -2,7 +2,6 @@ import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 import Web3 from 'web3';
-
 // reactstrap components
 import {
 //  Button,
@@ -146,14 +145,14 @@ class AdminNavbar extends React.Component {
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item"><a>LinkedIn</a></DropdownItem>
+                      <DropdownItem className="nav-item"><a href="https://www.linkedin.com/in/MBrassey">LinkedIn</a></DropdownItem>
                     </NavLink>
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item"><a>GitHub</a></DropdownItem>
+                      <DropdownItem className="nav-item"><a href="https://github.com/MBrassey">GitHub</a></DropdownItem>
                     </NavLink>
                     <DropdownItem divider tag="li" />
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item"><a>Portfolio</a></DropdownItem>
+                      <DropdownItem className="nav-item"><a href="https://brassey.io">Portfolio</a></DropdownItem>
                     </NavLink>
                   </DropdownMenu>
                 </UncontrolledDropdown>

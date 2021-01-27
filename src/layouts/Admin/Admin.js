@@ -1,8 +1,10 @@
-/*! waviii.io */
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
+
+// FadeIn effect
+import FadeIn from "react-fade-in";
 
 // core components
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
@@ -89,11 +91,12 @@ class Admin extends React.Component {
         return routes[i].name;
       }
     }
-    return "Brand";
+    return "Price";
   };
   render() {
     return (
       <>
+      <FadeIn>
         <div className="wrapper">
           <Sidebar
             {...this.props}
@@ -127,6 +130,7 @@ class Admin extends React.Component {
           bgColor={this.state.backgroundColor}
           handleBgClick={this.handleBgClick}
         />
+        </FadeIn>
       </>
     );
   }
