@@ -4,7 +4,6 @@ import classNames from "classnames";
 // react plugin used to create charts
 import { Line } from "react-chartjs-2";
 import FadeIn from "react-fade-in";
-// waviii price data
 
 // reactstrap components
 import {
@@ -25,18 +24,51 @@ const date = `${
   current.getMonth() + 1
 }/${current.getDate()}/${current.getFullYear()}`;
 
+var axios = require("axios").default;
+
 class Dashboard extends React.Component {
+  async componentWillMount() {
+    await this.getPrice();
+  }
+
+  getPrice = () => {
+    var options = {
+      method: "GET",
+      url: "https://coinpaprika1.p.rapidapi.com/tickers",
+      headers: {
+        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
+        "x-rapidapi-host": "coinpaprika1.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then( (response) => {
+        this.setState({ loading: true })
+        console.log(response.data);
+        // fetch ETH price
+        const ETH = response.data[3].quotes.USD.price;
+        // calculate waviii price
+        const waviii_raw = ETH / 100;
+        // trim waviii price to 2 decimal places
+        const waviii = waviii_raw.toFixed(2);
+        console.log(waviii);
+        this.setState({ price: waviii })
+        
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
   constructor(props) {
     super(props);
     this.state = {
+      price: "",
       bigChartData: "data1",
     };
   }
-  setBgChartData = (name) => {
-    this.setState({
-      bigChartData: name,
-    });
-  };
+
   render() {
     return (
       <>
@@ -50,7 +82,7 @@ class Dashboard extends React.Component {
                       <Col className="text-left" sm="6">
                         <h5 className="card-category">{date}</h5>
                         <CardTitle tag="h2" className="waviii">
-                          waviii price: <span className="price">$12.40</span>
+                          waviii price: <span className="price">${this.state.price}</span>
                         </CardTitle>
                       </Col>
                       <Col sm="6">
@@ -121,11 +153,11 @@ class Dashboard extends React.Component {
                       prospective employers reference. The immediate goal of the
                       waviii Token is to be the main reference utility
                       crypto-currency used within the waviii.io decentralized
-                      application ecosystem. The broader objective of the waviii
-                      Token for example, could be to establish itself as the
-                      crypto-currency of choice for anyone in the industry
+                      worldlication ecosystem. The broader objective of the
+                      waviii Token for example, could be to establish itself as
+                      the crypto-currency of choice for anyone in the industry
                       fulfilling a task with a smart contract. Over time,
-                      through adding new dApps to waviii.io, we intend to
+                      through adding new dworlds to waviii.io, we intend to
                       capitalize on a trend that is growing exponentially in our
                       industry: the decentralisation of tasks around the world
                       and the use of smart contracts to fulfil them. If this
@@ -216,11 +248,11 @@ class Dashboard extends React.Component {
                   </CardHeader>
                   <FadeIn>
                     <CardBody className="waviii-2">
-                      The Smartcontracts powering this dApp reside on the
-                      Ethereum blockchain, while all the application code and
+                      The Smartcontracts powering this dworld reside on the
+                      Ethereum blockchain, while all the worldlication code and
                       images are deployed to the InterPlanetary FileSystem
-                      (ipfs) - Making this a fully decentralized application
-                      (dApp).
+                      (ipfs) - Making this a fully decentralized worldlication
+                      (dworld).
                     </CardBody>
                   </FadeIn>
                 </Card>
