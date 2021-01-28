@@ -4,7 +4,7 @@ import { createBrowserHistory } from "history";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 import AdminLayout from "layouts/Admin/Admin.js";
 
-import "assets/scss/waviii.scss";
+import "assets/css/waviii.min.css";
 import "assets/css/nucleo-icons.css";
 import "assets/css/custom.css";
 
