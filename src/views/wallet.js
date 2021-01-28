@@ -132,7 +132,7 @@ class Wallet extends React.Component {
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto" style={{ width: "90%" }}>
                 <FadeIn>
-                  <img src={waviiiLogo} width="150" />
+                  <img src={waviiiLogo} width="150" alt="waviii Logo" />
                 </FadeIn>
                 <br />
                 <br />

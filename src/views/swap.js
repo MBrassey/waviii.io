@@ -8,7 +8,6 @@ import FadeIn from "react-fade-in";
 
 // reactstrap components
 import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
-import { Fade } from '@material-ui/core'
 
 class Swap extends Component {
 
