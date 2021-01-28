@@ -33,7 +33,7 @@ class BuySell extends Component {
       <div id="content" className="mt-3"> 
         <div className="d-flex justify-content-between mb-3">
           <button
-              className="btn btn-light"
+              className="btn btn-light waviii"
               onClick={(event) => {
                 this.setState({ currentForm: 'buy' })
               }}
@@ -42,7 +42,7 @@ class BuySell extends Component {
           </button>
           <img src={swapLogo} width="150" />
           <button
-              className="btn btn-light"
+              className="btn btn-light waviii"
               onClick={(event) => {
                 this.setState({ currentForm: 'sell' })
               }}

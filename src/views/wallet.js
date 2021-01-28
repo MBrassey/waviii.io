@@ -132,24 +132,24 @@ class Wallet extends React.Component {
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto" style={{ width: "90%" }}>
                 <FadeIn>
-                <img src={waviiiLogo} width="150" />
+                  <img src={waviiiLogo} width="150" />
                 </FadeIn>
                 <br />
                 <br />
                 <FadeIn>
-                <h1 className="waviii">
-                  <strong>
-                    <CountUp
-                      duration={2.7}
-                      start={0}
-                      separator=""
-                      decimals="2"
-                      decimal="."
-                      end={this.state.balance}
-                    />{" "}
-                    waviii
-                  </strong>
-                </h1>
+                  <h1 className="waviii">
+                    <strong>
+                      <CountUp
+                        duration={2.7}
+                        start={0}
+                        separator=""
+                        decimals="2"
+                        decimal="."
+                        end={this.state.balance}
+                      />{" "}
+                      waviii
+                    </strong>
+                  </h1>
                 </FadeIn>
                 <div className="card mb-4">
                   <div className="card-body">
@@ -191,9 +191,11 @@ class Wallet extends React.Component {
                       </div>
                       <button
                         type="submit"
-                        className="btn btn-primary btn-block btn-lg"
+                        className="btn btn-primary btn-block btn-lg waviii"
                       >
-                        <strong>Send</strong>
+                      
+                          <strong>Send</strong>
+                     
                       </button>
                     </form>
 
@@ -217,7 +219,7 @@ class Wallet extends React.Component {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                   >
-                                    <span className="text-muted">
+                                    <span className="waviii text-muted">
                                       {tx.returnValues.to}
                                     </span>
                                   </a>

@@ -6,7 +6,6 @@ import { Line, Bar } from "react-chartjs-2";
 import FadeIn from "react-fade-in";
 // waviii price data
 
-
 // reactstrap components
 import {
   Button,
@@ -104,33 +103,31 @@ class Dashboard extends React.Component {
                 <Card>
                   <CardHeader>
                     <CardTitle tag="h4" className="waviii">
-                      <span className="price">waviii token</span>
+                      <span className="drop-item">waviii token</span>
                     </CardTitle>
                   </CardHeader>
                   <FadeIn>
                     <CardBody className="waviii-2">
-                      waviii has a fixed exchange rate of 1/100 with ETH. The
-                      total supply is 1 million waviii. The Mainnet Token
-                      Contract can be viewed on{" "}
+                      waviii is an ERC-20 Ethereum token I built with
+                      OpenZeppelin libraries and deployed with Remix IDE. The
+                      total supply of waviii is one million tokens. The Mainnet
+                      Token Contract can be viewed on{" "}
                       <a href="https://etherscan.io/token/0x9cc6754d16b98a32ec9137df6453ba84597b9965">
                         Etherscan
                       </a>
                       . I created waviii.io, the waviii ERC-20 Token, Wallet and
                       waviii to ETH Swap to showcase my Full Stack Blockchain
-                      Development Skillsets as{" "}
-                      <a href="https://github.com/MBrassey/waviii.io/">
-                        portfolio projects
-                      </a>{" "}
-                      for prospective employers to review. The immediate goal of
-                      the waviii Token is to be a reference utility
+                      Development experience as portfolio projects for
+                      prospective employers reference. The immediate goal of the
+                      waviii Token is to be the main reference utility
                       crypto-currency used within the waviii.io decentralized
                       application ecosystem. The broader objective of the waviii
                       Token for example, could be to establish itself as the
                       crypto-currency of choice for anyone in the industry
                       fulfilling a task with a smart contract. Over time,
-                      through adding new Dapps to waviii.io, we intend to
+                      through adding new dApps to waviii.io, we intend to
                       capitalize on a trend that is growing exponentially in our
-                      industry: the decentralisation of tasks around the globe
+                      industry: the decentralisation of tasks around the world
                       and the use of smart contracts to fulfil them. If this
                       were more than my portfolio demo, we would see the waviii
                       Token as an opportunity for anyone - even the
@@ -142,6 +139,88 @@ class Dashboard extends React.Component {
                       Network. I'm currently open to full-time and freelance
                       work as a Blockchain or related Frontend Developer,
                       Contact me with any inqueries: matt@brassey.io.
+                    </CardBody>
+                  </FadeIn>
+                </Card>
+              </Col>
+            </Row>
+          </FadeIn>
+
+          <FadeIn>
+            <Row>
+              <Col lg="12" md="12">
+                <Card>
+                  <CardHeader>
+                    <CardTitle tag="h4" className="waviii">
+                      <span className="drop-item">waviii wallet</span>
+                    </CardTitle>
+                  </CardHeader>
+                  <FadeIn>
+                    <CardBody className="waviii-2">
+                      waviii's Web3 ERC-20 token wallet interfaces directly with
+                      the Mainnet waviii Token Contract mentioned above and uses
+                      MetaMask integration to display token balance and send
+                      waviii. I implemented the transaction history grid by
+                      fetching the hashes from Etherscan. If MetaMask is not
+                      detected, an alternate component is rendered to guide
+                      users to install the browser extension. The user's
+                      connected Ethereum address is rendered at the top left
+                      corner of the wallet and redirects the user to their own
+                      address on Etherscan where incoming transactions are also
+                      visible.
+                    </CardBody>
+                  </FadeIn>
+                </Card>
+              </Col>
+            </Row>
+          </FadeIn>
+
+          <FadeIn>
+            <Row>
+              <Col lg="12" md="12">
+                <Card>
+                  <CardHeader>
+                    <CardTitle tag="h4" className="waviii">
+                      <span className="drop-item">waviii swap</span>
+                    </CardTitle>
+                  </CardHeader>
+                  <FadeIn>
+                    <CardBody className="waviii-2">
+                      waviii token has a fixed exchange rate of 1/100 with ETH.
+                      Most of the one million waviii tokens reside within the
+                      ERC-20 Token Swap Smartcontract I deployed at this
+                      Ethereum Mainnet address:{" "}
+                      <a href="https://etherscan.io/address/0x38abf018ea2f8066813c376a197b6df0349d86c5">
+                        [0x38abF018eA2f8...]
+                      </a>{" "}
+                      . The swap contract allows waviii tokens to be bought and
+                      sold (exchanged) for real ETH at any time. With the hard
+                      coded exchange rate discussed earlier, waviii tokens match
+                      and retain value pegged and in fixed proportion to the
+                      current value of ETH and always will.
+                    </CardBody>
+                  </FadeIn>
+                </Card>
+              </Col>
+            </Row>
+          </FadeIn>
+
+          <FadeIn>
+            <Row>
+              <Col lg="12" md="12">
+                <Card>
+                  <CardHeader>
+                    <CardTitle tag="h4" className="waviii">
+                      <span className="drop-item">decentralized</span>
+                    </CardTitle>
+                  </CardHeader>
+                  <FadeIn>
+                    <CardBody className="waviii-2">
+                      The Smartcontracts powering this dApp reside on the
+                      Ethereum blockchain, while all the application code and
+                      images are deployed to the InterPlanetary FileSystem
+                      (ipfs) - Making this a fully decentralized application
+                      (dApp).
                     </CardBody>
                   </FadeIn>
                 </Card>
