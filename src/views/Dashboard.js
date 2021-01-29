@@ -4,6 +4,7 @@ import classNames from "classnames";
 // react plugin used to create charts
 import { Line } from "react-chartjs-2";
 import FadeIn from "react-fade-in";
+import { WaveTopBottomLoading } from "react-loadingg";
 
 // reactstrap components
 import {
@@ -43,18 +44,18 @@ class Dashboard extends React.Component {
 
     axios
       .request(options)
-      .then( (response) => {
-        this.setState({ loading: true })
-        console.log(response.data);
+      .then((response) => {
+        this.setState({ loading: true });
+        // console.log(response.data);
         // fetch ETH price
         const ETH = response.data[3].quotes.USD.price;
         // calculate waviii price
         const waviii_raw = ETH / 100;
         // trim waviii price to 2 decimal places
         const waviii = waviii_raw.toFixed(2);
-        console.log(waviii);
-        this.setState({ price: waviii })
-        
+        // dispatch state for waviii price
+        this.setState({ price: waviii });
+        this.setState({ loading: false });
       })
       .catch(function (error) {
         console.error(error);
@@ -66,6 +67,7 @@ class Dashboard extends React.Component {
     this.state = {
       price: "",
       bigChartData: "data1",
+      loading: true,
     };
   }
 
@@ -82,7 +84,15 @@ class Dashboard extends React.Component {
                       <Col className="text-left" sm="6">
                         <h5 className="card-category">{date}</h5>
                         <CardTitle tag="h2" className="waviii">
-                          waviii price: <span className="price">${this.state.price}</span>
+                          waviii:{" "}
+                          {this.state.loading ? (
+                            <span className="price right">
+                              {" "}
+                              <WaveTopBottomLoading color="#2c91c7" />
+                            </span>
+                          ) : (
+                            <span className="price">${this.state.price}</span>
+                          )}
                         </CardTitle>
                       </Col>
                       <Col sm="6">
@@ -149,24 +159,24 @@ class Dashboard extends React.Component {
                       </a>
                       . I created waviii.io, the waviii ERC-20 Token, Wallet and
                       waviii to ETH Swap to showcase my Full Stack Blockchain
-                      Development experience as portfolio projects for
-                      prospective employers reference. The immediate goal of the
-                      waviii Token is to be the main reference utility
-                      crypto-currency used within the waviii.io decentralized
-                      worldlication ecosystem. The broader objective of the
-                      waviii Token for example, could be to establish itself as
-                      the crypto-currency of choice for anyone in the industry
-                      fulfilling a task with a smart contract. Over time,
-                      through adding new dworlds to waviii.io, we intend to
-                      capitalize on a trend that is growing exponentially in our
-                      industry: the decentralisation of tasks around the world
-                      and the use of smart contracts to fulfil them. If this
-                      were more than my portfolio demo, we would see the waviii
-                      Token as an opportunity for anyone - even the
-                      under-banked, the underserved, or the next wave of 4
-                      billion individuals who are getting access to the internet
-                      – to find useful incentives for their work and improve
-                      their financial condition through access to a new
+                      Development experience to prospective employers. The
+                      immediate goal of the waviii Token is to be the main
+                      reference utility crypto-currency used within the
+                      waviii.io decentralized application ecosystem. The broader
+                      objective of the waviii Token for example, could be to
+                      establish itself as the crypto-currency of choice for
+                      anyone in the industry fulfilling a task with a smart
+                      contract. Over time, by adding new waviii dApps, like
+                      token staking, betting games and automated trading, we
+                      intend to capitalize on a trend that is growing
+                      exponentially in our industry: the decentralisation of
+                      tasks around the world and the use of smart contracts to
+                      fulfil them. If this were more than my portfolio demo, we
+                      would see the waviii Token as an opportunity for anyone -
+                      even the under-banked, the underserved, or the next wave
+                      of 4 billion individuals who are getting access to the
+                      internet – to find useful incentives for their work and
+                      improve their financial condition through access to a new
                       decentralised financial system built upon the Ethereum
                       Network. I'm currently open to full-time and freelance
                       work as a Blockchain or related Frontend Developer,
@@ -248,11 +258,11 @@ class Dashboard extends React.Component {
                   </CardHeader>
                   <FadeIn>
                     <CardBody className="waviii-2">
-                      The Smartcontracts powering this dworld reside on the
-                      Ethereum blockchain, while all the worldlication code and
+                      The Smartcontracts powering this dApp reside on the
+                      Ethereum blockchain, while all the application code and
                       images are deployed to the InterPlanetary FileSystem
-                      (ipfs) - Making this a fully decentralized worldlication
-                      (dworld).
+                      (ipfs) - Making this a fully decentralized application
+                      (dApp).
                     </CardBody>
                   </FadeIn>
                 </Card>

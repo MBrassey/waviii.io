@@ -5,9 +5,9 @@ let chart1_2_options = {
     display: false
   },
   tooltips: {
-    backgroundColor: "#f5f5f5",
-    titleFontColor: "#333",
-    bodyFontColor: "#666",
+    backgroundColor: "#2C2C2C",
+    titleFontColor: "#a3de9e",
+    bodyFontColor: "#2c91c7",
     bodySpacing: 4,
     xPadding: 12,
     mode: "nearest",
@@ -79,7 +79,7 @@ let waviiiChart = {
       ],
       datasets: [
         {
-          label: "waviii price (USD) $",
+          label: " $",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: "#1f8ef1",
