@@ -1,12 +1,8 @@
 import React from "react";
-// nodejs library that concatenates classes
 import classNames from "classnames";
-// react plugin used to create charts
 import { Line } from "react-chartjs-2";
 import FadeIn from "react-fade-in";
 import { WaveTopBottomLoading } from "react-loadingg";
-
-// reactstrap components
 import {
   Button,
   ButtonGroup,
@@ -18,27 +14,39 @@ import {
   Col,
 } from "reactstrap";
 
-// core components
-import { waviiiChart } from "variables/charts.js";
 const current = new Date();
 const date = `${
   current.getMonth() + 1
 }/${current.getDate()}/${current.getFullYear()}`;
+const date1 = "";
 
 var axios = require("axios").default;
 
 class Dashboard extends React.Component {
   async componentWillMount() {
-    await this.getPrice();
+    await this.getCurrentPrice();
+    await this.getPrice1();
+    await this.getPrice2();
+    await this.getPrice3();
+    await this.getPrice4();
+    await this.getPrice5();
+    await this.getPrice6();
+    await this.getPrice7();
+    await this.getPrice8();
+    await this.getPrice9();
+    await this.getPrice10();
+    await this.getPrice11();
+    await this.getPrice12();
   }
 
-  getPrice = () => {
+  getCurrentPrice = () => {
     var options = {
       method: "GET",
-      url: "https://coinpaprika1.p.rapidapi.com/tickers",
+      url: "https://coingecko.p.rapidapi.com/simple/price",
+      params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
-        "x-rapidapi-host": "coinpaprika1.p.rapidapi.com",
+        "x-rapidapi-host": "coingecko.p.rapidapi.com",
       },
     };
 
@@ -46,15 +54,334 @@ class Dashboard extends React.Component {
       .request(options)
       .then((response) => {
         this.setState({ loading: true });
-        // console.log(response.data);
-        // fetch ETH price
-        const ETH = response.data[3].quotes.USD.price;
-        // calculate waviii price
-        const waviii_raw = ETH / 100;
-        // trim waviii price to 2 decimal places
-        const waviii = waviii_raw.toFixed(2);
-        // dispatch state for waviii price
+        const ETH = response.data.ethereum.usd;
+        const raw = ETH / 100;
+        const waviii = raw.toFixed(2);
         this.setState({ price: waviii });
+        this.setState({ loading: false });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  getPrice1 = () => {
+    var options = {
+      method: "GET",
+      url:
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-01-2020",
+      params: { ids: "ethereum", vs_currencies: "usd" },
+      headers: {
+        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
+        "x-rapidapi-host": "coingecko.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ loading: true });
+        const ETH1 = response.data.market_data.current_price.usd;
+        const raw1 = ETH1 / 100;
+        const waviii1 = raw1.toFixed(2);
+        this.setState({ price1: waviii1 });
+        this.setState({ loading: false });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  getPrice2 = () => {
+    var options = {
+      method: "GET",
+      url:
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-02-2020",
+      params: { ids: "ethereum", vs_currencies: "usd" },
+      headers: {
+        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
+        "x-rapidapi-host": "coingecko.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ loading: true });
+        const ETH2 = response.data.market_data.current_price.usd;
+        const raw2 = ETH2 / 100;
+        const waviii2 = raw2.toFixed(2);
+        this.setState({ price2: waviii2 });
+        this.setState({ loading: false });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  getPrice3 = () => {
+    var options = {
+      method: "GET",
+      url:
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-03-2020",
+      params: { ids: "ethereum", vs_currencies: "usd" },
+      headers: {
+        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
+        "x-rapidapi-host": "coingecko.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ loading: true });
+        const ETH3 = response.data.market_data.current_price.usd;
+        const raw3 = ETH3 / 100;
+        const waviii3 = raw3.toFixed(2);
+        this.setState({ price3: waviii3 });
+        this.setState({ loading: false });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  getPrice4 = () => {
+    var options = {
+      method: "GET",
+      url:
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-04-2020",
+      params: { ids: "ethereum", vs_currencies: "usd" },
+      headers: {
+        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
+        "x-rapidapi-host": "coingecko.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ loading: true });
+        const ETH4 = response.data.market_data.current_price.usd;
+        const raw4 = ETH4 / 100;
+        const waviii4 = raw4.toFixed(2);
+        this.setState({ price4: waviii4 });
+        this.setState({ loading: false });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  getPrice5 = () => {
+    var options = {
+      method: "GET",
+      url:
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-05-2020",
+      params: { ids: "ethereum", vs_currencies: "usd" },
+      headers: {
+        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
+        "x-rapidapi-host": "coingecko.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ loading: true });
+        const ETH5 = response.data.market_data.current_price.usd;
+        const raw5 = ETH5 / 100;
+        const waviii5 = raw5.toFixed(2);
+        this.setState({ price5: waviii5 });
+        this.setState({ loading: false });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  getPrice6 = () => {
+    var options = {
+      method: "GET",
+      url:
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-06-2020",
+      params: { ids: "ethereum", vs_currencies: "usd" },
+      headers: {
+        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
+        "x-rapidapi-host": "coingecko.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ loading: true });
+        const ETH6 = response.data.market_data.current_price.usd;
+        const raw6 = ETH6 / 100;
+        const waviii6 = raw6.toFixed(2);
+        this.setState({ price6: waviii6 });
+        this.setState({ loading: false });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  getPrice7 = () => {
+    var options = {
+      method: "GET",
+      url:
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-07-2020",
+      params: { ids: "ethereum", vs_currencies: "usd" },
+      headers: {
+        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
+        "x-rapidapi-host": "coingecko.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ loading: true });
+        const ETH7 = response.data.market_data.current_price.usd;
+        const raw7 = ETH7 / 100;
+        const waviii7 = raw7.toFixed(2);
+        this.setState({ price7: waviii7 });
+        this.setState({ loading: false });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  getPrice8 = () => {
+    var options = {
+      method: "GET",
+      url:
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-08-2020",
+      params: { ids: "ethereum", vs_currencies: "usd" },
+      headers: {
+        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
+        "x-rapidapi-host": "coingecko.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ loading: true });
+        const ETH8 = response.data.market_data.current_price.usd;
+        const raw8 = ETH8 / 100;
+        const waviii8 = raw8.toFixed(2);
+        this.setState({ price8: waviii8 });
+        this.setState({ loading: false });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  getPrice9 = () => {
+    var options = {
+      method: "GET",
+      url:
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-09-2020",
+      params: { ids: "ethereum", vs_currencies: "usd" },
+      headers: {
+        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
+        "x-rapidapi-host": "coingecko.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ loading: true });
+        const ETH9 = response.data.market_data.current_price.usd;
+        const raw9 = ETH9 / 100;
+        const waviii9 = raw9.toFixed(2);
+        this.setState({ price9: waviii9 });
+        this.setState({ loading: false });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  getPrice10 = () => {
+    var options = {
+      method: "GET",
+      url:
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-10-2020",
+      params: { ids: "ethereum", vs_currencies: "usd" },
+      headers: {
+        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
+        "x-rapidapi-host": "coingecko.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ loading: true });
+        const ETH10 = response.data.market_data.current_price.usd;
+        const raw10 = ETH10 / 100;
+        const waviii10 = raw10.toFixed(2);
+        this.setState({ price10: waviii10 });
+        this.setState({ loading: false });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  getPrice11 = () => {
+    var options = {
+      method: "GET",
+      url:
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-11-2020",
+      params: { ids: "ethereum", vs_currencies: "usd" },
+      headers: {
+        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
+        "x-rapidapi-host": "coingecko.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ loading: true });
+        const ETH11 = response.data.market_data.current_price.usd;
+        const raw11 = ETH11 / 100;
+        const waviii11 = raw11.toFixed(2);
+        this.setState({ price11: waviii11 });
+        this.setState({ loading: false });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  getPrice12 = () => {
+    var options = {
+      method: "GET",
+      url:
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-12-2020",
+      params: { ids: "ethereum", vs_currencies: "usd" },
+      headers: {
+        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
+        "x-rapidapi-host": "coingecko.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ loading: true });
+        const ETH1 = response.data.market_data.current_price.usd;
+        const raw1 = ETH1 / 100;
+        const waviii1 = raw1.toFixed(2);
+        this.setState({ price1: waviii1 });
         this.setState({ loading: false });
       })
       .catch(function (error) {
@@ -66,12 +393,136 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       price: "",
-      bigChartData: "data1",
+      price1: "",
+      price2: "",
+      price3: "",
+      price4: "",
+      price5: "",
+      price6: "",
+      price7: "",
+      price8: "",
+      price9: "",
+      price10: "",
+      price11: "",
+      price12: "",
+      bigChartData: "chart_data",
       loading: true,
     };
   }
 
   render() {
+    console.log(this.state.price1);
+    let chart_options = {
+      maintainAspectRatio: false,
+      legend: {
+        display: false,
+      },
+      tooltips: {
+        backgroundColor: "#2C2C2C",
+        titleFontColor: "#a3de9e",
+        bodyFontColor: "#2c91c7",
+        bodySpacing: 4,
+        xPadding: 12,
+        mode: "nearest",
+        intersect: 0,
+        position: "nearest",
+      },
+      responsive: true,
+      scales: {
+        yAxes: [
+          {
+            barPercentage: 1.6,
+            gridLines: {
+              drawBorder: false,
+              color: "rgba(29,140,248,0.0)",
+              zeroLineColor: "transparent",
+            },
+            ticks: {
+              suggestedMin: 0,
+              suggestedMax: 14,
+              padding: 20,
+              fontColor: "#9a9a9a",
+            },
+          },
+        ],
+        xAxes: [
+          {
+            barPercentage: 1.6,
+            gridLines: {
+              drawBorder: false,
+              color: "rgba(29,140,248,0.1)",
+              zeroLineColor: "transparent",
+            },
+            ticks: {
+              padding: 20,
+              fontColor: "#9a9a9a",
+            },
+          },
+        ],
+      },
+    };
+
+    let waviiiChart = {
+      chart_data: (canvas) => {
+        let ctx = canvas.getContext("2d");
+
+        let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+
+        gradientStroke.addColorStop(1, "rgba(29,140,248,0.2)");
+        gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
+        gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
+
+        return {
+          labels: [
+            "FEB",
+            "MAR",
+            "APR",
+            "MAY",
+            "JUN",
+            "JUL",
+            "AUG",
+            "SEP",
+            "OCT",
+            "NOV",
+            "DEC",
+            "JAN",
+          ],
+          datasets: [
+            {
+              label: " $",
+              fill: true,
+              backgroundColor: gradientStroke,
+              borderColor: "#1f8ef1",
+              borderWidth: 2,
+              borderDash: [],
+              borderDashOffset: 0.0,
+              pointBackgroundColor: "#1f8ef1",
+              pointBorderColor: "rgba(255,255,255,0)",
+              pointHoverBackgroundColor: "#1f8ef1",
+              pointBorderWidth: 20,
+              pointHoverRadius: 4,
+              pointHoverBorderWidth: 15,
+              pointRadius: 4,
+              data: [
+                this.state.price1,
+                this.state.price2,
+                this.state.price3,
+                this.state.price4,
+                this.state.price5,
+                this.state.price6,
+                this.state.price7,
+                this.state.price8,
+                this.state.price9,
+                this.state.price10,
+                this.state.price11,
+                this.state.price,
+              ],
+            },
+          ],
+        };
+      },
+      options: chart_options,
+    };
     return (
       <>
         <div className="content">
@@ -103,12 +554,12 @@ class Dashboard extends React.Component {
                           <Button
                             tag="label"
                             className={classNames("btn-simple", {
-                              active: this.state.bigChartData === "data1",
+                              active: this.state.bigChartData === "chart_data",
                             })}
                             color="info"
                             id="0"
                             size="sm"
-                            onClick={() => this.setBgChartData("data1")}
+                            onClick={() => this.setBgChartData("chart_data")}
                           >
                             <input
                               defaultChecked
