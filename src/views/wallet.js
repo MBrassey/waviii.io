@@ -62,7 +62,7 @@ class Wallet extends React.Component {
         ])
       ).flat();
       this.setState({ transactions: transactions });
-      console.log(transactions);
+      // console.log(transactions);
     }
   }
 
