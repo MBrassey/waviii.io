@@ -102,17 +102,19 @@ class Wallet extends React.Component {
               <div className="card-body" style={{ width: "90%" }}>
                 <p id="loader">
                   <WaveTopBottomLoading color={"#2c91c7"} />
-                  <a href="https://metamask.io/">
-                    <h5>
-                      <strong>Install MetaMask!</strong>
-                    </h5>
-                    <img
-                      alt="MetaMask"
-                      width="100%"
-                      height="auto"
-                      src={require("assets/img/mm.png")}
-                    />
-                  </a>
+                  <FadeIn>
+                    <a href="https://metamask.io/">
+                      <h5>
+                        <strong>Install MetaMask!</strong>
+                      </h5>
+                      <img
+                        alt="MetaMask"
+                        width="100%"
+                        height="auto"
+                        src={require("assets/img/mm.png")}
+                      />
+                    </a>
+                  </FadeIn>
                 </p>
               </div>
             </div>
@@ -140,7 +142,7 @@ class Wallet extends React.Component {
                   <h1 className="waviii">
                     <strong>
                       <CountUp
-                        duration={2.7}
+                        duration={1.7}
                         start={0}
                         separator=""
                         decimals="2"
@@ -193,9 +195,7 @@ class Wallet extends React.Component {
                         type="submit"
                         className="btn btn-primary btn-block btn-lg waviii"
                       >
-                      
-                          <strong>Send</strong>
-                     
+                        <strong>Send</strong>
                       </button>
                     </form>
 

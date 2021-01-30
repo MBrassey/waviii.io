@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { Line } from "react-chartjs-2";
 import FadeIn from "react-fade-in";
 import { WaveTopBottomLoading } from "react-loadingg";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import {
   Button,
   ButtonGroup,
@@ -13,12 +14,24 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import sContractLogo from "../../src/assets/img/sConract.png";
+import moment from 'moment';
 
-const current = new Date();
-const date = `${
-  current.getMonth() + 1
-}/${current.getDate()}/${current.getFullYear()}`;
-const date1 = "";
+const date = `${moment().format("DD-MM-YYYY")}`;
+const date1 = `${moment().subtract(11, 'month').format("DD-MM-YYYY")}`;
+const date2 = `${moment().subtract(10, 'month').format("DD-MM-YYYY")}`;
+const date3 = `${moment().subtract(9, 'month').format("DD-MM-YYYY")}`;
+const date4 = `${moment().subtract(8, 'month').format("DD-MM-YYYY")}`;
+const date5 = `${moment().subtract(7, 'month').format("DD-MM-YYYY")}`;
+const date6 = `${moment().subtract(6, 'month').format("DD-MM-YYYY")}`;
+const date7 = `${moment().subtract(5, 'month').format("DD-MM-YYYY")}`;
+const date8 = `${moment().subtract(4, 'month').format("DD-MM-YYYY")}`;
+const date9 = `${moment().subtract(3, 'month').format("DD-MM-YYYY")}`;
+const date10 = `${moment().subtract(2, 'month').format("DD-MM-YYYY")}`;
+const date11 = `${moment().subtract(1, 'month').format("DD-MM-YYYY")}`;
+
+
+console.log(date1);
 
 var axios = require("axios").default;
 
@@ -36,7 +49,6 @@ class Dashboard extends React.Component {
     await this.getPrice9();
     await this.getPrice10();
     await this.getPrice11();
-    await this.getPrice12();
   }
 
   getCurrentPrice = () => {
@@ -69,7 +81,7 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-01-2020",
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date1+"/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -96,7 +108,7 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-02-2020",
+      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date2+"/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -123,7 +135,7 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-03-2020",
+      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date3+"/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -150,7 +162,7 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-04-2020",
+      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date4+"/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -177,7 +189,7 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-05-2020",
+      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date5+"/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -204,7 +216,7 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-06-2020",
+      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date6+"/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -231,7 +243,7 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-07-2020",
+      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date7+"/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -258,7 +270,7 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-08-2020",
+      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date8+"/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -285,7 +297,7 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-09-2020",
+      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date9+"/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -312,7 +324,7 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-10-2020",
+      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date10+"/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -339,7 +351,7 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-11-2020",
+      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date11+"/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -362,33 +374,6 @@ class Dashboard extends React.Component {
       });
   };
 
-  getPrice12 = () => {
-    var options = {
-      method: "GET",
-      url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=16-12-2020",
-      params: { ids: "ethereum", vs_currencies: "usd" },
-      headers: {
-        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
-        "x-rapidapi-host": "coingecko.p.rapidapi.com",
-      },
-    };
-
-    axios
-      .request(options)
-      .then((response) => {
-        this.setState({ loading: true });
-        const ETH1 = response.data.market_data.current_price.usd;
-        const raw1 = ETH1 / 100;
-        const waviii1 = raw1.toFixed(2);
-        this.setState({ price1: waviii1 });
-        this.setState({ loading: false });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -404,14 +389,12 @@ class Dashboard extends React.Component {
       price9: "",
       price10: "",
       price11: "",
-      price12: "",
       bigChartData: "chart_data",
       loading: true,
     };
   }
 
   render() {
-    console.log(this.state.price1);
     let chart_options = {
       maintainAspectRatio: false,
       legend: {
@@ -523,6 +506,7 @@ class Dashboard extends React.Component {
       },
       options: chart_options,
     };
+
     return (
       <>
         <div className="content">
@@ -597,6 +581,13 @@ class Dashboard extends React.Component {
                   <CardHeader>
                     <CardTitle tag="h4" className="waviii">
                       <span className="drop-item">waviii token</span>
+                      <a href="https://etherscan.io/token/0x9cc6754d16b98a32ec9137df6453ba84597b9965">
+                        <LazyLoadImage
+                          src={sContractLogo}
+                          alt="wavii Smart Contract"
+                          className="sContractLogo"
+                        />
+                      </a>
                     </CardTitle>
                   </CardHeader>
                   <FadeIn>
@@ -618,20 +609,21 @@ class Dashboard extends React.Component {
                       establish itself as the crypto-currency of choice for
                       anyone in the industry fulfilling a task with a smart
                       contract. Over time, by adding new waviii dApps, like
-                      token staking, betting games and automated trading, we
-                      intend to capitalize on a trend that is growing
-                      exponentially in our industry: the decentralisation of
-                      tasks around the world and the use of smart contracts to
-                      fulfil them. If this were more than my portfolio demo, we
-                      would see the waviii Token as an opportunity for anyone -
-                      even the under-banked, the underserved, or the next wave
-                      of 4 billion individuals who are getting access to the
-                      internet – to find useful incentives for their work and
-                      improve their financial condition through access to a new
-                      decentralised financial system built upon the Ethereum
-                      Network. I'm currently open to full-time and freelance
-                      work as a Blockchain or related Frontend Developer,
-                      Contact me with any inqueries: matt@brassey.io.
+                      token staking, betting games, storage systems, social
+                      networks and automated trading, we intend to capitalize on
+                      a trend that is growing exponentially in our industry: the
+                      decentralisation of tasks around the world and the use of
+                      smart contracts to fulfil them. If this were more than my
+                      portfolio demo, we would see the waviii Token as an
+                      opportunity for anyone - even the under-banked, the
+                      underserved, or the next wave of 4 billion individuals who
+                      are getting access to the internet – to find useful
+                      incentives for their work and improve their financial
+                      condition through access to a new decentralised financial
+                      system built upon the Ethereum Network. I'm currently open
+                      to full-time and freelance work as a Blockchain or related
+                      Frontend Developer, Contact me with any inqueries:
+                      matt@brassey.io.
                     </CardBody>
                   </FadeIn>
                 </Card>
@@ -675,6 +667,13 @@ class Dashboard extends React.Component {
                   <CardHeader>
                     <CardTitle tag="h4" className="waviii">
                       <span className="drop-item">waviii swap</span>
+                      <a href="https://etherscan.io/address/0x38abf018ea2f8066813c376a197b6df0349d86c5">
+                        <LazyLoadImage
+                          src={sContractLogo}
+                          alt="wavii Smart Contract"
+                          className="sContractLogo"
+                        />
+                      </a>
                     </CardTitle>
                   </CardHeader>
                   <FadeIn>

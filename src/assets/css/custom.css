@@ -1,3 +1,7 @@
+a {
+  color: #2c91c7;
+}
+
 .waviii {
   font-family: "Syncopate", sans-serif;
 }
@@ -17,6 +21,9 @@
   color: #141414;
   font-weight: 800;
 }
-a {
-  color: #2c91c7;
+
+.sContractLogo {
+    max-width: 30px;
+    margin-right: 0px;
+    float: right;
 }
