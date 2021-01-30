@@ -17,8 +17,7 @@ import {
 import sContractLogo from "../../src/assets/img/sConract.png";
 import moment from "moment";
 
-const date = `${moment().format("DD-MM-YYYY")}`;
-const dateLong = `${moment().format("MMMM Qo DD YYYY")}`;
+const dateLong = `${moment().format("MMMM DD YYYY")}`;
 const date1 = `${moment().subtract(11, "month").format("DD-MM-YYYY")}`;
 const date2 = `${moment().subtract(10, "month").format("DD-MM-YYYY")}`;
 const date3 = `${moment().subtract(9, "month").format("DD-MM-YYYY")}`;
