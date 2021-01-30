@@ -18,6 +18,7 @@ import sContractLogo from "../../src/assets/img/sConract.png";
 import moment from "moment";
 
 const date = `${moment().format("DD-MM-YYYY")}`;
+const dateLong = `${moment().format("MMMM Qo DD YYYY")}`;
 const date1 = `${moment().subtract(11, "month").format("DD-MM-YYYY")}`;
 const date2 = `${moment().subtract(10, "month").format("DD-MM-YYYY")}`;
 const date3 = `${moment().subtract(9, "month").format("DD-MM-YYYY")}`;
@@ -29,8 +30,6 @@ const date8 = `${moment().subtract(4, "month").format("DD-MM-YYYY")}`;
 const date9 = `${moment().subtract(3, "month").format("DD-MM-YYYY")}`;
 const date10 = `${moment().subtract(2, "month").format("DD-MM-YYYY")}`;
 const date11 = `${moment().subtract(1, "month").format("DD-MM-YYYY")}`;
-
-console.log(date1);
 
 var axios = require("axios").default;
 
@@ -69,6 +68,8 @@ class Dashboard extends React.Component {
         const raw = ETH / 100;
         const waviii = raw.toFixed(2);
         this.setState({ price: waviii });
+        const month = `${moment().format("MMM")}`;
+        this.setState({ month: month.toUpperCase() });
         this.setState({ loading: false });
       })
       .catch(function (error) {
@@ -98,6 +99,8 @@ class Dashboard extends React.Component {
         const raw1 = ETH1 / 100;
         const waviii1 = raw1.toFixed(2);
         this.setState({ price1: waviii1 });
+        const month1 = `${moment().subtract(1, "month").format("MMM")}`;
+        this.setState({ month1: month1.toUpperCase() });
         this.setState({ loading: false });
       })
       .catch(function (error) {
@@ -127,6 +130,8 @@ class Dashboard extends React.Component {
         const raw2 = ETH2 / 100;
         const waviii2 = raw2.toFixed(2);
         this.setState({ price2: waviii2 });
+        const month2 = `${moment().subtract(2, "month").format("MMM")}`;
+        this.setState({ month2: month2.toUpperCase() });
         this.setState({ loading: false });
       })
       .catch(function (error) {
@@ -156,6 +161,8 @@ class Dashboard extends React.Component {
         const raw3 = ETH3 / 100;
         const waviii3 = raw3.toFixed(2);
         this.setState({ price3: waviii3 });
+        const month3 = `${moment().subtract(3, "month").format("MMM")}`;
+        this.setState({ month3: month3.toUpperCase() });
         this.setState({ loading: false });
       })
       .catch(function (error) {
@@ -185,6 +192,8 @@ class Dashboard extends React.Component {
         const raw4 = ETH4 / 100;
         const waviii4 = raw4.toFixed(2);
         this.setState({ price4: waviii4 });
+        const month4 = `${moment().subtract(4, "month").format("MMM")}`;
+        this.setState({ month4: month4.toUpperCase() });
         this.setState({ loading: false });
       })
       .catch(function (error) {
@@ -214,6 +223,8 @@ class Dashboard extends React.Component {
         const raw5 = ETH5 / 100;
         const waviii5 = raw5.toFixed(2);
         this.setState({ price5: waviii5 });
+        const month5 = `${moment().subtract(5, "month").format("MMM")}`;
+        this.setState({ month5: month5.toUpperCase() });
         this.setState({ loading: false });
       })
       .catch(function (error) {
@@ -243,6 +254,8 @@ class Dashboard extends React.Component {
         const raw6 = ETH6 / 100;
         const waviii6 = raw6.toFixed(2);
         this.setState({ price6: waviii6 });
+        const month6 = `${moment().subtract(6, "month").format("MMM")}`;
+        this.setState({ month6: month6.toUpperCase() });
         this.setState({ loading: false });
       })
       .catch(function (error) {
@@ -272,6 +285,8 @@ class Dashboard extends React.Component {
         const raw7 = ETH7 / 100;
         const waviii7 = raw7.toFixed(2);
         this.setState({ price7: waviii7 });
+        const month7 = `${moment().subtract(7, "month").format("MMM")}`;
+        this.setState({ month7: month7.toUpperCase() });
         this.setState({ loading: false });
       })
       .catch(function (error) {
@@ -301,6 +316,8 @@ class Dashboard extends React.Component {
         const raw8 = ETH8 / 100;
         const waviii8 = raw8.toFixed(2);
         this.setState({ price8: waviii8 });
+        const month8 = `${moment().subtract(8, "month").format("MMM")}`;
+        this.setState({ month8: month8.toUpperCase() });
         this.setState({ loading: false });
       })
       .catch(function (error) {
@@ -330,6 +347,8 @@ class Dashboard extends React.Component {
         const raw9 = ETH9 / 100;
         const waviii9 = raw9.toFixed(2);
         this.setState({ price9: waviii9 });
+        const month9 = `${moment().subtract(9, "month").format("MMM")}`;
+        this.setState({ month9: month9.toUpperCase() });
         this.setState({ loading: false });
       })
       .catch(function (error) {
@@ -359,6 +378,8 @@ class Dashboard extends React.Component {
         const raw10 = ETH10 / 100;
         const waviii10 = raw10.toFixed(2);
         this.setState({ price10: waviii10 });
+        const month10 = `${moment().subtract(10, "month").format("MMM")}`;
+        this.setState({ month10: month10.toUpperCase() });
         this.setState({ loading: false });
       })
       .catch(function (error) {
@@ -388,6 +409,8 @@ class Dashboard extends React.Component {
         const raw11 = ETH11 / 100;
         const waviii11 = raw11.toFixed(2);
         this.setState({ price11: waviii11 });
+        const month11 = `${moment().subtract(11, "month").format("MMM")}`;
+        this.setState({ month11: month11.toUpperCase() });
         this.setState({ loading: false });
       })
       .catch(function (error) {
@@ -410,6 +433,18 @@ class Dashboard extends React.Component {
       price9: "",
       price10: "",
       price11: "",
+      month: "",
+      month1: "",
+      month2: "",
+      month3: "",
+      month4: "",
+      month5: "",
+      month6: "",
+      month7: "",
+      month8: "",
+      month9: "",
+      month10: "",
+      month11: "",
       bigChartData: "chart_data",
       loading: true,
     };
@@ -478,18 +513,18 @@ class Dashboard extends React.Component {
 
         return {
           labels: [
-            "FEB",
-            "MAR",
-            "APR",
-            "MAY",
-            "JUN",
-            "JUL",
-            "AUG",
-            "SEP",
-            "OCT",
-            "NOV",
-            "DEC",
-            "JAN",
+            this.state.month11,
+            this.state.month10,
+            this.state.month9,
+            this.state.month8,
+            this.state.month7,
+            this.state.month6,
+            this.state.month5,
+            this.state.month4,
+            this.state.month3,
+            this.state.month2,
+            this.state.month1,
+            this.state.month,
           ],
           datasets: [
             {
@@ -538,7 +573,7 @@ class Dashboard extends React.Component {
                   <CardHeader>
                     <Row>
                       <Col className="text-left" sm="6">
-                        <h5 className="card-category">{date}</h5>
+                        <h5 className="card-category">{dateLong}</h5>
                         <CardTitle tag="h2" className="waviii">
                           waviii:{" "}
                           {this.state.loading ? (
