@@ -12,13 +12,11 @@ import "assets/css/custom.css";
 const hist = createBrowserHistory();
 
 ReactDOM.render(
-  <IpfsRouter>
-    <Router history={hist}>
-      <Switch>
-        <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-        <Redirect from="/" to="/admin/Waviii" />
-      </Switch>
-    </Router>
+  <IpfsRouter history={hist}>
+    <Switch>
+      <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+      <Redirect from="/" to="/admin/Waviii" />
+    </Switch>
   </IpfsRouter>,
   document.getElementById("root")
 );
