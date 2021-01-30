@@ -15,21 +15,20 @@ import {
   Col,
 } from "reactstrap";
 import sContractLogo from "../../src/assets/img/sConract.png";
-import moment from 'moment';
+import moment from "moment";
 
 const date = `${moment().format("DD-MM-YYYY")}`;
-const date1 = `${moment().subtract(11, 'month').format("DD-MM-YYYY")}`;
-const date2 = `${moment().subtract(10, 'month').format("DD-MM-YYYY")}`;
-const date3 = `${moment().subtract(9, 'month').format("DD-MM-YYYY")}`;
-const date4 = `${moment().subtract(8, 'month').format("DD-MM-YYYY")}`;
-const date5 = `${moment().subtract(7, 'month').format("DD-MM-YYYY")}`;
-const date6 = `${moment().subtract(6, 'month').format("DD-MM-YYYY")}`;
-const date7 = `${moment().subtract(5, 'month').format("DD-MM-YYYY")}`;
-const date8 = `${moment().subtract(4, 'month').format("DD-MM-YYYY")}`;
-const date9 = `${moment().subtract(3, 'month').format("DD-MM-YYYY")}`;
-const date10 = `${moment().subtract(2, 'month').format("DD-MM-YYYY")}`;
-const date11 = `${moment().subtract(1, 'month').format("DD-MM-YYYY")}`;
-
+const date1 = `${moment().subtract(11, "month").format("DD-MM-YYYY")}`;
+const date2 = `${moment().subtract(10, "month").format("DD-MM-YYYY")}`;
+const date3 = `${moment().subtract(9, "month").format("DD-MM-YYYY")}`;
+const date4 = `${moment().subtract(8, "month").format("DD-MM-YYYY")}`;
+const date5 = `${moment().subtract(7, "month").format("DD-MM-YYYY")}`;
+const date6 = `${moment().subtract(6, "month").format("DD-MM-YYYY")}`;
+const date7 = `${moment().subtract(5, "month").format("DD-MM-YYYY")}`;
+const date8 = `${moment().subtract(4, "month").format("DD-MM-YYYY")}`;
+const date9 = `${moment().subtract(3, "month").format("DD-MM-YYYY")}`;
+const date10 = `${moment().subtract(2, "month").format("DD-MM-YYYY")}`;
+const date11 = `${moment().subtract(1, "month").format("DD-MM-YYYY")}`;
 
 console.log(date1);
 
@@ -81,7 +80,9 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date1+"/",
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
+        date1 +
+        "/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -108,7 +109,9 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date2+"/",
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
+        date2 +
+        "/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -135,7 +138,9 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date3+"/",
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
+        date3 +
+        "/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -162,7 +167,9 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date4+"/",
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
+        date4 +
+        "/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -189,7 +196,9 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date5+"/",
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
+        date5 +
+        "/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -216,7 +225,9 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date6+"/",
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
+        date6 +
+        "/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -243,7 +254,9 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date7+"/",
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
+        date7 +
+        "/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -270,7 +283,9 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date8+"/",
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
+        date8 +
+        "/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -297,7 +312,9 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date9+"/",
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
+        date9 +
+        "/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -324,7 +341,9 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date10+"/",
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
+        date10 +
+        "/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
@@ -351,7 +370,9 @@ class Dashboard extends React.Component {
     var options = {
       method: "GET",
       url:
-      "https://api.coingecko.com/api/v3/coins/ethereum/history?date="+date11+"/",
+        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
+        date11 +
+        "/",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
         "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
