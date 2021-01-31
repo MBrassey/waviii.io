@@ -1,15 +1,37 @@
+body {
+  cursor: url(https://raw.githubusercontent.com/MBrassey/MediaStore/main/Images/cursor-auto.png),
+    auto;
+}
+
 a {
   color: #2c91c7;
+  cursor: url(https://raw.githubusercontent.com/MBrassey/MediaStore/main/Images/cursor-hand.png),
+    auto;
 }
 
 .waviii {
   font-family: "Syncopate", sans-serif;
 }
 
+.waviii3 {
+  font-family: "Syncopate", sans-serif;
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.waviii3:hover {
+  color: #a1dc9c;
+}
+
 .waviii-2 {
   font-size: 18px;
   color: #a3de9e;
   font-family: "Syne", sans-serif;
+}
+
+.hand {
+  cursor: url(https://raw.githubusercontent.com/MBrassey/MediaStore/main/Images/cursor-hand.png),
+    auto;
 }
 
 .price {
@@ -20,10 +42,45 @@ a {
 .drop-item {
   color: #141414;
   font-weight: 800;
+  font-size: 14px;
+}
+
+.drop-item:hover {
+  color: #2c91c7;
+}
+
+.install {
+  color: #a3de9e;
+  font-weight: 800;
+  font-family: "Syne", sans-serif;
+  font-size: 20px;
 }
 
 .sContractLogo {
-    max-width: 30px;
-    margin-right: 0px;
-    float: right;
+  max-width: 30px;
+  margin-right: 0px;
+  float: right;
+}
+
+.dropdown-item {
+  background-color: #a3de9e;
+  cursor: url(https://raw.githubusercontent.com/MBrassey/MediaStore/main/Images/cursor-hand.png),
+    auto;
+}
+
+.dropdown-item:hover {
+  background-color: #141414;
+}
+
+.dropdown-navbar {
+  background-color: #131313;
+}
+
+.dropdown-navbar:hover {
+  background-color: #131313;
+}
+
+.form-control {
+  cursor: url(https://raw.githubusercontent.com/MBrassey/MediaStore/main/Images/cursor-hand.png),
+    auto;
 }

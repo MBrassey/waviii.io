@@ -13,14 +13,14 @@ class Footer extends React.Component {
         <Container fluid>
           <Nav>
             <NavItem>
-              <NavLink href="https://github.com/MBrassey/waviii.io#whitepaper" ><span className="waviii">Whitepaper</span></NavLink>
+              <NavLink href="https://github.com/MBrassey/waviii.io#whitepaper" ><span className="waviii3">Whitepaper</span></NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/MBrassey/waviii.io"><span className="waviii">Source Code</span></NavLink>
+              <NavLink href="https://github.com/MBrassey/waviii.io"><span className="waviii3">Source Code</span></NavLink>
             </NavItem>
           </Nav>
           <div className="copyright">
-          <p className="waviii">waviii  {new Date().getFullYear()} </p>
+          <a href="https://waviii.io/"><p className="waviii3">waviii  {new Date().getFullYear()} </p></a>
           </div>
         </Container>
       </footer>

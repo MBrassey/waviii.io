@@ -146,52 +146,34 @@ class AdminNavbar extends React.Component {
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item">
-                        <a href="https://www.linkedin.com/in/MBrassey">
+                      <a href="https://www.linkedin.com/in/MBrassey">
+                        <DropdownItem className="nav-item">
                           <span className="waviii drop-item">LinkedIn</span>
-                        </a>
-                      </DropdownItem>
+                        </DropdownItem>
+                      </a>
                     </NavLink>
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item">
-                        <a href="https://github.com/MBrassey">
+                      <a href="https://github.com/MBrassey">
+                        <DropdownItem className="nav-item">
                           <span className="waviii drop-item">GitHub</span>
-                        </a>
-                      </DropdownItem>
+                        </DropdownItem>
+                      </a>
                     </NavLink>
                     <DropdownItem divider tag="li" />
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item">
-                        <a href="https://brassey.io">
+                      <a href="https://brassey.io">
+                        <DropdownItem className="nav-item">
                           <span className="waviii drop-item">Portfolio</span>
-                        </a>
-                      </DropdownItem>
+                        </DropdownItem>
+                      </a>
                     </NavLink>
                   </DropdownMenu>
                 </UncontrolledDropdown>
-                <li className="separator d-lg-none" />
+                <li className="separator waviii d-lg-none" />
               </Nav>
             </Collapse>
           </Container>
         </Navbar>
-        <Modal
-          modalClassName="modal-search"
-          isOpen={this.state.modalSearch}
-          toggle={this.toggleModalSearch}
-        >
-          <div className="modal-header">
-            <Input id="inlineFormInputGroup" placeholder="SEARCH" type="text" />
-            <button
-              aria-label="Close"
-              className="close"
-              data-dismiss="modal"
-              type="button"
-              onClick={this.toggleModalSearch}
-            >
-              <i className="wav-icons icon-simple-remove" />
-            </button>
-          </div>
-        </Modal>
       </>
     );
   }

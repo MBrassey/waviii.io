@@ -14,7 +14,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import sContractLogo from "../../src/assets/img/sConract.png";
+import sContractLogo from "../../src/assets/img/sContract.png";
 import moment from "moment";
 
 const dateLong = `${moment().format("MMMM DD YYYY")}`;
@@ -66,6 +66,9 @@ class Dashboard extends React.Component {
         const ETH = response.data.ethereum.usd;
         const raw = ETH / 100;
         const waviii = raw.toFixed(2);
+        const max_num = waviii * 1.1 ;
+        console.log(max_num);
+        this.setState({ max: max_num });
         this.setState({ price: waviii });
         const month = `${moment().format("MMM")}`;
         this.setState({ month: month.toUpperCase() });
@@ -444,6 +447,7 @@ class Dashboard extends React.Component {
       month9: "",
       month10: "",
       month11: "",
+      max: "",
       bigChartData: "chart_data",
       loading: true,
     };
@@ -477,7 +481,7 @@ class Dashboard extends React.Component {
             },
             ticks: {
               suggestedMin: 0,
-              suggestedMax: 14,
+              suggestedMax: this.state.max,
               padding: 20,
               fontColor: "#9a9a9a",
             },
@@ -592,13 +596,11 @@ class Dashboard extends React.Component {
                         >
                           <Button
                             tag="label"
-                            className={classNames("btn-simple", {
-                              active: this.state.bigChartData === "chart_data",
-                            })}
+                            className="chart_data"
                             color="info"
                             id="0"
                             size="sm"
-                            onClick={() => this.setBgChartData("chart_data")}
+            
                           >
                             <input
                               defaultChecked
@@ -766,7 +768,7 @@ class Dashboard extends React.Component {
                       The Smartcontracts powering this dApp reside on the
                       Ethereum blockchain, while all the application code and
                       images are deployed to the InterPlanetary FileSystem
-                      (ipfs) - Making this a fully decentralized application
+                      (IPFS) - Making this a fully decentralized application
                       (dApp).
                     </CardBody>
                   </FadeIn>

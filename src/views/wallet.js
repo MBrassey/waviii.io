@@ -22,9 +22,7 @@ class Wallet extends React.Component {
     } else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider);
     } else {
-      window.alert(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
+      // window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!');
       this.setState({ loading: true });
       this.setState({ noEth: true });
     }
@@ -38,7 +36,6 @@ class Wallet extends React.Component {
       const accounts = await web3.eth.getAccounts();
       this.setState({ account: accounts[0] });
       const TokenAddress = "0x9cc6754d16b98a32ec9137df6453ba84597b9965"; // mainnet waviii Token Contract Address
-      // const TokenAddress = "0x37465edc8d70e4b16033fae23088b1c703924a80" // Kovan
       const waviiiToken = new web3.eth.Contract(waviii.abi, TokenAddress);
       this.setState({ waviiiToken: waviiiToken });
       const balance = await waviiiToken.methods
@@ -97,16 +94,15 @@ class Wallet extends React.Component {
     if (this.state.loading) {
       if (this.state.noEth) {
         content = (
-          <div className="content mr-auto ml-auto" style={{ width: "90%" }}>
-            <div className="card mb-4">
-              <div className="card-body" style={{ width: "90%" }}>
-                <p id="loader">
+          <div className="card mb-4">
+            <div className="card-body">
+            <p id="loader">
                   <WaveTopBottomLoading color={"#2c91c7"} />
                   <FadeIn>
-                    <a href="https://metamask.io/">
-                      <h5>
-                        <strong>Install MetaMask!</strong>
-                      </h5>
+                    <a href="https://metamask.io/" className="waviii3">
+                      <FadeIn>
+                        <strong>Blockchain Wallet Not Detected! Please Install MetaMask!</strong>
+                      </FadeIn>
                       <img
                         alt="MetaMask"
                         width="100%"
@@ -116,7 +112,6 @@ class Wallet extends React.Component {
                     </a>
                   </FadeIn>
                 </p>
-              </div>
             </div>
           </div>
         );
@@ -284,7 +279,7 @@ class Wallet extends React.Component {
                   <FadeIn>
                     <CardHeader>
                       <a
-                        className="title right waviii"
+                        className="waviii3"
                         href={`https://etherscan.io/address/${this.state.account}`}
                         target="_blank"
                         rel="noopener noreferrer"
