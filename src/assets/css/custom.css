@@ -86,9 +86,20 @@ a {
 }
 
 .noEth {
+    text-align: center;
     font-family: "Syncopate", sans-serif;
     font-weight: 900;
     font-size: 16px;
-    color: crimson;
+    color: #D0787F;
 }
 
+.noEth:hover {
+    color: #B6404A;
+}
+
+.center {
+    float: right;
+    position: relative;
+    left: -14%;
+    right: -15%;
+}

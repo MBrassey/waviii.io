@@ -5,9 +5,20 @@ import EthSwap from "./abis/WavSwap.json";
 import BuySell from "./BuySell";
 import { WaveTopBottomLoading } from "react-loadingg";
 import FadeIn from "react-fade-in";
-
-// reactstrap components
-import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
+import tokenLogo from "../assets/img/token-logo.png";
+import ethLogo from "../assets/img/eth-logo.png";
+import swapLogo from "../assets/img/swap_logo.gif";
+import CountUp from "react-countup";
+import {
+  Button,
+  ButtonGroup,
+  Card,
+  CardHeader,
+  CardBody,
+  CardTitle,
+  Row,
+  Col,
+} from "reactstrap";
 
 class Swap extends Component {
   async componentWillMount() {
@@ -115,27 +126,156 @@ class Swap extends Component {
     if (this.state.loading) {
       if (this.state.noEth) {
         content = (
-          <div className="card mb-4">
-            <div className="card-body">
-            <p id="loader">
-                  <WaveTopBottomLoading color={"#2c91c7"} />
+          <FadeIn>
+            <FadeIn>
+              <CardBody className="waviii-2">
+                <FadeIn>
+                  <div id="content" className="mt-3">
+                    <div className="d-flex justify-content-between mb-3">
+                      <button
+                        className="btn btn-light waviii"
+                        disabled
+                        onClick={(event) => {
+                          this.setState({ currentForm: "buy" });
+                        }}
+                      >
+                        Buy
+                      </button>
+                      <img src={swapLogo} width="150" alt="waviii Swap Logo" />
+                      <button
+                        className="btn btn-light waviii"
+                        disabled
+                        onClick={(event) => {
+                          this.setState({ currentForm: "sell" });
+                        }}
+                      >
+                        Sell
+                      </button>
+                    </div>
+                    <br />
+
+                    <div className="card mb-4">
+                      <div className="card-body">
+                        <FadeIn>
+                          <form
+                            className="mb-3"
+                            onSubmit={(event) => {
+                              event.preventDefault();
+                              let etherAmount;
+                              etherAmount = this.input.value.toString();
+                              etherAmount = window.web3.utils.toWei(
+                                etherAmount,
+                                "Ether"
+                              );
+                              this.props.buyTokens(etherAmount);
+                            }}
+                          >
+                            <div>
+                              <label className="float-left">
+                                <b>Input</b>
+                              </label>
+                              <span className="float-right text-muted">
+                                Balance:{" "}
+                                <CountUp
+                                  duration={2.7}
+                                  start={-10}
+                                  separator=""
+                                  decimals="2"
+                                  decimal="."
+                                  end="0"
+                                />
+                              </span>
+                            </div>
+                            <div className="input-group mb-4">
+                              <input
+                                type="text"
+                                onChange={(event) => {
+                                  const etherAmount = this.input.value.toString();
+                                  this.setState({
+                                    output: etherAmount * 100,
+                                  });
+                                }}
+                                ref={(input) => {
+                                  this.input = input;
+                                }}
+                                className="form-control form-control-lg"
+                                placeholder="0"
+                                disabled
+                              />
+                              <div className="input-group-append">
+                                <div className="input-group-text">
+                                  <strong>&nbsp;&nbsp;</strong>
+                                  <img src={ethLogo} height="29" alt="" />
+                                  <strong>&nbsp;&nbsp; ETH &nbsp;</strong>
+                                </div>
+                              </div>
+                            </div>
+                            <div>
+                              <label className="float-left">
+                                <b>Output</b>
+                              </label>
+                              <span className="float-right text-muted">
+                                Balance:{" "}
+                                <CountUp
+                                  duration={2.7}
+                                  start={-10}
+                                  separator=""
+                                  decimals="2"
+                                  decimal="."
+                                  end="0"
+                                />
+                              </span>
+                            </div>
+                            <div className="input-group mb-2">
+                              <input
+                                type="text"
+                                className="form-control form-control-lg"
+                                placeholder="0"
+                                value={this.state.output}
+                                disabled
+                              />
+                              <div className="input-group-append">
+                                <div className="input-group-text waviii">
+                                  <strong>&nbsp;&nbsp;</strong>
+                                  <img src={tokenLogo} height="29" alt="" />
+                                  <strong>&nbsp; waviii</strong>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="mb-5">
+                              <span className="float-left text-muted">
+                                Exchange Rate
+                              </span>
+                              <span className="float-right text-muted waviii">
+                                1 ETH = 100 waviii
+                              </span>
+                            </div>
+                            <button
+                              type="submit"
+                              disabled
+                              className="btn btn-primary btn-block btn-lg waviii"
+                            >
+                              locked
+                            </button>
+                          </form>
+                        </FadeIn>
+                      </div>
+                    </div>
+                    <br />
                   <FadeIn>
-                    <a href="https://metamask.io/" className="noEth">
-                      <FadeIn>
-                        <strong>Blockchain browser not detected! Install MetaMask to use
-                      waviii.</strong>
-                      </FadeIn>
-                      <img
-                        alt="MetaMask"
-                        width="100%"
-                        height="auto"
-                        src={require("assets/img/mm.png")}
-                      />
+                    <a
+                      href="https://metamask.io/download.html"
+                      className="noEth"
+                    >
+                      <center>Blockchain browser not detected! Install MetaMask to use
+                      waviii.</center>
                     </a>
                   </FadeIn>
-                </p>
-            </div>
-          </div>
+                  </div>
+                </FadeIn>
+              </CardBody>
+            </FadeIn>
+          </FadeIn>
         );
       } else {
         content = (
