@@ -94,24 +94,101 @@ class Wallet extends React.Component {
     if (this.state.loading) {
       if (this.state.noEth) {
         content = (
-          <div className="card mb-4">
-            <div className="card-body">
-            <p id="loader">
-                  <WaveTopBottomLoading color={"#2c91c7"} />
+          <div className="mt-3">
+            <div className="row">
+              <main role="main" className="col-lg-12 d-flex text-center">
+                <div
+                  className="content mr-auto ml-auto"
+                  style={{ width: "90%" }}
+                >
                   <FadeIn>
-                    <a href="https://metamask.io/" className="waviii3">
-                      <FadeIn>
-                        <strong>Blockchain Wallet Not Detected! Please Install MetaMask!</strong>
-                      </FadeIn>
-                      <img
-                        alt="MetaMask"
-                        width="100%"
-                        height="auto"
-                        src={require("assets/img/mm.png")}
-                      />
+                    <img src={waviiiLogo} width="150" alt="waviii Logo" />
+                  </FadeIn>
+                  <br />
+                  <br />
+                  <FadeIn>
+                    <h1 className="waviii">
+                      <strong>
+                        <CountUp
+                          duration={1.7}
+                          start={-10}
+                          separator=""
+                          decimals="2"
+                          decimal="."
+                          end={this.state.balance}
+                        />{" "}
+                        waviii
+                      </strong>
+                    </h1>
+                  </FadeIn>
+                  <div className="card mb-4">
+                    <div className="card-body">
+                      <form
+                        className="mb-3"
+                        onSubmit={(event) => {
+                          event.preventDefault();
+                          const recipient = this.recipient.value;
+                          const amount = window.web3.utils.toWei(
+                            this.amount.value,
+                            "Ether"
+                          );
+                          this.transfer(recipient, amount);
+                        }}
+                      >
+                        <div className="form-group">
+                          <input
+                            id="recipient"
+                            type="text"
+                            ref={(input) => {
+                              this.recipient = input;
+                            }}
+                            className="form-control form-control-lg"
+                            placeholder="Recipient Address"
+                            disabled
+                          />
+                        </div>
+                        <div className="form-group">
+                          <input
+                            id="amount"
+                            type="text"
+                            ref={(input) => {
+                              this.amount = input;
+                            }}
+                            className="form-control form-control-lg"
+                            placeholder="Amount"
+                            disabled
+                          />
+                        </div>
+                        <button
+                          type="text"
+                          className="btn btn-primary btn-block btn-lg waviii"
+                          disabled
+                        >
+                          <strong>locked</strong>
+                        </button>
+                      </form>
+
+                      <table className="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Recipient</th>
+                            <th scope="col">value</th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                  </div><br />
+                  <FadeIn>
+                    <a
+                      href="https://metamask.io/download.html"
+                      className="noEth"
+                    >
+                      Blockchain browser not detected! Install MetaMask to use
+                      waviii.
                     </a>
                   </FadeIn>
-                </p>
+                </div>
+              </main>
             </div>
           </div>
         );

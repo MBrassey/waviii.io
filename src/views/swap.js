@@ -120,9 +120,10 @@ class Swap extends Component {
             <p id="loader">
                   <WaveTopBottomLoading color={"#2c91c7"} />
                   <FadeIn>
-                    <a href="https://metamask.io/" className="waviii3">
+                    <a href="https://metamask.io/" className="noEth">
                       <FadeIn>
-                        <strong>Blockchain Wallet Not Detected! Please Install MetaMask!</strong>
+                        <strong>Blockchain browser not detected! Install MetaMask to use
+                      waviii.</strong>
                       </FadeIn>
                       <img
                         alt="MetaMask"

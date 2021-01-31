@@ -84,3 +84,11 @@ a {
   cursor: url(https://raw.githubusercontent.com/MBrassey/MediaStore/main/Images/cursor-hand.png),
     auto;
 }
+
+.noEth {
+    font-family: "Syncopate", sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    color: crimson;
+}
+
