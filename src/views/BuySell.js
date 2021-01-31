@@ -40,7 +40,7 @@ class BuySell extends Component {
             >
             Buy
           </button>
-          <img src={swapLogo} width="150" alt="waviii Swap Logo" />
+          <img src={swapLogo} className="swapLogo" alt="waviii Swap Logo" />
           <button
               className="btn btn-light waviii"
               onClick={(event) => {

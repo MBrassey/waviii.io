@@ -141,7 +141,7 @@ class Swap extends Component {
                       >
                         Buy
                       </button>
-                      <img src={swapLogo} width="150" alt="waviii Swap Logo" />
+                      <img src={swapLogo} className="swapLogo" alt="waviii Swap Logo" />
                       <button
                         className="btn btn-light waviii"
                         disabled
@@ -246,7 +246,7 @@ class Swap extends Component {
                               <span className="float-left text-muted">
                                 Exchange Rate
                               </span>
-                              <span className="float-right text-muted waviii">
+                              <span className="float-right text-muted waviii responsive3">
                                 1 ETH = 100 waviii
                               </span>
                             </div>
@@ -302,9 +302,9 @@ class Swap extends Component {
             <Col md="12">
               <Card>
                 <FadeIn>
-                  <CardHeader>
+                  <CardHeader className="responsive2">
                     <a
-                      className="waviii3"
+                      className="waviii3 responsive2"
                       href={`https://etherscan.io/address/${this.state.account}`}
                       target="_blank"
                       rel="noopener noreferrer"

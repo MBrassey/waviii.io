@@ -75,7 +75,7 @@ class SellForm extends Component {
           <span className="float-left text-muted">Exchange Rate</span>
           <span className="float-right text-muted waviii">100 waviii = 1 ETH</span>
         </div>
-        <button type="submit" className="btn btn-primary btn-block btn-lg waviii">Sell waviii</button>
+        <button type="submit" className="btn btn-primary btn-block btn-lg waviii responsive3">Sell waviii</button>
       </form>
       </FadeIn>
     );

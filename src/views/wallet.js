@@ -271,7 +271,7 @@ class Wallet extends React.Component {
                       </button>
                     </form>
 
-                    <table className="table">
+                    <table className="table hide">
                       <thead>
                         <tr>
                           <th scope="col">Recipient</th>
@@ -286,7 +286,7 @@ class Wallet extends React.Component {
                               <tr key={key}>
                                 <td>
                                   <a
-                                    className="title right"
+                                    className="title responsive"
                                     href={`https://etherscan.io/address/${tx.hash}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -298,7 +298,7 @@ class Wallet extends React.Component {
                                 </td>
                                 {tx.returnValues.to !== this.state.account && (
                                   <td>
-                                    <span className="waviii">
+                                    <span className="waviii responsive">
                                       -
                                       <CountUp
                                         duration={2.7}
@@ -316,7 +316,7 @@ class Wallet extends React.Component {
                                 )}
                                 {tx.returnValues.to === this.state.account && (
                                   <td>
-                                    <span className="waviii2">
+                                    <span className="waviii2 responsive">
                                       +
                                       <CountUp
                                         duration={2.7}
@@ -354,9 +354,9 @@ class Wallet extends React.Component {
               <Col md="12">
                 <Card>
                   <FadeIn>
-                    <CardHeader>
+                    <CardHeader className="responsive2">
                       <a
-                        className="waviii3"
+                        className="waviii3 responsive2"
                         href={`https://etherscan.io/address/${this.state.account}`}
                         target="_blank"
                         rel="noopener noreferrer"
