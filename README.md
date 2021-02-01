@@ -31,20 +31,20 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart.
 
 <h6><p align="right">:cyclone: Click the image(s) below to view the live <a id="Screenshots" href="https://waviii.io/">dApp</a></p></h6>
 
-> Full Width Preview
+> Preview
 > [<img src="src/assets/img/Preview.png">](https://waviii.io/)
 
-> dApp Demo
+> Demo
 > [<img src="src/assets/img/Demo.gif">](https://waviii.io/)
 
-> waviii Wallet
+> Wallet
 > [<img src="src/assets/img/Wallet.png">](https://waviii.io/)
 
-> waviii Swap
+> Swap ETH <=> WAVIII
 > [<img src="src/assets/img/Swap.png">](https://waviii.io/)
 
-> Without Metamask
-> [<img src="src/assets/img/NoEth.png">](https://waviii.io/)
+> Responsive Design
+> [<img src="src/assets/img/Responsive.png">](https://waviii.io/)
 
 > Setup
 > [<img src="src/assets/img/Setup.gif">](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-25&end=2021-02-02)
