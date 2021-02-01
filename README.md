@@ -1,5 +1,5 @@
 ## waviii.io
-Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend deployed to IPFS, Solidity Smartcontracts deployed to Ethereum Mainnet & CoinGecko RESTful API integration. 
+Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend deployed to IPFS, Solidity Smartcontracts deployed to Ethereum Mainnet & Price Chart with CoinGecko RESTful API integration. 
 
 [![licensebadge](https://img.shields.io/badge/license-CC0_1.0_Universal-blue)](https://github.com/MBrassey/waviii.io/blob/main/LICENSE)
 [![time tracker](https://wakatime.com/badge/github/MBrassey/waviii.io.svg)](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-24&end=2021-02-02)
@@ -40,7 +40,7 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend
 > Demo
 > [<img src="src/assets/img/Demo.gif">](https://waviii.io/)
 
-> Exchange Eth & waviii
+> Exchange
 > [<img src="src/assets/img/Swap.png">](https://waviii.io/)
 
 > Setup
@@ -49,7 +49,7 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend
 > Test
 > [<img src="src/assets/img/Test.gif">](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-24&end=2021-02-02)
 
-> Project Workload 7-day Metric
+> My programming activity while building this dApp
 > [<img src="src/assets/img/Workload.svg">](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-24&end=2021-02-02)
 
 #### Questions
