@@ -31,6 +31,9 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend
 
 <h6><p align="right">:cyclone: Click the image(s) below to view the live <a id="Screenshots" href="https://waviii.io/">wabapplication</a></p></h6>
 
+> Video
+> [<img src="src/assets/img/Video.png">](https://waviii.io/)
+
 > Preview
 > [<img src="src/assets/img/Preview.png">](https://waviii.io/)
 
@@ -42,6 +45,9 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend
 
 > Setup
 > [<img src="src/assets/img/Setup.gif">](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-24&end=2021-02-02)
+
+> Test
+> [<img src="src/assets/img/Test.gif">](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-24&end=2021-02-02)
 
 > Project Workload 7 day Metric
 > [<img src="src/assets/img/Workload.svg">](https://waviii.io/)
