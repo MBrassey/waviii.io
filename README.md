@@ -37,8 +37,8 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend
 > Demo
 > [<img src="src/assets/img/Demo.gif">](https://waviii.io/)
 
-> Responsive Design
-> [<img src="src/assets/img/Responsive.png">](https://waviii.io/)
+> Exchange Eth & waviii
+> [<img src="src/assets/img/Swap.png">](https://waviii.io/)
 
 > Setup
 > [<img src="src/assets/img/Setup.gif">](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-24&end=2021-02-02)
