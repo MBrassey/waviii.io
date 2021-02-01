@@ -122,7 +122,7 @@ class Admin extends React.Component {
             />
             <Switch>
               {this.getRoutes(routes)}
-              <Redirect from="*" to="/admin/dashboard" />
+              <Redirect from="*" to="/admin/Dashboard" />
             </Switch>
             <Footer></Footer>
           </div>
