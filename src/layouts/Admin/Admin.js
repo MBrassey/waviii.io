@@ -1,19 +1,11 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-// javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
-
-// FadeIn effect
 import FadeIn from "react-fade-in";
-
-// core components
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
-
 import routes from "routes.js";
-
 import logo from "assets/img/waviii_logo_small.png";
 
 var ps;
@@ -127,10 +119,7 @@ class Admin extends React.Component {
             <Footer></Footer>
           </div>
         </div>
-        <FixedPlugin
-          bgColor={this.state.backgroundColor}
-          handleBgClick={this.handleBgClick}
-        />
+   
         </FadeIn>
        
       </>

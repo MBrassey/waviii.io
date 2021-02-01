@@ -49,7 +49,7 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend
 > Test
 > [<img src="src/assets/img/Test.gif">](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-24&end=2021-02-02)
 
-> My programming activity while building this dApp
+> My programming activity while building this project
 > [<img src="src/assets/img/Workload.svg">](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-24&end=2021-02-02)
 
 #### Questions
