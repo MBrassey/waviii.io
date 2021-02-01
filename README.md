@@ -1,21 +1,53 @@
 ## waviii.io
+Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. 
 
+[![licensebadge](https://img.shields.io/badge/license-CC0_1.0_Universal-blue)](https://github.com/MBrassey/waviii.io/blob/main/LICENSE)
+[![time tracker](https://wakatime.com/badge/github/MBrassey/waviii.io.svg)](https://wakatime.com/badge/github/MBrassey/waviii.io)
 
+#### Issues
 
-![licensebadge](https://img.shields.io/badge/license-CC0_1.0_Universal-blue)
+- [x] [Setup Initial App](https://github.com/MBrassey/waviii.io/issues/1)
+- [x] [Style, React Animations & Update Text Data](https://github.com/MBrassey/waviii.io/issues/2)
+- [x] [Fetch & Display waviii Price / Minify SCSS](https://github.com/MBrassey/waviii.io/issues/3)
+- [x] [Re-factor & Fetch waviii Price and Chart Data Directly](https://github.com/MBrassey/waviii.io/issues/4)
+- [x] [Stylize, IPFS Routing & Handle Errors](https://github.com/MBrassey/waviii.io/issues/5)
+- [x] [Media Queries / Locked Views](https://github.com/MBrassey/waviii.io/issues/6)
+- [x] [Create Readme & Deploy](https://github.com/MBrassey/waviii.io/issues/7)
 
-─── [waviii.io (in development)](https://waviii.herokuapp.com/admin/Wallet)<br />
-─── [waviii Token Mainnet Contract](https://etherscan.io/token/0x9cc6754d16b98a32ec9137df6453ba84597b9965)<br />
-─── [wavSwap Mainnet Contract](https://etherscan.io/address/0x38abf018ea2f8066813c376a197b6df0349d86c5) <br />
+#### Requirements
 
+    node
+    npm
 
-#### Whitepaper
+#### Installation
 
-waviii Token has a fixed exchange rate of 1/100 with ETH. The total supply is 1 million waviii. I created waviii.io, the waviii ERC-20 [Token](https://github.com/MBrassey/waviii-token), [Wallet](https://github.com/MBrassey/wavWallet) and waviii to ETH [Swap](https://github.com/MBrassey/wavSwap) as decentralized application portfolio projects for prospective employers to review. The immediate goal of the waviii Token is to be a reference utility crypto-currency used within the waviii.io decentralized application ecosystem. The broader objective of the waviii Token is to establish itself as the crypto-currency of choice for anyone in the industry fulfilling a task with a smart contract. Over time, through adding new dApps to waviii.io, we intend to capitalize on a trend that is growing exponentially in our industry: the decentralisation of tasks around the globe and the use of smart contracts to fulfil them. We see the waviii Token as an opportunity for anyone - even the under-banked, the underserved, or the next wave of 4 billion individuals who are getting access to the internet – to find useful incentives for their work and improve their financial condition through access to a new decentralised financial system built upon the Ethereum Network.
+    npm i
 
-<h6><p align="right">:cyclone: Click the image(s) below to view the live <a id="Screenshots" href="https://waviii.herokuapp.com/admin/Wallet">webapplication</a></p></h6>
+#### Usage
 
-[<p align="center"><img src="src/assets/img/Sell_waviii.gif">](https://waviii.herokuapp.com/admin/Wallet)
+    npm run start
+    npm run test a (optional)
+    browse: localhost:3001/
+
+<h6><p align="right">:cyclone: Click the image(s) below to view the live <a id="Screenshots" href="https://waviii.io/">dApp</a></p></h6>
+
+> Full Width Preview
+> [<img src="src/assets/img/Preview.png">](https://waviii.io/)
+
+> dApp Demo
+> [<img src="src/assets/img/Demo.gif">](https://waviii.io/)
+
+> waviii Wallet
+> [<img src="src/assets/img/Wallet.png">](https://waviii.io/)
+
+> waviii Swap
+> [<img src="src/assets/img/Swap.png">](https://waviii.io/)
+
+> Without Metamask
+> [<img src="src/assets/img/NoEth.png">](https://waviii.io/)
+
+> Setup
+> [<img src="src/assets/img/Setup.gif">](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-25&end=2021-02-02)
 
 #### Questions
 
@@ -23,6 +55,6 @@ Contact me at [matt@brassey.io](mailto:matt@brassey.io) with any questions or co
 
 #### License
 
-`waviii.io` is published under the __CC0_1.0_Universal__ license.
+`waviii.io` is published under the **CC0_1.0_Universal** license.
 
 > The Creative Commons CC0 Public Domain Dedication waives copyright interest in a work you've created and dedicates it to the world-wide public domain. Use CC0 to opt out of copyright entirely and ensure your work has the widest reach. As with the Unlicense and typical software licenses, CC0 disclaims warranties. CC0 is very similar to the Unlicense.

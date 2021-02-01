@@ -185,7 +185,7 @@ class Wallet extends React.Component {
                     >
                       Blockchain browser not detected! Install MetaMask to use
                       waviii.
-                    </a>
+                    </a><br />
                   </FadeIn>
                 </div>
               </main>
