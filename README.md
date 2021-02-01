@@ -1,8 +1,8 @@
 ## waviii.io
-Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. 
+Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend deployed to IPFS, Solidity Smartcontracts deployed to Ethereum Mainnet & CoinGecko RESTful API integration. 
 
 [![licensebadge](https://img.shields.io/badge/license-CC0_1.0_Universal-blue)](https://github.com/MBrassey/waviii.io/blob/main/LICENSE)
-[![time tracker](https://wakatime.com/badge/github/MBrassey/waviii.io.svg)](https://wakatime.com/badge/github/MBrassey/waviii.io)
+[![time tracker](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-24&end=2021-02-02)](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-24&end=2021-02-02)
 
 #### Issues
 
@@ -29,7 +29,7 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart.
     npm run test a (optional)
     browse: localhost:3001/
 
-<h6><p align="right">:cyclone: Click the image(s) below to view the live <a id="Screenshots" href="https://waviii.io/">dApp</a></p></h6>
+<h6><p align="right">:cyclone: Click the image(s) below to view the live <a id="Screenshots" href="https://waviii.io/">wabapplication</a></p></h6>
 
 > Preview
 > [<img src="src/assets/img/Preview.png">](https://waviii.io/)
@@ -40,14 +40,17 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart.
 > Wallet
 > [<img src="src/assets/img/Wallet.png">](https://waviii.io/)
 
-> Swap ETH <=> WAVIII
+> Swap ETH and waviii
 > [<img src="src/assets/img/Swap.png">](https://waviii.io/)
 
 > Responsive Design
 > [<img src="src/assets/img/Responsive.png">](https://waviii.io/)
 
 > Setup
-> [<img src="src/assets/img/Setup.gif">](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-25&end=2021-02-02)
+> [<img src="src/assets/img/Setup.gif">](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-24&end=2021-02-02)
+
+> Project Workload 7 day Metric
+> [<img src="src/assets/img/Workload.svg">](https://waviii.io/)
 
 #### Questions
 
