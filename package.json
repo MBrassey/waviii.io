@@ -3,7 +3,6 @@
   "version": "1.1.0",
   "homepage": "https://waviii.on.fleek.co/",
   "author": "Matt Brassey",
-  "homepage": ".",
   "dependencies": {
     "@material-ui/core": "4.9.14",
     "@types/react": "16.9.23",
