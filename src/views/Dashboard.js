@@ -67,7 +67,6 @@ class Dashboard extends React.Component {
         const raw = ETH / 100;
         const waviii = raw.toFixed(2);
         const max_num = waviii * 1.1 ;
-        console.log(max_num);
         this.setState({ max: max_num });
         this.setState({ price: waviii });
         const month = `${moment().format("MMM")}`;
