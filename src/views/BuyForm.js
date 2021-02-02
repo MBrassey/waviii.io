@@ -25,7 +25,7 @@ class BuyForm extends Component {
         <div>
           <label className="float-left"><b>Input</b></label>
           <span className="float-right text-muted">
-            Balance: <CountUp duration={2.7} start={0} separator="" decimals="2" decimal="." end={window.web3.utils.fromWei(this.props.ethBalance, 'Ether')} />
+            Balance: <CountUp duration={2.7} start={0} separator="" decimals={2} decimal="." end={window.web3.utils.fromWei(this.props.ethBalance, 'Ether')} />
           </span>
         </div>
         <div className="input-group mb-4">
@@ -52,7 +52,7 @@ class BuyForm extends Component {
         <div>
           <label className="float-left"><b>Output</b></label>
           <span className="float-right text-muted">
-            Balance: <CountUp duration={2.7} start={0} separator="" decimals="2" decimal="." end={window.web3.utils.fromWei(this.props.tokenBalance, 'Ether')} />
+            Balance: <CountUp duration={2.7} start={0} separator="" decimals={2} decimal="." end={window.web3.utils.fromWei(this.props.tokenBalance, 'Ether')} />
           </span>
         </div>
         <div className="input-group mb-2">

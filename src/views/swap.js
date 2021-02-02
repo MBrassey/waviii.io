@@ -10,12 +10,9 @@ import ethLogo from "../assets/img/eth-logo.png";
 import swapLogo from "../assets/img/swap_logo.gif";
 import CountUp from "react-countup";
 import {
-  Button,
-  ButtonGroup,
   Card,
   CardHeader,
   CardBody,
-  CardTitle,
   Row,
   Col,
 } from "reactstrap";
@@ -180,9 +177,9 @@ class Swap extends Component {
                                   duration={2.7}
                                   start={-10}
                                   separator=""
-                                  decimals="2"
+                                  decimals={2}
                                   decimal="."
-                                  end="0"
+                                  end={0}
                                 />
                               </span>
                             </div>
@@ -220,9 +217,9 @@ class Swap extends Component {
                                   duration={2.7}
                                   start={-10}
                                   separator=""
-                                  decimals="2"
+                                  decimals={2}
                                   decimal="."
-                                  end="0"
+                                  end={0}
                                 />
                               </span>
                             </div>

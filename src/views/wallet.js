@@ -113,7 +113,7 @@ class Wallet extends React.Component {
                           duration={1.7}
                           start={-10}
                           separator=""
-                          decimals="2"
+                          decimals={2}
                           decimal="."
                           end={this.state.balance}
                         />{" "}
@@ -217,7 +217,7 @@ class Wallet extends React.Component {
                         duration={1.7}
                         start={0}
                         separator=""
-                        decimals="2"
+                        decimals={2}
                         decimal="."
                         end={this.state.balance}
                       />{" "}
@@ -304,7 +304,7 @@ class Wallet extends React.Component {
                                         duration={2.7}
                                         start={0}
                                         separator=""
-                                        decimals="2"
+                                        decimals={2}
                                         decimal="."
                                         end={window.web3.utils.fromWei(
                                           tx.returnValues.value.toString(),
@@ -322,7 +322,7 @@ class Wallet extends React.Component {
                                         duration={2.7}
                                         start={0}
                                         separator=""
-                                        decimals="2"
+                                        decimals={2}
                                         decimal="."
                                         end={window.web3.utils.fromWei(
                                           tx.returnValues.value.toString(),
