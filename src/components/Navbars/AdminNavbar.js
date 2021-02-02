@@ -10,14 +10,12 @@ import {
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
-  Input,
   //  InputGroup,
   NavbarBrand,
   Navbar,
   NavLink,
   Nav,
-  Container,
-  Modal,
+  Container
 } from "reactstrap";
 
 class AdminNavbar extends React.Component {
