@@ -91,7 +91,7 @@ class Sidebar extends React.Component {
     }
     return (
       <div className="sidebar" data={bgColor}>
-        <ParticlesBg type="cobweb" num={6} bg={true} color="#2d93ca" />
+        <ParticlesBg type="cobweb" num={6} bg={true} color="#2c91c7" />
         <div className="sidebar-wrapper" ref="sidebar">
           {logoImg !== null || logoText !== null ? (
             <div className="logo waviii">
