@@ -1,8 +1,9 @@
 {
   "name": "waviii.io",
   "version": "1.1.0",
-  "homepage": "https://waviii.io/",
+  "homepage": "https://waviii.on.fleek.co/",
   "author": "Matt Brassey",
+  "homepage": ".",
   "dependencies": {
     "@material-ui/core": "4.9.14",
     "@types/react": "16.9.23",
@@ -31,9 +32,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --silent --verbose --watchAll",
-    "deploy": "gh-pages -d build"
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -44,10 +43,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.8.0",
-    "@testing-library/react": "^9.5.0",
-    "gh-pages": "^3.1.0",
-    "jest-canvas-mock": "^2.3.0"
-  }
+  "devDependencies": {}
 }
