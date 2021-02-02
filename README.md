@@ -26,7 +26,7 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend
 * [Questions](#Questions)
 * [License](#License)
 
-> Preview
+> Application Preview
 > [<img src="src/assets/img/Preview.png">](https://waviii.io/)
 
 #### SmartContracts
