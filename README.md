@@ -32,10 +32,12 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend
 
 #### SmartContracts
 
-waviii.io is powered by two smartcontracts, both of which are deployed to the Ethereum Mainnet blockchain. The first is the waviii ERC-20 Token itself. The second contract is the token swap, the single source for obtaining the waviii token in exchange for ETH. Most of the one million originally minted waviii Tokens still reside on this contract, they can be traded at any time and posess real world value pegged to a fraction of ETH. 
+waviii.io is powered by two smartcontracts, both of which are deployed to the Ethereum Mainnet blockchain. The first is the waviii ERC-20 Token itself.
 
 > waviii Token
-> [<img src="src/assets/img/waviii_token.png">](https://waviii.io/)
+> [<img src="src/assets/img/Token.gif">](https://github.com/MBrassey/waviii-token)
+
+The second contract is the token swap, the single source for obtaining the waviii token in exchange for ETH. Most of the one million originally minted waviii Tokens still reside on this contract, they can be traded at any time and posess real world value pegged to a fraction of ETH. 
 
 #### IPFS
 
