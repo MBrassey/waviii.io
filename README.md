@@ -34,6 +34,9 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend
 
 waviii.io is powered by two smartcontracts, both of which are deployed to the Ethereum Mainnet blockchain. The first is the waviii ERC-20 Token itself. The second contract is the token swap, the single source for obtaining the waviii token in exchange for ETH. Most of the one million originally minted waviii Tokens still reside on this contract, they can be traded at any time and posess real world value pegged to a fraction of ETH. 
 
+> waviii Token
+> [<img src="src/assets/img/waviii_token.png">](https://waviii.io/)
+
 #### IPFS
 
 waviii.io's codebase is setup with continuous deployment to three platforms: Heroku, GitHub Pages and Fleek (IPFS). On Fleek, the images, text, styles and javascript are all hosted on the InterPlanetary FileSystem (IPFS) in a fully decentralized way. In connjunction with the Ethereum SmartContract backend, waviii.io is a dApp (Decentralized Application). As there is no central point of failure or central point of management, the dApp is highly redundant as well as highly censorship resistant. I have plans to deploy waviii.io as waviii.crypto to decentralize it's DNS as well thgough unstoppable domains. 
@@ -52,7 +55,7 @@ I decided to use the CoinGecko's cryptocurrency API through RapidAPI for my char
       url: "https://coingecko.p.rapidapi.com/simple/price",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
-        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1", // MBrassey
+        "x-rapidapi-key": "RAPID_API_KEY",
         "x-rapidapi-host": "coingecko.p.rapidapi.com",
       },
     };
