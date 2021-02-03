@@ -104,7 +104,7 @@ I decided to use the CoinGecko's cryptocurrency API through RapidAPI for my char
 <h6><p align="right">:cyclone: Click the image(s) below to view the live <a id="Demo" href="https://waviii.io/">wabapplication</a></p></h6>
 
 > Video
-> [<img src="src/assets/img/Video.png">](https://waviii.io/)
+> [<img src="src/assets/img/Video.png">](https://youtu.be/2kR6eHG2ve8)
 
 > Demo
 > [<img src="src/assets/img/Demo.gif">](https://waviii.io/)
