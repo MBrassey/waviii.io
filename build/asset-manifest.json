@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/waviii.io/static/css/main.0ce89e64.chunk.css",
+    "main.js": "/waviii.io/static/js/main.ff891571.chunk.js",
+    "main.js.map": "/waviii.io/static/js/main.ff891571.chunk.js.map",
+    "runtime-main.js": "/waviii.io/static/js/runtime-main.49dd3750.js",
+    "runtime-main.js.map": "/waviii.io/static/js/runtime-main.49dd3750.js.map",
+    "static/js/2.5c18c1d1.chunk.js": "/waviii.io/static/js/2.5c18c1d1.chunk.js",
+    "static/js/2.5c18c1d1.chunk.js.map": "/waviii.io/static/js/2.5c18c1d1.chunk.js.map",
+    "index.html": "/waviii.io/index.html",
+    "precache-manifest.9e92336f8a7c88e68e3bbb4604b2e49e.js": "/waviii.io/precache-manifest.9e92336f8a7c88e68e3bbb4604b2e49e.js",
+    "service-worker.js": "/waviii.io/service-worker.js",
+    "static/css/main.0ce89e64.chunk.css.map": "/waviii.io/static/css/main.0ce89e64.chunk.css.map",
+    "static/js/2.5c18c1d1.chunk.js.LICENSE.txt": "/waviii.io/static/js/2.5c18c1d1.chunk.js.LICENSE.txt",
+    "static/media/MBrassey-Logo.png": "/waviii.io/static/media/MBrassey-Logo.eaf789f5.png",
+    "static/media/eth-logo.png": "/waviii.io/static/media/eth-logo.7497d710.png",
+    "static/media/nucleo-icons.css": "/waviii.io/static/media/nucleo.f0b489a5.woff",
+    "static/media/sContract.png": "/waviii.io/static/media/sContract.5e68c07d.png",
+    "static/media/swap_logo.gif": "/waviii.io/static/media/swap_logo.e9dd6091.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.49dd3750.js",
+    "static/js/2.5c18c1d1.chunk.js",
+    "static/css/main.0ce89e64.chunk.css",
+    "static/js/main.ff891571.chunk.js"
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "waviii.io",
   "version": "1.1.0",
-  "homepage": "https://waviii.io/",
+  "homepage": "https://mbrassey.github.io/waviii.io/",
   "author": "Matt Brassey",
   "dependencies": {
     "@material-ui/core": "4.9.14",
@@ -31,8 +31,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test --silent --verbose --watchAll",
+    "build": "react-scripts build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
