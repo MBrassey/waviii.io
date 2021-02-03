@@ -32,7 +32,9 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend
 
 #### SmartContracts
 
-1. waviii.io is powered by two smartcontracts, both of which are deployed to the Ethereum Mainnet blockchain. The first is the waviii ERC-20 Token itself. The live Token Smartcontract can be viewed on [Etherscan]() and its Source Code on [GitHub]().
+waviii.io is powered by two smartcontracts, both of which are deployed to the Ethereum Mainnet blockchain. 
+
+1. The first is the waviii ERC-20 Token itself. The live Token Smartcontract can be viewed on [Etherscan]() and its Source Code on [GitHub]().
 
 > waviii Token
 > [<img src="src/assets/img/Token.gif">](https://github.com/MBrassey/waviii-token)
