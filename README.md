@@ -32,15 +32,29 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend
 
 #### SmartContracts
 
-waviii.io is powered by two smartcontracts, both of which are deployed to the Ethereum Mainnet blockchain. The first is the waviii ERC-20 Token itself. The second contract is the token swap, the single source for obtaining the waviii token in exchange for ETH. Most of the one million originally minted waviii Tokens still reside on this contract, they can be traded at any time and posess real world value pegged to a fraction of ETH. 
+waviii.io is powered by two smartcontracts, both of which are deployed to the Ethereum Mainnet blockchain. 
+
+1. The first is the waviii ERC-20 Token itself. The live Token Smartcontract can be viewed on [Etherscan]() and its Source Code on [GitHub]().
+
+> waviii Token
+> [<img src="src/assets/img/Token.gif">](https://github.com/MBrassey/waviii-token)
+
+2. The second contract is the Token Swap, the single source for buying and selling the waviii token in exchange for ETH. Most of the one million originally minted waviii Tokens still reside on this contract, they can be traded at any time and posess real world value pegged to a fraction of ETH. The live Token Swap Smartcontract can be viewed on [Etherscan]() and its Source Code on [GitHub]().
+
+> waviii Swap
+> [<img src="src/assets/img/Swap.gif">](https://github.com/MBrassey/waviii-swap)
 
 #### IPFS
 
 waviii.io's codebase is setup with continuous deployment to three platforms: Heroku, GitHub Pages and Fleek (IPFS). On Fleek, the images, text, styles and javascript are all hosted on the InterPlanetary FileSystem (IPFS) in a fully decentralized way. In connjunction with the Ethereum SmartContract backend, waviii.io is a dApp (Decentralized Application). As there is no central point of failure or central point of management, the dApp is highly redundant as well as highly censorship resistant. I have plans to deploy waviii.io as waviii.crypto to decentralize it's DNS as well thgough unstoppable domains. 
 
 - [x] [waviii on Heroku]()
+<<<<<<< HEAD
 - [x] [waviii on GitHub Pages](https://mbrassey.github.io/waviii.io/)
+=======
+>>>>>>> develop
 - [x] [waviii on Fleek (IPFS)](https://waviii.on.fleek.co/)
+- [x] [waviii on GitHub Pages]()
 
 #### CoinGeko
 
@@ -52,7 +66,7 @@ I decided to use the CoinGecko's cryptocurrency API through RapidAPI for my char
       url: "https://coingecko.p.rapidapi.com/simple/price",
       params: { ids: "ethereum", vs_currencies: "usd" },
       headers: {
-        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1", // MBrassey
+        "x-rapidapi-key": "RAPID_API_KEY",
         "x-rapidapi-host": "coingecko.p.rapidapi.com",
       },
     };
