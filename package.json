@@ -31,8 +31,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "test": "react-scripts test --silent --verbose --watchAll",
     "build": "react-scripts build",
-    "test": "react-scripts test --silent --verbose --watchAll"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

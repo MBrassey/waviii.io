@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.59ad27ff.chunk.css",
+    "main.js": "/static/js/main.ff891571.chunk.js",
+    "main.js.map": "/static/js/main.ff891571.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.bd6a72e7.js",
+    "runtime-main.js.map": "/static/js/runtime-main.bd6a72e7.js.map",
+    "static/js/2.b816f13b.chunk.js": "/static/js/2.b816f13b.chunk.js",
+    "static/js/2.b816f13b.chunk.js.map": "/static/js/2.b816f13b.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.886e0584b26cdf4c53ce621c7cc758b9.js": "/precache-manifest.886e0584b26cdf4c53ce621c7cc758b9.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.59ad27ff.chunk.css.map": "/static/css/main.59ad27ff.chunk.css.map",
+    "static/js/2.b816f13b.chunk.js.LICENSE.txt": "/static/js/2.b816f13b.chunk.js.LICENSE.txt",
+    "static/media/MBrassey-Logo.png": "/static/media/MBrassey-Logo.eaf789f5.png",
+    "static/media/eth-logo.png": "/static/media/eth-logo.7497d710.png",
+    "static/media/nucleo-icons.css": "/static/media/nucleo.f0b489a5.woff",
+    "static/media/sContract.png": "/static/media/sContract.5e68c07d.png",
+    "static/media/swap_logo.gif": "/static/media/swap_logo.e9dd6091.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bd6a72e7.js",
+    "static/js/2.b816f13b.chunk.js",
+    "static/css/main.59ad27ff.chunk.css",
+    "static/js/main.ff891571.chunk.js"
+  ]
+}
