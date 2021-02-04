@@ -47,7 +47,7 @@ waviii.io's main components consist of two Smartcontracts and a Web3 ERC-20 Toke
 3. The Web3 ERC-20 Token Wallet for the waviii Ethereum Token. 
 
 > Wallet
-> [<img src="src/assets/img/Wallet.gif">](https://github.com/MBrassey/waviii-swap)
+> [<img src="src/assets/img/Wallet.gif">](https://github.com/MBrassey/waviii-wallet)
 
 #### IPFS
 
