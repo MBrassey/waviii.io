@@ -36,13 +36,18 @@ waviii.io's main components consist of two Smartcontracts and a Web3 ERC-20 Toke
 
 1. The first is the waviii ERC-20 Token itself. The live Token Smartcontract can be viewed on [Etherscan](https://etherscan.io/token/0x9cc6754d16b98a32ec9137df6453ba84597b9965) and its Source Code on [GitHub](https://github.com/MBrassey/waviii-token).
 
-> waviii Token
+> Token
 > [<img src="src/assets/img/Token.gif">](https://github.com/MBrassey/waviii-token)
 
 2. The second contract is the Token Swap, the single source for buying and selling the waviii token in exchange for ETH. Most of the one million originally minted waviii Tokens still reside on this contract, they can be traded at any time and posess real world value pegged to a fraction of ETH. The live Token Swap Smartcontract can be viewed on [Etherscan](https://etherscan.io/address/0x38abf018ea2f8066813c376a197b6df0349d86c5) and its Source Code on [GitHub](https://github.com/MBrassey/waviii-swap).
 
-> waviii Swap
+> Swap
 > [<img src="src/assets/img/Swap.gif">](https://github.com/MBrassey/waviii-swap)
+
+3. The Web3 ERC-20 Token Wallet for the waviii Ethereum Token. 
+
+> Wallet
+> [<img src="src/assets/img/Wallet.gif">](https://github.com/MBrassey/waviii-swap)
 
 #### IPFS
 
