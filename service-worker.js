@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/waviii.io/precache-manifest.9e92336f8a7c88e68e3bbb4604b2e49e.js"
+  "/waviii.io/precache-manifest.7a7a820d8207b4d016415b2e4728d7c1.js"
 );
 
 self.addEventListener('message', (event) => {

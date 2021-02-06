@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2e59b4d6ea7bcebfdf9c3a3c23d0c17c",
+    "revision": "5556d1ad9e1a5d61275f242dc8cd154b",
     "url": "/waviii.io/index.html"
   },
   {
-    "revision": "54d86394c589f0181780",
+    "revision": "c6575ff637f55ba48b29",
     "url": "/waviii.io/static/css/main.0ce89e64.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/waviii.io/static/js/2.5c18c1d1.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "54d86394c589f0181780",
-    "url": "/waviii.io/static/js/main.ff891571.chunk.js"
+    "revision": "c6575ff637f55ba48b29",
+    "url": "/waviii.io/static/js/main.1328f099.chunk.js"
   },
   {
     "revision": "9912eaf03b722a493009",

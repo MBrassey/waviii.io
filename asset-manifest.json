@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/waviii.io/static/css/main.0ce89e64.chunk.css",
-    "main.js": "/waviii.io/static/js/main.ff891571.chunk.js",
-    "main.js.map": "/waviii.io/static/js/main.ff891571.chunk.js.map",
+    "main.js": "/waviii.io/static/js/main.1328f099.chunk.js",
+    "main.js.map": "/waviii.io/static/js/main.1328f099.chunk.js.map",
     "runtime-main.js": "/waviii.io/static/js/runtime-main.49dd3750.js",
     "runtime-main.js.map": "/waviii.io/static/js/runtime-main.49dd3750.js.map",
     "static/js/2.5c18c1d1.chunk.js": "/waviii.io/static/js/2.5c18c1d1.chunk.js",
     "static/js/2.5c18c1d1.chunk.js.map": "/waviii.io/static/js/2.5c18c1d1.chunk.js.map",
     "index.html": "/waviii.io/index.html",
-    "precache-manifest.9e92336f8a7c88e68e3bbb4604b2e49e.js": "/waviii.io/precache-manifest.9e92336f8a7c88e68e3bbb4604b2e49e.js",
+    "precache-manifest.7a7a820d8207b4d016415b2e4728d7c1.js": "/waviii.io/precache-manifest.7a7a820d8207b4d016415b2e4728d7c1.js",
     "service-worker.js": "/waviii.io/service-worker.js",
     "static/css/main.0ce89e64.chunk.css.map": "/waviii.io/static/css/main.0ce89e64.chunk.css.map",
     "static/js/2.5c18c1d1.chunk.js.LICENSE.txt": "/waviii.io/static/js/2.5c18c1d1.chunk.js.LICENSE.txt",
@@ -22,6 +22,6 @@
     "static/js/runtime-main.49dd3750.js",
     "static/js/2.5c18c1d1.chunk.js",
     "static/css/main.0ce89e64.chunk.css",
-    "static/js/main.ff891571.chunk.js"
+    "static/js/main.1328f099.chunk.js"
   ]
 }
