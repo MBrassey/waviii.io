@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Monaco:wght@400;700&display=swap');
+
+.desktop {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: #222; /* Dark gray desktop background */
+}
+
+.top-taskbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px 0 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+}
+
+.taskbar-time {
+  margin-right: 2px;
+  color: #ddd;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+.taskbar-title {
+  color: #ddd;
+}
+
+.bottom-taskbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.7);
+  z-index: 1000; /* Ensure it stays above other elements */
+}
+
+.taskbar-icon {
+  background: transparent;
+  border: none;
+  color: #ddd;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.taskbar-icon:hover {
+  color: #fff;
+}
+
+.fluxbox-window {
+  position: absolute;
+  width: 600px;
+  height: 400px;
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent black for the terminal */
+  border: 1px solid rgba(68, 68, 68, 0.5); /* Slightly transparent border */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Add depth */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: none; /* Disable transition for immediate updates during drag */
+  user-select: none;
+  opacity: 0.93; /* Default semi-transparent state for inactive terminals */
+  z-index: 2; /* Default z-index for terminals */
+}
+
+.fluxbox-window.active {
+  opacity: 1; /* Fully visible for active terminal */
+  background: rgba(0, 0, 0, 0.5); /* Slightly less transparent for active terminal */
+  z-index: 10000; /* Bring active terminal to the front */
+}
+
+.fluxbox-window.minimized {
+  height: 30px;
+}
+
+.window-header {
+  background: rgba(17, 17, 17, 0.8); /* Semi-transparent header */
+  color: #ddd;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+  cursor: grab; /* Default grab cursor */
+  border-bottom: 1px solid rgba(51, 51, 51, 0.6); /* Slightly transparent border */
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid rgba(176, 195, 163, 0.3); /* Semi-transparent border */
+  border-top: 6px solid #b0c3a3; /* Accent color */
+  border-radius: 50%;
+  animation: spinSmooth 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes spinSmooth {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.window-header.grabbing {
+  cursor: grabbing; /* Show closed hand when dragging */
+}
+
+.fluxbox-window:focus {
+  outline: none; /* Prevent default focus styles */
+}
+
+.terminal-content {
+  flex: 1;
+  padding: 10px;
+  color: #ddd;
+  font-family: 'Monaco', monospace;
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  background: transparent; /* Ensure transparency */
+  scrollbar-width: thin; /* Custom scrollbar for Firefox */
+  scrollbar-color: #555 #222; /* Custom scrollbar colors */
+  font-size: 0.8em;
+}
+
+.window-title {
+  font-weight: bold;
+  font-size: .8em;
+  margin-top: 3px;
+}
+
+.window-controls .control-btn {
+  background: transparent;
+  border: none;
+  color: #ddd;
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 0.7em;
+}
+
+.window-controls .control-btn:hover {
+  color: #fff;
+}
+
+.prompt {
+  display: flex;
+  align-items: center;
+}
+
+.prompt-symbol {
+  color: #b0c3a3;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.input-area {
+  color: #ddd;
+  font-family: 'Monaco', monospace;
+  background: transparent;
+  white-space: pre;
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px; /* Rectangle cursor width */
+  height: 1.2em; /* Matches font height */
+  background: #b0c3a3;
+  margin-left: 2px;
+  animation: blink 1s steps(2, start) infinite;
+}
+
+.cursor[data-cursor-visible="false"] {
+  background: transparent;
+}
+
+.hidden-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none; /* Prevent accidental clicking */
+}
+
+.right-click-menu {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.85);
+  color: #ddd;
+  border: 1px solid #444;
+  list-style: none;
+  padding: 5px 0;
+  margin: 0;
+  z-index: 10000; /* Ensure menu is always on top */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.right-click-menu li {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.right-click-menu li:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.terminal-content {
+  flex: 1;
+  padding: 10px;
+  color: #ddd;
+  font-family: 'Monaco', monospace;
+  background: rgba(0, 0, 0, 0.75);
+  overflow-y: auto;
+}
+
+.terminal-content ::selection {
+  background: rgba(255, 255, 255, 0.2); /* Light transparent highlight */
+  color: #ddd; /* Keep text color readable */
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Smooth movement styles for transitions */
+.fluxbox-window {
+  will-change: transform;
+}
+
+body, .desktop {
+  perspective: 1000px;
+}
+

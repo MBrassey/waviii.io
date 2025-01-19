@@ -18,6 +18,8 @@ import {
   Container
 } from "reactstrap";
 
+import logo from "../../assets/img/MBrassey-Logo.png";
+
 class AdminNavbar extends React.Component {
   async loadWeb3() {
     if (window.ethereum) {
@@ -136,7 +138,7 @@ class AdminNavbar extends React.Component {
                     <div className="photo">
                       <img
                         alt="..."
-                        src={require("assets/img/MBrassey-Logo.png")}
+                        src={logo}
                       />
                     </div>
                     <b className="caret d-none d-lg-block d-xl-block" />

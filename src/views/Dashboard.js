@@ -17,38 +17,56 @@ import sContractLogo from "../../src/assets/img/sContract.png";
 import moment from "moment";
 
 const dateLong = `${moment().format("MMMM DD YYYY")}`;
-const date1 = `${moment().subtract(11, "month").format("DD-MM-YYYY")}`;
-const date2 = `${moment().subtract(10, "month").format("DD-MM-YYYY")}`;
-const date3 = `${moment().subtract(9, "month").format("DD-MM-YYYY")}`;
-const date4 = `${moment().subtract(8, "month").format("DD-MM-YYYY")}`;
-const date5 = `${moment().subtract(7, "month").format("DD-MM-YYYY")}`;
-const date6 = `${moment().subtract(6, "month").format("DD-MM-YYYY")}`;
-const date7 = `${moment().subtract(5, "month").format("DD-MM-YYYY")}`;
-const date8 = `${moment().subtract(4, "month").format("DD-MM-YYYY")}`;
-const date9 = `${moment().subtract(3, "month").format("DD-MM-YYYY")}`;
-const date10 = `${moment().subtract(2, "month").format("DD-MM-YYYY")}`;
-const date11 = `${moment().subtract(1, "month").format("DD-MM-YYYY")}`;
+const date1 = `${moment().subtract(5, "month").format("DD-MM-YYYY")}`;
+const date2 = `${moment().subtract(4, "month").format("DD-MM-YYYY")}`;
+const date3 = `${moment().subtract(3, "month").format("DD-MM-YYYY")}`;
+const date4 = `${moment().subtract(2, "month").format("DD-MM-YYYY")}`;
+const date5 = `${moment().subtract(1, "month").format("DD-MM-YYYY")}`;
 
 var axios = require("axios").default;
 
 class Dashboard extends React.Component {
-  async componentWillMount() {
-    await this.getCurrentPrice();
-    await this.getPrice1();
-    await this.getPrice2();
-    await this.getPrice3();
-    await this.getPrice4();
-    await this.getPrice5();
-    await this.getPrice6();
-    await this.getPrice7();
-    await this.getPrice8();
-    await this.getPrice9();
-    await this.getPrice10();
-    await this.getPrice11();
+  static retryRequest = async (options, retries = 3, delay = 500) => {
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        const response = await axios.request(options);
+        return response;
+      } catch (error) {
+        if (attempt === retries) {
+          console.error(`Failed after ${retries} attempts`, error);
+          throw error;
+        }
+        console.warn(`Retrying... Attempt ${attempt} failed`);
+        await new Promise((resolve) => setTimeout(resolve, delay));
+      }
+    }
+  };
+
+  async componentDidMount() {
+    await this.loadPricesSequentially();
   }
 
-  getCurrentPrice = () => {
-    var options = {
+  loadPricesSequentially = async () => {
+    const priceDates = [
+      { date: date1, priceKey: "price1", monthKey: "month1" },
+      { date: date2, priceKey: "price2", monthKey: "month2" },
+      { date: date3, priceKey: "price3", monthKey: "month3" },
+      { date: date4, priceKey: "price4", monthKey: "month4" },
+      { date: date5, priceKey: "price5", monthKey: "month5" },
+    ];
+  
+    try {
+      await this.getCurrentPrice();
+      for (const { date, priceKey, monthKey } of priceDates) {
+        await this.getPriceX(date, priceKey, monthKey);
+      }
+    } catch (error) {
+      console.error("Error loading prices sequentially:", error);
+    }
+  };
+
+  getCurrentPrice = async () => {
+    const options = {
       method: "GET",
       url: "https://coingecko.p.rapidapi.com/simple/price",
       params: { ids: "ethereum", vs_currencies: "usd" },
@@ -58,364 +76,60 @@ class Dashboard extends React.Component {
       },
     };
 
-    axios
-      .request(options)
-      .then((response) => {
-        this.setState({ loading: true });
-        const ETH = response.data.ethereum.usd;
+    try {
+      const response = await Dashboard.retryRequest(options);
+      const ETH = response.data.ethereum.usd;
+      const raw = ETH / 100;
+      const waviii = raw.toFixed(2);
+      const max_num = waviii * 1.1;
+
+      this.setState({
+        price: waviii,
+        max: max_num,
+        month: moment().format("MMM").toUpperCase(),
+        loading: false, 
+      });
+    } catch (error) {
+      console.error("Error fetching current price:", error);
+      this.setState({ price: "0.00" });
+    }
+  };
+
+  getPriceX = async (date, priceKey, monthKey) => {
+    const options = {
+      method: "GET",
+      url: "https://api.coingecko.com/api/v3/coins/ethereum/history",
+      params: { date: moment(date, "DD-MM-YYYY").format("DD-MM-YYYY") },
+    };
+  
+    try {
+      const response = await Dashboard.retryRequest(options);
+      const marketData = response.data?.market_data;
+  
+      if (marketData?.current_price?.usd) {
+        const ETH = marketData.current_price.usd;
         const raw = ETH / 100;
         const waviii = raw.toFixed(2);
-        const max_num = waviii * 1.1 ;
-        this.setState({ max: max_num });
-        this.setState({ price: waviii });
-        const month = `${moment().format("MMM")}`;
-        this.setState({ month: month.toUpperCase() });
-        this.setState({ loading: false });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
-
-  getPrice1 = () => {
-    var options = {
-      method: "GET",
-      url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
-        date1 +
-        "/",
-      params: { ids: "ethereum", vs_currencies: "usd" },
-      headers: {
-        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
-        "x-rapidapi-host": "coingecko.p.rapidapi.com",
-      },
-    };
-
-    axios
-      .request(options)
-      .then((response) => {
-        this.setState({ loading: true });
-        const ETH1 = response.data.market_data.current_price.usd;
-        const raw1 = ETH1 / 100;
-        const waviii1 = raw1.toFixed(2);
-        this.setState({ price1: waviii1 });
-        const month1 = `${moment().subtract(1, "month").format("MMM")}`;
-        this.setState({ month1: month1.toUpperCase() });
-        this.setState({ loading: false });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
-
-  getPrice2 = () => {
-    var options = {
-      method: "GET",
-      url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
-        date2 +
-        "/",
-      params: { ids: "ethereum", vs_currencies: "usd" },
-      headers: {
-        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
-        "x-rapidapi-host": "coingecko.p.rapidapi.com",
-      },
-    };
-
-    axios
-      .request(options)
-      .then((response) => {
-        this.setState({ loading: true });
-        const ETH2 = response.data.market_data.current_price.usd;
-        const raw2 = ETH2 / 100;
-        const waviii2 = raw2.toFixed(2);
-        this.setState({ price2: waviii2 });
-        const month2 = `${moment().subtract(2, "month").format("MMM")}`;
-        this.setState({ month2: month2.toUpperCase() });
-        this.setState({ loading: false });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
-
-  getPrice3 = () => {
-    var options = {
-      method: "GET",
-      url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
-        date3 +
-        "/",
-      params: { ids: "ethereum", vs_currencies: "usd" },
-      headers: {
-        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
-        "x-rapidapi-host": "coingecko.p.rapidapi.com",
-      },
-    };
-
-    axios
-      .request(options)
-      .then((response) => {
-        this.setState({ loading: true });
-        const ETH3 = response.data.market_data.current_price.usd;
-        const raw3 = ETH3 / 100;
-        const waviii3 = raw3.toFixed(2);
-        this.setState({ price3: waviii3 });
-        const month3 = `${moment().subtract(3, "month").format("MMM")}`;
-        this.setState({ month3: month3.toUpperCase() });
-        this.setState({ loading: false });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
-
-  getPrice4 = () => {
-    var options = {
-      method: "GET",
-      url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
-        date4 +
-        "/",
-      params: { ids: "ethereum", vs_currencies: "usd" },
-      headers: {
-        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
-        "x-rapidapi-host": "coingecko.p.rapidapi.com",
-      },
-    };
-
-    axios
-      .request(options)
-      .then((response) => {
-        this.setState({ loading: true });
-        const ETH4 = response.data.market_data.current_price.usd;
-        const raw4 = ETH4 / 100;
-        const waviii4 = raw4.toFixed(2);
-        this.setState({ price4: waviii4 });
-        const month4 = `${moment().subtract(4, "month").format("MMM")}`;
-        this.setState({ month4: month4.toUpperCase() });
-        this.setState({ loading: false });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
-
-  getPrice5 = () => {
-    var options = {
-      method: "GET",
-      url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
-        date5 +
-        "/",
-      params: { ids: "ethereum", vs_currencies: "usd" },
-      headers: {
-        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
-        "x-rapidapi-host": "coingecko.p.rapidapi.com",
-      },
-    };
-
-    axios
-      .request(options)
-      .then((response) => {
-        this.setState({ loading: true });
-        const ETH5 = response.data.market_data.current_price.usd;
-        const raw5 = ETH5 / 100;
-        const waviii5 = raw5.toFixed(2);
-        this.setState({ price5: waviii5 });
-        const month5 = `${moment().subtract(5, "month").format("MMM")}`;
-        this.setState({ month5: month5.toUpperCase() });
-        this.setState({ loading: false });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
-
-  getPrice6 = () => {
-    var options = {
-      method: "GET",
-      url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
-        date6 +
-        "/",
-      params: { ids: "ethereum", vs_currencies: "usd" },
-      headers: {
-        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
-        "x-rapidapi-host": "coingecko.p.rapidapi.com",
-      },
-    };
-
-    axios
-      .request(options)
-      .then((response) => {
-        this.setState({ loading: true });
-        const ETH6 = response.data.market_data.current_price.usd;
-        const raw6 = ETH6 / 100;
-        const waviii6 = raw6.toFixed(2);
-        this.setState({ price6: waviii6 });
-        const month6 = `${moment().subtract(6, "month").format("MMM")}`;
-        this.setState({ month6: month6.toUpperCase() });
-        this.setState({ loading: false });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
-
-  getPrice7 = () => {
-    var options = {
-      method: "GET",
-      url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
-        date7 +
-        "/",
-      params: { ids: "ethereum", vs_currencies: "usd" },
-      headers: {
-        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
-        "x-rapidapi-host": "coingecko.p.rapidapi.com",
-      },
-    };
-
-    axios
-      .request(options)
-      .then((response) => {
-        this.setState({ loading: true });
-        const ETH7 = response.data.market_data.current_price.usd;
-        const raw7 = ETH7 / 100;
-        const waviii7 = raw7.toFixed(2);
-        this.setState({ price7: waviii7 });
-        const month7 = `${moment().subtract(7, "month").format("MMM")}`;
-        this.setState({ month7: month7.toUpperCase() });
-        this.setState({ loading: false });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
-
-  getPrice8 = () => {
-    var options = {
-      method: "GET",
-      url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
-        date8 +
-        "/",
-      params: { ids: "ethereum", vs_currencies: "usd" },
-      headers: {
-        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
-        "x-rapidapi-host": "coingecko.p.rapidapi.com",
-      },
-    };
-
-    axios
-      .request(options)
-      .then((response) => {
-        this.setState({ loading: true });
-        const ETH8 = response.data.market_data.current_price.usd;
-        const raw8 = ETH8 / 100;
-        const waviii8 = raw8.toFixed(2);
-        this.setState({ price8: waviii8 });
-        const month8 = `${moment().subtract(8, "month").format("MMM")}`;
-        this.setState({ month8: month8.toUpperCase() });
-        this.setState({ loading: false });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
-
-  getPrice9 = () => {
-    var options = {
-      method: "GET",
-      url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
-        date9 +
-        "/",
-      params: { ids: "ethereum", vs_currencies: "usd" },
-      headers: {
-        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
-        "x-rapidapi-host": "coingecko.p.rapidapi.com",
-      },
-    };
-
-    axios
-      .request(options)
-      .then((response) => {
-        this.setState({ loading: true });
-        const ETH9 = response.data.market_data.current_price.usd;
-        const raw9 = ETH9 / 100;
-        const waviii9 = raw9.toFixed(2);
-        this.setState({ price9: waviii9 });
-        const month9 = `${moment().subtract(9, "month").format("MMM")}`;
-        this.setState({ month9: month9.toUpperCase() });
-        this.setState({ loading: false });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
-
-  getPrice10 = () => {
-    var options = {
-      method: "GET",
-      url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
-        date10 +
-        "/",
-      params: { ids: "ethereum", vs_currencies: "usd" },
-      headers: {
-        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
-        "x-rapidapi-host": "coingecko.p.rapidapi.com",
-      },
-    };
-
-    axios
-      .request(options)
-      .then((response) => {
-        this.setState({ loading: true });
-        const ETH10 = response.data.market_data.current_price.usd;
-        const raw10 = ETH10 / 100;
-        const waviii10 = raw10.toFixed(2);
-        this.setState({ price10: waviii10 });
-        const month10 = `${moment().subtract(10, "month").format("MMM")}`;
-        this.setState({ month10: month10.toUpperCase() });
-        this.setState({ loading: false });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
-
-  getPrice11 = () => {
-    var options = {
-      method: "GET",
-      url:
-        "https://api.coingecko.com/api/v3/coins/ethereum/history?date=" +
-        date11 +
-        "/",
-      params: { ids: "ethereum", vs_currencies: "usd" },
-      headers: {
-        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
-        "x-rapidapi-host": "coingecko.p.rapidapi.com",
-      },
-    };
-
-    axios
-      .request(options)
-      .then((response) => {
-        this.setState({ loading: true });
-        const ETH11 = response.data.market_data.current_price.usd;
-        const raw11 = ETH11 / 100;
-        const waviii11 = raw11.toFixed(2);
-        this.setState({ price11: waviii11 });
-        const month11 = `${moment().subtract(11, "month").format("MMM")}`;
-        this.setState({ month11: month11.toUpperCase() });
-        this.setState({ loading: false });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+  
+        this.setState((prevState) => ({
+          ...prevState,
+          [priceKey]: waviii,
+          [monthKey]: moment(date, "DD-MM-YYYY").format("MMM").toUpperCase(),
+        }));
+      } else {
+        console.error(`Historical price data unavailable for date: ${date}`);
+        this.setState((prevState) => ({
+          ...prevState,
+          [priceKey]: "0.00",
+        }));
+      }
+    } catch (error) {
+      console.error(`Error fetching historical price for ${priceKey}:`, error);
+      this.setState((prevState) => ({
+        ...prevState,
+        [priceKey]: "0.00",
+      }));
+    }
   };
 
   constructor(props) {
@@ -427,24 +141,12 @@ class Dashboard extends React.Component {
       price3: "",
       price4: "",
       price5: "",
-      price6: "",
-      price7: "",
-      price8: "",
-      price9: "",
-      price10: "",
-      price11: "",
       month: "",
       month1: "",
       month2: "",
       month3: "",
       month4: "",
       month5: "",
-      month6: "",
-      month7: "",
-      month8: "",
-      month9: "",
-      month10: "",
-      month11: "",
       max: "",
       bigChartData: "chart_data",
       loading: true,
@@ -514,17 +216,11 @@ class Dashboard extends React.Component {
 
         return {
           labels: [
-            this.state.month11,
-            this.state.month10,
-            this.state.month9,
-            this.state.month8,
-            this.state.month7,
-            this.state.month6,
-            this.state.month5,
-            this.state.month4,
-            this.state.month3,
-            this.state.month2,
             this.state.month1,
+            this.state.month2,
+            this.state.month3,
+            this.state.month4,
+            this.state.month5,
             this.state.month,
           ],
           datasets: [
@@ -549,12 +245,6 @@ class Dashboard extends React.Component {
                 this.state.price3,
                 this.state.price4,
                 this.state.price5,
-                this.state.price6,
-                this.state.price7,
-                this.state.price8,
-                this.state.price9,
-                this.state.price10,
-                this.state.price11,
                 this.state.price,
               ],
             },
@@ -610,7 +300,7 @@ class Dashboard extends React.Component {
                               USD ($)
                             </span>
                             <span className="d-block d-sm-none">
-                              <i className="wav-icons icon-single-02" />
+                              USD ($)
                             </span>
                           </Button>
                         </ButtonGroup>
@@ -620,8 +310,8 @@ class Dashboard extends React.Component {
                   <CardBody>
                     <div className="chart-area">
                       <Line
-                        data={waviiiChart[this.state.bigChartData]}
-                        options={waviiiChart.options}
+  data={waviiiChart[this.state.bigChartData]}
+  options={waviiiChart.options}
                       />
                     </div>
                   </CardBody>
