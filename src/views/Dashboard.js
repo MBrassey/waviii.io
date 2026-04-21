@@ -17,118 +17,57 @@ import sContractLogo from "../../src/assets/img/sContract.png";
 import moment from "moment";
 
 const dateLong = `${moment().format("MMMM DD YYYY")}`;
-const date1 = `${moment().subtract(5, "month").format("DD-MM-YYYY")}`;
-const date2 = `${moment().subtract(4, "month").format("DD-MM-YYYY")}`;
-const date3 = `${moment().subtract(3, "month").format("DD-MM-YYYY")}`;
-const date4 = `${moment().subtract(2, "month").format("DD-MM-YYYY")}`;
-const date5 = `${moment().subtract(1, "month").format("DD-MM-YYYY")}`;
 
 var axios = require("axios").default;
 
-class Dashboard extends React.Component {
-  static retryRequest = async (options, retries = 3, delay = 500) => {
-    for (let attempt = 1; attempt <= retries; attempt++) {
-      try {
-        const response = await axios.request(options);
-        return response;
-      } catch (error) {
-        if (attempt === retries) {
-          console.error(`Failed after ${retries} attempts`, error);
-          throw error;
-        }
-        console.warn(`Retrying... Attempt ${attempt} failed`);
-        await new Promise((resolve) => setTimeout(resolve, delay));
-      }
-    }
-  };
+const toWaviii = (ethUsd) => (ethUsd / 100).toFixed(2);
+const monthOf = (ts) => moment(ts).format("MMM").toUpperCase();
 
+class Dashboard extends React.Component {
   async componentDidMount() {
-    await this.loadPricesSequentially();
+    await this.fetchPrices();
   }
 
-  loadPricesSequentially = async () => {
-    const priceDates = [
-      { date: date1, priceKey: "price1", monthKey: "month1" },
-      { date: date2, priceKey: "price2", monthKey: "month2" },
-      { date: date3, priceKey: "price3", monthKey: "month3" },
-      { date: date4, priceKey: "price4", monthKey: "month4" },
-      { date: date5, priceKey: "price5", monthKey: "month5" },
-    ];
-  
+  fetchPrices = async () => {
     try {
-      await this.getCurrentPrice();
-      for (const { date, priceKey, monthKey } of priceDates) {
-        await this.getPriceX(date, priceKey, monthKey);
-      }
-    } catch (error) {
-      console.error("Error loading prices sequentially:", error);
-    }
-  };
+      const { data } = await axios.get(
+        "https://api.coingecko.com/api/v3/coins/ethereum/market_chart",
+        { params: { vs_currency: "usd", days: 150, interval: "daily" } }
+      );
+      const prices = data && data.prices;
+      if (!prices || prices.length < 6) throw new Error("insufficient price data");
 
-  getCurrentPrice = async () => {
-    const options = {
-      method: "GET",
-      url: "https://coingecko.p.rapidapi.com/simple/price",
-      params: { ids: "ethereum", vs_currencies: "usd" },
-      headers: {
-        "x-rapidapi-key": "e450825ad3mshaa208fa97b50bb4p17c097jsn38f8f54e39a1",
-        "x-rapidapi-host": "coingecko.p.rapidapi.com",
-      },
-    };
+      const last = prices.length - 1;
+      const pick = (monthsAgo) =>
+        prices[Math.max(0, last - monthsAgo * 30)];
 
-    try {
-      const response = await Dashboard.retryRequest(options);
-      const ETH = response.data.ethereum.usd;
-      const raw = ETH / 100;
-      const waviii = raw.toFixed(2);
-      const max_num = waviii * 1.1;
+      const p5 = pick(5);
+      const p4 = pick(4);
+      const p3 = pick(3);
+      const p2 = pick(2);
+      const p1 = pick(1);
+      const current = prices[last];
+      const currentPrice = toWaviii(current[1]);
 
       this.setState({
-        price: waviii,
-        max: max_num,
-        month: moment().format("MMM").toUpperCase(),
-        loading: false, 
+        price: currentPrice,
+        max: currentPrice * 1.1,
+        month: monthOf(current[0]),
+        price1: toWaviii(p5[1]),
+        price2: toWaviii(p4[1]),
+        price3: toWaviii(p3[1]),
+        price4: toWaviii(p2[1]),
+        price5: toWaviii(p1[1]),
+        month1: monthOf(p5[0]),
+        month2: monthOf(p4[0]),
+        month3: monthOf(p3[0]),
+        month4: monthOf(p2[0]),
+        month5: monthOf(p1[0]),
+        loading: false,
       });
     } catch (error) {
-      console.error("Error fetching current price:", error);
-      this.setState({ price: "0.00" });
-    }
-  };
-
-  getPriceX = async (date, priceKey, monthKey) => {
-    const options = {
-      method: "GET",
-      url: "https://api.coingecko.com/api/v3/coins/ethereum/history",
-      params: { date: moment(date, "DD-MM-YYYY").format("DD-MM-YYYY") },
-    };
-  
-    try {
-      const response = await Dashboard.retryRequest(options);
-      const marketData = response.data?.market_data;
-  
-      if (marketData?.current_price?.usd) {
-        const ETH = marketData.current_price.usd;
-        const raw = ETH / 100;
-        const waviii = raw.toFixed(2);
-  
-        this.setState((prevState) => ({
-          ...prevState,
-          [priceKey]: waviii,
-          [monthKey]: moment(date, "DD-MM-YYYY").format("MMM").toUpperCase(),
-        }));
-      } else {
-        console.error(`Historical price data unavailable for date: ${date}`);
-        this.setState((prevState) => ({
-          ...prevState,
-          [priceKey]: "0.00",
-        }));
-      }
-    } catch (error) {
-      console.error(`Error fetching historical price for ${priceKey}:`, error);
-      this.setState((prevState) => ({
-        ...prevState,
-        [priceKey]: "0.00",
-      }));
+      console.error("Error fetching prices:", error);
+      this.setState({ price: "0.00", loading: false });
     }
   };
 
@@ -156,9 +95,7 @@ class Dashboard extends React.Component {
   render() {
     let chart_options = {
       maintainAspectRatio: false,
-      legend: {
-        display: false,
-      },
+      legend: { display: false },
       tooltips: {
         backgroundColor: "#2C2C2C",
         titleFontColor: "#a3de9e",
@@ -166,37 +103,40 @@ class Dashboard extends React.Component {
         bodySpacing: 4,
         xPadding: 12,
         mode: "nearest",
-        intersect: 0,
+        intersect: false,
         position: "nearest",
+        callbacks: {
+          label: (item) => ` $${item.yLabel}`,
+        },
       },
       responsive: true,
+      hover: { mode: "nearest", intersect: false },
       scales: {
         yAxes: [
           {
-            barPercentage: 1.6,
             gridLines: {
               drawBorder: false,
-              color: "rgba(29,140,248,0.0)",
+              color: "rgba(255,255,255,0.06)",
               zeroLineColor: "transparent",
             },
             ticks: {
               suggestedMin: 0,
               suggestedMax: this.state.max,
-              padding: 20,
+              padding: 12,
               fontColor: "#9a9a9a",
+              callback: (v) => `$${v}`,
             },
           },
         ],
         xAxes: [
           {
-            barPercentage: 1.6,
             gridLines: {
               drawBorder: false,
-              color: "rgba(29,140,248,0.1)",
+              color: "rgba(255,255,255,0.04)",
               zeroLineColor: "transparent",
             },
             ticks: {
-              padding: 20,
+              padding: 12,
               fontColor: "#9a9a9a",
             },
           },
@@ -207,12 +147,10 @@ class Dashboard extends React.Component {
     let waviiiChart = {
       chart_data: (canvas) => {
         let ctx = canvas.getContext("2d");
-
         let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-
-        gradientStroke.addColorStop(1, "rgba(29,140,248,0.2)");
-        gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
-        gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
+        gradientStroke.addColorStop(1, "rgba(29,140,248,0.25)");
+        gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.05)");
+        gradientStroke.addColorStop(0, "rgba(29,140,248,0)");
 
         return {
           labels: [
@@ -230,15 +168,15 @@ class Dashboard extends React.Component {
               backgroundColor: gradientStroke,
               borderColor: "#1f8ef1",
               borderWidth: 2,
-              borderDash: [],
-              borderDashOffset: 0.0,
               pointBackgroundColor: "#1f8ef1",
-              pointBorderColor: "rgba(255,255,255,0)",
-              pointHoverBackgroundColor: "#1f8ef1",
-              pointBorderWidth: 20,
-              pointHoverRadius: 4,
-              pointHoverBorderWidth: 15,
-              pointRadius: 4,
+              pointBorderColor: "#1f8ef1",
+              pointHoverBackgroundColor: "#ffffff",
+              pointHoverBorderColor: "#1f8ef1",
+              pointRadius: 3,
+              pointBorderWidth: 1,
+              pointHoverRadius: 5,
+              pointHoverBorderWidth: 2,
+              lineTension: 0.4,
               data: [
                 this.state.price1,
                 this.state.price2,
