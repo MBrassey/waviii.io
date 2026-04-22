@@ -1,11 +1,11 @@
 ## waviii.io
 
-Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend deployed to IPFS, Solidity Smartcontracts deployed to Ethereum Mainnet & Price Chart with CoinGecko RESTful API integration. Unit tested with the Jest and Truffle frameworks. I set out to build my own real-world cryptocurrency, wallet and exchange and **so it is**.
+Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend with direct MetaMask / Web3 integration, Solidity Smartcontracts deployed to Ethereum Mainnet, and a live price chart driven by the public CoinGecko API. I set out to build my own real-world cryptocurrency, wallet and exchange and **so it is**.
 
 [![licensebadge](https://img.shields.io/badge/license-CC0_1.0_Universal-blue)](https://github.com/MBrassey/waviii.io/blob/main/LICENSE)
 [![time tracker](https://wakatime.com/badge/github/MBrassey/waviii.io.svg)](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-24&end=2021-02-02)
 
-#### Issues
+#### Original Issues (2021)
 
 - [x] [Setup Initial App](https://github.com/MBrassey/waviii.io/issues/1)
 - [x] [Style, React Animations & Update Text Data](https://github.com/MBrassey/waviii.io/issues/2)
@@ -18,8 +18,9 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend
 #### Table of Contents
 
 - [SmartContracts](#SmartContracts)
-- [IPFS](#IPFS)
-- [CoinGeko](#CoinGeko)
+- [Architecture](#Architecture)
+- [Deployment](#Deployment)
+- [CoinGecko](#CoinGecko)
 - [Requirements](#Requirements)
 - [Installation](#Installation)
 - [Usage](#Usage)
@@ -32,68 +33,57 @@ Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart. React frontend
 
 #### SmartContracts
 
-waviii.io's main components consist of two Smartcontracts and a Web3 ERC-20 Token wallet. Both Smartcontracts are deployed to the Ethereum Mainnet blockchain and the wallet component can be reviewed [here](https://github.com/MBrassey/waviii-wallet). 
+waviii.io's main components consist of two Smartcontracts and a Web3 ERC-20 Token wallet built into the frontend. Both Smartcontracts are deployed to the Ethereum Mainnet blockchain.
 
-1. The first is the waviii ERC-20 Token itself. The live Token Smartcontract can be viewed on [Etherscan](https://etherscan.io/token/0x9cc6754d16b98a32ec9137df6453ba84597b9965) and its Source Code on [GitHub](https://github.com/MBrassey/waviii-token).
+1. The first is the waviii ERC-20 Token itself. The total supply of waviii is one million tokens and the contract is designed so that tokens can only be minted via the Token Swap. The live Token Smartcontract can be viewed on [Etherscan](https://etherscan.io/token/0x9cc6754d16b98a32ec9137df6453ba84597b9965) and its Source Code on [GitHub](https://github.com/MBrassey/waviii-token).
 
-> Token
-> [<img src="src/assets/img/Token.gif">](https://github.com/MBrassey/waviii-token)
+2. The second contract is the Token Swap, the single source for buying and selling the waviii token in exchange for ETH at a fixed 1/100 rate. Because waviii can only be minted through this swap, every waviii in circulation is redeemable for exactly 0.01 ETH — the peg is enforced by the contract design itself. The live Token Swap Smartcontract can be viewed on [Etherscan](https://etherscan.io/address/0x38abf018ea2f8066813c376a197b6df0349d86c5) and its Source Code on [GitHub](https://github.com/MBrassey/waviii-swap).
 
-2. The second contract is the Token Swap, the single source for buying and selling the waviii token in exchange for ETH. Most of the one million originally minted waviii Tokens still reside on this contract, they can be traded at any time and posess real world value pegged to a fraction of ETH. The live Token Swap Smartcontract can be viewed on [Etherscan](https://etherscan.io/address/0x38abf018ea2f8066813c376a197b6df0349d86c5) and its Source Code on [GitHub](https://github.com/MBrassey/waviii-swap).
+3. The Web3 ERC-20 Token Wallet for the waviii Ethereum Token lives inside this repo at `src/views/wallet.js`, built directly against the deployed Token contract with MetaMask integration for balance, transfer, and activity history.
 
-> Swap
-> [<img src="src/assets/img/Swap.gif">](https://github.com/MBrassey/waviii-swap)
+#### Architecture
 
-3. The Web3 ERC-20 Token Wallet for the waviii Ethereum Token. 
+A single `WalletProvider` React Context (`src/providers/WalletProvider.js`) owns the web3 instance, connected account, chain id, contract handles, and the transaction state machine. Every view and the top navbar consume it through the `useWallet()` hook — one source of truth, one set of listeners, no per-page re-bootstrapping on navigation. Account and chain changes auto-propagate. MetaMask interaction is EIP-1193 compliant (`eth_requestAccounts`, `wallet_switchEthereumChain`).
 
-> Wallet
-> [<img src="src/assets/img/Wallet.gif">](https://github.com/MBrassey/waviii-wallet)
+- **Price** — dashboard with CoinGecko-backed price chart (~90 daily data points, 7D/1M/3M toggle) and 4-stat header (price, 24h change, 30d high/low). 5-minute `localStorage` cache avoids re-querying CoinGecko on every mount.
+- **Wallet** — balance hero, send form with validation, and an activity table that pulls `Transfer` events from the last ~200k blocks with IN/OUT pills and direct Etherscan tx links.
+- **Buy & Sell** — unified swap card with flip button, Max, approve → sell state machine, pending-tx Etherscan link, and chain guard that prompts a Mainnet switch when the user is on the wrong network.
 
-#### IPFS
+Typography pairs Syncopate (display) with JetBrains Mono (numerics, addresses, hashes). Single stylesheet at `src/assets/css/styles.css`.
 
-waviii.io's codebase is setup with continuous deployment to three platforms: Heroku, GitHub Pages and Fleek (IPFS). On Fleek, the images, text, styles and javascript are all hosted on the InterPlanetary FileSystem (IPFS) in a fully decentralized way. In connjunction with the Ethereum SmartContract backend, waviii.io is a dApp (Decentralized Application). As there is no central point of failure or central point of management, the dApp is highly redundant as well as highly censorship resistant. I have plans to deploy waviii.io as waviii.crypto to decentralize it's DNS as well thgough unstoppable domains. 
+#### Deployment
 
-- [x] [waviii on Heroku](https://waviii.herokuapp.com/)
-- [x] [waviii on Fleek (IPFS)](https://waviii.on.fleek.co/)
-- [x] [waviii on GitHub Pages](https://mbrassey.github.io/waviii.io/)
+waviii.io is deployed to Vercel. The frontend is statically built by CRA and served from Vercel's edge; all blockchain state is read directly from the user's MetaMask provider, and the smart contracts remain on Ethereum Mainnet. No central server is required for app state — the site is fully usable from any CRA-compatible static host.
 
-#### CoinGeko
+- [x] [waviii on Vercel](https://waviii.io/) (primary)
 
-I decided to use the CoinGecko's cryptocurrency API through RapidAPI for my chart data and current waviii price. Since waviii has a 100/1 fixed exchange rate with ETH, I simply performed this calculation inline while defining the datapoints as shown below.
+#### CoinGecko
 
-    getCurrentPrice = () => {
-    var options = {
-      method: "GET",
-      url: "https://coingecko.p.rapidapi.com/simple/price",
-      params: { ids: "ethereum", vs_currencies: "usd" },
-      headers: {
-        "x-rapidapi-key": "RAPID_API_KEY",
-        "x-rapidapi-host": "coingecko.p.rapidapi.com",
-      },
-    };
+The price chart pulls from CoinGecko's public v3 API with no API key. Raw ETH/USD candles are fetched once (`days=90, interval=daily`), cached in `localStorage` for 5 minutes, and converted to waviii/USD inline via the fixed peg (`waviiiUsd = ethUsd / 100`).
 
-    axios
-      .request(options)
-      .then((response) => {
-        this.setState({ loading: true });
-        const ETH = response.data.ethereum.usd;
-        const raw = ETH / 100;
-        const waviii = raw.toFixed(2);
-        const max_num = waviii * 1.1 ;
-        this.setState({ max: max_num });
-        this.setState({ price: waviii });
-        const month = `${moment().format("MMM")}`;
-        this.setState({ month: month.toUpperCase() });
-        this.setState({ loading: false });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-    };
+```js
+// src/utils/prices.js
+const COINGECKO =
+  "https://api.coingecko.com/api/v3/coins/ethereum/market_chart";
+
+export async function fetchMarketChart() {
+  const cached = readCache();
+  if (cached) return cached;
+  const { data } = await axios.get(COINGECKO, {
+    params: { vs_currency: "usd", days: 90, interval: "daily" },
+  });
+  writeCache(data);
+  return data;
+}
+
+export const toWaviiiUsd = (ethUsd) => ethUsd / 100;
+```
+
+The Dashboard component slices the cached series by range (7D / 1M / 3M), derives summary stats (24h delta, 30d high, 30d low), and renders with `react-chartjs-2`.
 
 #### Requirements
 
-    node
+    node (>=14)
     npm
 
 #### Installation
@@ -102,23 +92,15 @@ I decided to use the CoinGecko's cryptocurrency API through RapidAPI for my char
 
 #### Usage
 
-    npm run start
-    npm run test (optional)
-    browse: localhost:3001/
+    npm run start    # CRA dev server at localhost:3000
+    npm run test     # jest, optional
+    npm run build    # production bundle
+    npm run deploy   # gh-pages publish (if using GitHub Pages)
 
-<h6><p align="right">:cyclone: Click the image(s) below to view the live <a id="Demo" href="https://waviii.io/">wabapplication</a></p></h6>
+<h6><p align="right">:cyclone: Click the image below to view the live <a id="Demo" href="https://waviii.io/">application</a></p></h6>
 
 > Video
 > [<img src="src/assets/img/Video.png">](https://youtu.be/2kR6eHG2ve8)
-
-> Demo
-> [<img src="src/assets/img/Demo.gif">](https://waviii.io/)
-
-> Setup
-> [<img src="src/assets/img/Setup.gif">](https://waviii.io/)
-
-> Test
-> [<img src="src/assets/img/Test.gif">](https://waviii.io/)
 
 > Project Development Statistics
 > [<img src="src/assets/img/Workload.svg">](https://wakatime.com/@532855a8-3081-4600-a53d-4262beb65d14/projects/vnkbpbfjis?start=2021-01-24&end=2021-02-02)
