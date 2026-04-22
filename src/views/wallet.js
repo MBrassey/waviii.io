@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FadeIn from "react-fade-in";
 import CountUp from "react-countup";
-import { WaveTopBottomLoading } from "react-loadingg";
 import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
 import waviiiLogo from "../assets/img/i3.png";
 import ActivityTable from "../components/Activity/ActivityTable";
@@ -9,6 +8,7 @@ import { useWallet } from "../providers/WalletProvider";
 import { shortAddress, copyToClipboard, chainName } from "../utils/wallet";
 
 const toEth = (wei) => {
+  if (!window.web3 || !window.web3.utils) return 0;
   try {
     return Number(window.web3.utils.fromWei(String(wei || "0"), "Ether"));
   } catch {
@@ -25,8 +25,10 @@ export default function Wallet() {
   const [localError, setLocalError] = useState(null);
   const [copied, setCopied] = useState(false);
 
+  const connected = w.status === "ready" && w.isMainnet && !!w.account;
+
   useEffect(() => {
-    if (w.status !== "ready" || !w.account) {
+    if (!connected) {
       setTxs([]);
       return;
     }
@@ -41,9 +43,10 @@ export default function Wallet() {
     return () => {
       cancelled = true;
     };
-  }, [w.status, w.account, w.tx.phase]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [connected, w.account, w.tx.phase]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onCopy = async () => {
+    if (!connected) return;
     const ok = await copyToClipboard(w.account);
     if (ok) {
       setCopied(true);
@@ -54,8 +57,38 @@ export default function Wallet() {
   const balance = toEth(w.tokenBalance);
   const busy = w.tx.phase !== "idle";
 
+  let btnLabel;
+  let btnAction;
+  let btnDisabled = false;
+
+  if (w.status === "detecting") {
+    btnLabel = "Loading…";
+    btnDisabled = true;
+  } else if (w.status === "no-provider") {
+    btnLabel = "Install MetaMask";
+    btnAction = () =>
+      window.open("https://metamask.io/download.html", "_blank", "noopener");
+  } else if (w.status === "disconnected" || !w.account) {
+    btnLabel = w.status === "connecting" ? "Connecting…" : "Connect Wallet";
+    btnAction = w.connect;
+    btnDisabled = w.status === "connecting";
+  } else if (!w.isMainnet) {
+    btnLabel = "Switch to Ethereum";
+    btnAction = w.switchMainnet;
+  } else if (busy) {
+    btnLabel = w.tx.phase === "sending" ? "Sending…" : "Pending…";
+    btnDisabled = true;
+  } else {
+    btnLabel = "Send";
+  }
+
   const onSend = async (e) => {
     e.preventDefault();
+    if (btnDisabled) return;
+    if (btnAction) {
+      btnAction();
+      return;
+    }
     setLocalError(null);
     const to = recipient.trim();
     const amt = amount.trim();
@@ -80,179 +113,161 @@ export default function Wallet() {
     }
   };
 
-  let content;
-  if (w.status === "detecting") {
-    content = (
-      <div className="dex-loader">
-        <WaveTopBottomLoading color="#2c91c7" />
-      </div>
-    );
-  } else if (w.status === "no-provider") {
-    content = (
-      <FadeIn>
-        <div className="dex-empty">
-          <img src={waviiiLogo} alt="waviii" className="dex-empty-logo" />
-          <div className="dex-empty-title waviii">Wallet not detected</div>
-          <div className="dex-empty-sub">
-            Install MetaMask to view balance, send waviii, and see your activity.
-          </div>
-          <a
-            className="dex-btn dex-btn-primary"
-            href="https://metamask.io/download.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Install MetaMask
-          </a>
-        </div>
-      </FadeIn>
-    );
-  } else if (w.status === "disconnected" || !w.account) {
-    content = (
-      <FadeIn>
-        <div className="dex-empty">
-          <img src={waviiiLogo} alt="waviii" className="dex-empty-logo" />
-          <div className="dex-empty-title waviii">Wallet not connected</div>
-          <div className="dex-empty-sub">Connect your wallet to continue.</div>
-          <button className="dex-btn dex-btn-primary" onClick={w.connect}>
-            {w.status === "connecting" ? "Connecting…" : "Connect Wallet"}
-          </button>
-        </div>
-      </FadeIn>
-    );
-  } else if (!w.isMainnet) {
-    content = (
-      <FadeIn>
-        <div className="dex-empty">
-          <div className="dex-empty-title waviii">Wrong network</div>
-          <div className="dex-empty-sub">
-            You're on {chainName(w.chainId)}. Switch to Ethereum Mainnet to continue.
-          </div>
-          <button className="dex-btn dex-btn-primary" onClick={w.switchMainnet}>
-            Switch to Ethereum
-          </button>
-        </div>
-      </FadeIn>
-    );
-  } else {
-    content = (
-      <>
-        <FadeIn>
-          <div className="dex-balance-hero">
-            <img src={waviiiLogo} alt="waviii" className="dex-balance-logo" />
-            <div className="dex-balance-num waviii">
-              <CountUp
-                duration={1.4}
-                start={0}
-                end={balance}
-                decimals={2}
-                decimal="."
-                separator=","
-                preserveValue
-              />
-            </div>
-            <div className="dex-balance-ticker">waviii</div>
-            <button
-              type="button"
-              className={`dex-address-chip ${copied ? "is-copied" : ""}`}
-              onClick={onCopy}
-              title="Copy address"
-            >
-              <span className="dex-mono">{shortAddress(w.account)}</span>
-              <span className="dex-copy-hint">{copied ? "Copied" : "Copy"}</span>
-            </button>
-          </div>
-        </FadeIn>
+  const statusBadge = (() => {
+    if (w.status === "detecting")
+      return { cls: "is-idle", text: "Detecting wallet" };
+    if (w.status === "no-provider")
+      return { cls: "is-wrong", text: "No wallet detected" };
+    if (w.status === "disconnected" || !w.account)
+      return { cls: "is-idle", text: "Not connected" };
+    if (!w.isMainnet)
+      return {
+        cls: "is-wrong",
+        text: `Wrong network · ${chainName(w.chainId)}`,
+      };
+    return null;
+  })();
 
-        <FadeIn>
-          <Card className="dex-card">
-            <CardBody>
-              <div className="dex-send-title waviii">Send waviii</div>
-              <form className="dex-send-form" onSubmit={onSend}>
-                <div className="dex-field">
-                  <label className="dex-field-label">Recipient</label>
-                  <input
-                    className="dex-input dex-mono"
-                    placeholder="0x…"
-                    value={recipient}
-                    onChange={(e) => setRecipient(e.target.value)}
-                    autoComplete="off"
-                    spellCheck="false"
-                  />
-                </div>
-                <div className="dex-field">
-                  <div className="dex-field-top">
-                    <label className="dex-field-label">Amount</label>
-                    <button
-                      type="button"
-                      className="dex-link-btn"
-                      onClick={() => setAmount(String(balance))}
-                    >
-                      Max{" "}
-                      {balance.toLocaleString(undefined, {
-                        maximumFractionDigits: 2,
-                      })}
-                    </button>
-                  </div>
-                  <input
-                    className="dex-input"
-                    placeholder="0.00"
-                    type="text"
-                    inputMode="decimal"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                  />
-                </div>
-                {localError && <div className="dex-error">{localError}</div>}
-                {w.tx.error && <div className="dex-error">{w.tx.error}</div>}
-                <button
-                  type="submit"
-                  disabled={busy}
-                  className="dex-btn dex-btn-primary dex-btn-block"
-                >
-                  {w.tx.phase === "sending" ? "Sending…" : "Send"}
-                </button>
-                {w.tx.hash && busy && (
-                  <a
-                    className="dex-tx-link"
-                    href={`https://etherscan.io/tx/${w.tx.hash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View pending transaction ↗
-                  </a>
-                )}
-              </form>
-            </CardBody>
-          </Card>
-        </FadeIn>
-
-        <FadeIn>
-          <Card className="dex-card">
-            <CardHeader>
-              <div className="dex-section-title waviii">
-                <span className="drop-item">Activity</span>
-              </div>
-            </CardHeader>
-            <CardBody>
-              {loadingTxs ? (
-                <div className="dex-activity-empty">Loading activity…</div>
-              ) : (
-                <ActivityTable account={w.account} transactions={txs} />
-              )}
-            </CardBody>
-          </Card>
-        </FadeIn>
-      </>
-    );
-  }
+  const addressLabel = connected ? shortAddress(w.account) : "Not connected";
 
   return (
     <div className="content dex-page">
       <Row>
         <Col md="12">
           <Card className="dex-card dex-wallet-card">
-            <CardBody className="dex-page-body">{content}</CardBody>
+            <CardBody className="dex-page-body">
+              {statusBadge && (
+                <div className={`dex-status-banner ${statusBadge.cls}`}>
+                  <span className="dex-net-dot" />
+                  <span>{statusBadge.text}</span>
+                </div>
+              )}
+
+              <FadeIn>
+                <div className="dex-balance-hero">
+                  <img src={waviiiLogo} alt="waviii" className="dex-balance-logo" />
+                  <div className="dex-balance-num waviii">
+                    {connected ? (
+                      <CountUp
+                        duration={1.4}
+                        start={0}
+                        end={balance}
+                        decimals={2}
+                        decimal="."
+                        separator=","
+                        preserveValue
+                      />
+                    ) : (
+                      <span className="dex-balance-idle">—</span>
+                    )}
+                  </div>
+                  <div className="dex-balance-ticker">waviii</div>
+                  <button
+                    type="button"
+                    className={`dex-address-chip ${copied ? "is-copied" : ""}`}
+                    onClick={onCopy}
+                    title={connected ? "Copy address" : "Not connected"}
+                    disabled={!connected}
+                  >
+                    <span className="dex-mono">{addressLabel}</span>
+                    {connected && (
+                      <span className="dex-copy-hint">
+                        {copied ? "Copied" : "Copy"}
+                      </span>
+                    )}
+                  </button>
+                </div>
+              </FadeIn>
+
+              <FadeIn>
+                <Card className="dex-card">
+                  <CardBody>
+                    <div className="dex-send-title waviii">Send waviii</div>
+                    <form className="dex-send-form" onSubmit={onSend}>
+                      <div className="dex-field">
+                        <label className="dex-field-label">Recipient</label>
+                        <input
+                          className="dex-input dex-mono"
+                          placeholder="0x…"
+                          value={recipient}
+                          onChange={(e) => setRecipient(e.target.value)}
+                          autoComplete="off"
+                          spellCheck="false"
+                          disabled={!connected}
+                        />
+                      </div>
+                      <div className="dex-field">
+                        <div className="dex-field-top">
+                          <label className="dex-field-label">Amount</label>
+                          <button
+                            type="button"
+                            className="dex-link-btn"
+                            onClick={() => setAmount(String(balance))}
+                            disabled={!connected}
+                          >
+                            Max{" "}
+                            {connected
+                              ? balance.toLocaleString(undefined, {
+                                  maximumFractionDigits: 2,
+                                })
+                              : "—"}
+                          </button>
+                        </div>
+                        <input
+                          className="dex-input"
+                          placeholder="0.00"
+                          type="text"
+                          inputMode="decimal"
+                          value={amount}
+                          onChange={(e) => setAmount(e.target.value)}
+                          disabled={!connected}
+                        />
+                      </div>
+                      {localError && <div className="dex-error">{localError}</div>}
+                      {w.tx.error && <div className="dex-error">{w.tx.error}</div>}
+                      <button
+                        type="submit"
+                        disabled={btnDisabled}
+                        className="dex-btn dex-btn-primary dex-btn-block"
+                      >
+                        {btnLabel}
+                      </button>
+                      {w.tx.hash && busy && (
+                        <a
+                          className="dex-tx-link"
+                          href={`https://etherscan.io/tx/${w.tx.hash}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          View pending transaction ↗
+                        </a>
+                      )}
+                    </form>
+                  </CardBody>
+                </Card>
+              </FadeIn>
+
+              <FadeIn>
+                <Card className="dex-card">
+                  <CardHeader>
+                    <div className="dex-section-title waviii">
+                      <span className="drop-item">Activity</span>
+                    </div>
+                  </CardHeader>
+                  <CardBody>
+                    {!connected ? (
+                      <div className="dex-activity-empty">
+                        Connect your wallet to see transaction history.
+                      </div>
+                    ) : loadingTxs ? (
+                      <div className="dex-activity-empty">Loading activity…</div>
+                    ) : (
+                      <ActivityTable account={w.account} transactions={txs} />
+                    )}
+                  </CardBody>
+                </Card>
+              </FadeIn>
+            </CardBody>
           </Card>
         </Col>
       </Row>
