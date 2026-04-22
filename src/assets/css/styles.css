@@ -1368,11 +1368,16 @@ body {
 /* ---------- sidebar bottom breathing room ---------- */
 .sidebar .sidebar-wrapper,
 .off-canvas-sidebar .sidebar-wrapper {
-  padding-bottom: 28px !important;
+  padding-bottom: 96px !important;
 }
 .sidebar .nav,
 .off-canvas-sidebar .nav {
-  padding-bottom: 18px !important;
+  padding-bottom: 64px !important;
+  margin-bottom: 32px !important;
+}
+.sidebar .nav > li:last-child,
+.off-canvas-sidebar .nav > li:last-child {
+  margin-bottom: 24px !important;
 }
 
 /* ---------- wallet page width: match swap card composition ---------- */
