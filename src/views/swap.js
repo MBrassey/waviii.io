@@ -1,330 +1,301 @@
-import React, { Component } from "react";
-import Web3 from "web3";
-import Token from "./abis/waviii2.json";
-import EthSwap from "./abis/WavSwap.json";
-import BuySell from "./BuySell";
-import { WaveTopBottomLoading } from "react-loadingg";
+import React, { useEffect, useMemo, useState } from "react";
 import FadeIn from "react-fade-in";
+import CountUp from "react-countup";
+import { WaveTopBottomLoading } from "react-loadingg";
+import { Card, CardBody, Row, Col } from "reactstrap";
 import tokenLogo from "../assets/img/token-logo.png";
 import ethLogo from "../assets/img/eth-logo.png";
-import swapLogo from "../assets/img/swap_logo.gif";
-import CountUp from "react-countup";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Row,
-  Col,
-} from "reactstrap";
+import { useWallet } from "../providers/WalletProvider";
+import { chainName } from "../utils/wallet";
 
-class Swap extends Component {
-  async componentWillMount() {
-    await this.loadWeb3();
-    await this.loadBlockchainData();
+const RATE = 100;
+
+const safeParse = (v) => {
+  if (typeof v !== "string") return 0;
+  const n = parseFloat(v.replace(/,/g, ""));
+  return isFinite(n) && n > 0 ? n : 0;
+};
+
+const fromWei = (wei) => {
+  try {
+    return Number(window.web3.utils.fromWei(String(wei || "0"), "Ether"));
+  } catch {
+    return 0;
   }
+};
 
-  async loadBlockchainData() {
-    if (this.state.loading) {
-      return false;
-    } else {
-      const web3 = window.web3;
-      const accounts = await web3.eth.getAccounts();
-      this.setState({ account: accounts[0] });
-      const ethBalance = await web3.eth.getBalance(this.state.account);
-      this.setState({ ethBalance });
+export default function Swap() {
+  const w = useWallet();
+  const [mode, setMode] = useState("buy");
+  const [input, setInput] = useState("");
+  const [localError, setLocalError] = useState(null);
 
-      // Load Token
-      const networkId = await web3.eth.net.getId();
-      const tokenData = Token.networks[networkId];
-      if (tokenData) {
-        const token = new web3.eth.Contract(Token.abi, tokenData.address);
-        this.setState({ token });
-        let tokenBalance = await token.methods
-          .balanceOf(this.state.account)
-          .call();
-        this.setState({ tokenBalance: tokenBalance.toString() });
-      } else {
-        window.alert("Token contract not deployed to detected network.");
-        this.setState({ loading: true });
+  useEffect(() => {
+    setInput("");
+    setLocalError(null);
+  }, [mode]);
+
+  const { fromSym, toSym, fromLogo, toLogo, fromBalanceEth, toBalanceEth } =
+    useMemo(() => {
+      const ethEth = fromWei(w.ethBalance);
+      const tknEth = fromWei(w.tokenBalance);
+      if (mode === "buy") {
+        return {
+          fromSym: "ETH",
+          toSym: "waviii",
+          fromLogo: ethLogo,
+          toLogo: tokenLogo,
+          fromBalanceEth: ethEth,
+          toBalanceEth: tknEth,
+        };
       }
+      return {
+        fromSym: "waviii",
+        toSym: "ETH",
+        fromLogo: tokenLogo,
+        toLogo: ethLogo,
+        fromBalanceEth: tknEth,
+        toBalanceEth: ethEth,
+      };
+    }, [mode, w.ethBalance, w.tokenBalance]);
 
-      // Load EthSwap
-      const ethSwapData = EthSwap.networks[networkId];
-      if (ethSwapData) {
-        const ethSwap = new web3.eth.Contract(EthSwap.abi, ethSwapData.address);
-        this.setState({ ethSwap });
-      } else {
-        window.alert("EthSwap contract not deployed to detected network.");
-        this.setState({ loading: true });
-      }
+  const outputNum = useMemo(() => {
+    const n = safeParse(input);
+    if (!n) return 0;
+    return mode === "buy" ? n * RATE : n / RATE;
+  }, [input, mode]);
 
-      this.setState({ loading: false });
-    }
-  }
+  const setMax = () => setInput(String(fromBalanceEth));
 
-  async loadWeb3() {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
+  const busy = w.tx.phase !== "idle";
+  const amt = safeParse(input);
+  const overBalance = amt > fromBalanceEth;
+
+  let btnLabel = mode === "buy" ? "Buy waviii" : "Sell waviii";
+  if (w.tx.phase === "buy-pending") btnLabel = "Confirming…";
+  if (w.tx.phase === "approving") btnLabel = "1/2 Approving…";
+  if (w.tx.phase === "selling") btnLabel = "2/2 Selling…";
+  if (!amt) btnLabel = "Enter an amount";
+  if (overBalance) btnLabel = "Insufficient balance";
+
+  const disabled = busy || !amt || overBalance;
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (disabled) return;
+    setLocalError(null);
+    const wei = window.web3.utils.toWei(String(amt), "Ether");
+    if (mode === "buy") {
+      await w.buyTokens(wei);
     } else {
-      // window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
-      this.setState({ loading: true });
-      this.setState({ noEth: true });
+      await w.sellTokens(wei);
     }
-  }
-
-  buyTokens = (etherAmount) => {
-    this.state.ethSwap.methods
-      .buyTokens()
-      .send({ value: etherAmount, from: this.state.account })
-      .on("transactionHash", (hash) => {
-        this.setState({ loading: true });
-      })
-      .on("confirmation", (reciept) => {
-        this.setState({ loading: false });
-        window.location.reload();
-      });
+    setInput("");
   };
 
-  sellTokens = (tokenAmount) => {
-    this.state.token.methods
-      .approve(this.state.ethSwap.address, tokenAmount)
-      .send({ from: this.state.account })
-      .on("transactionHash", (hash) => {
-        this.state.ethSwap.methods
-          .sellTokens(tokenAmount)
-          .send({ from: this.state.account })
-          .on("transactionHash", (hash) => {
-            this.setState({ loading: true });
-          })
-          .on("confirmation", (reciept) => {
-            this.setState({ loading: false });
-            window.location.reload();
-          });
-      });
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      account: "",
-      token: {},
-      ethSwap: {},
-      ethBalance: "0",
-      tokenBalance: "0",
-      loading: undefined,
-    };
-  }
-
-  render() {
-    let content;
-    if (this.state.loading) {
-      if (this.state.noEth) {
-        content = (
-          <FadeIn>
-            <FadeIn>
-              <CardBody className="waviii-2">
-                <FadeIn>
-                  <div id="content" className="mt-3">
-                    <div className="d-flex justify-content-between mb-3">
-                      <button
-                        className="btn btn-light waviii"
-                        disabled
-                        onClick={(event) => {
-                          this.setState({ currentForm: "buy" });
-                        }}
-                      >
-                        Buy
-                      </button>
-                      <img src={swapLogo} className="swapLogo" alt="waviii Swap Logo" />
-                      <button
-                        className="btn btn-light waviii"
-                        disabled
-                        onClick={(event) => {
-                          this.setState({ currentForm: "sell" });
-                        }}
-                      >
-                        Sell
-                      </button>
-                    </div>
-                    <br />
-
-                    <div className="card mb-4">
-                      <div className="card-body">
-                        <FadeIn>
-                          <form
-                            className="mb-3"
-                            onSubmit={(event) => {
-                              event.preventDefault();
-                              let etherAmount;
-                              etherAmount = this.input.value.toString();
-                              etherAmount = window.web3.utils.toWei(
-                                etherAmount,
-                                "Ether"
-                              );
-                              this.props.buyTokens(etherAmount);
-                            }}
-                          >
-                            <div>
-                              <label className="float-left">
-                                <b>Input</b>
-                              </label>
-                              <span className="float-right text-muted">
-                                Balance:{" "}
-                                <CountUp
-                                  duration={2.7}
-                                  start={-10}
-                                  separator=""
-                                  decimals={2}
-                                  decimal="."
-                                  end={0}
-                                />
-                              </span>
-                            </div>
-                            <div className="input-group mb-4">
-                              <input
-                                type="text"
-                                onChange={(event) => {
-                                  const etherAmount = this.input.value.toString();
-                                  this.setState({
-                                    output: etherAmount * 100,
-                                  });
-                                }}
-                                ref={(input) => {
-                                  this.input = input;
-                                }}
-                                className="form-control form-control-lg"
-                                placeholder="0"
-                                disabled
-                              />
-                              <div className="input-group-append">
-                                <div className="input-group-text">
-                                  <strong>&nbsp;&nbsp;</strong>
-                                  <img src={ethLogo} height="29" alt="" />
-                                  <strong>&nbsp;&nbsp; ETH &nbsp;</strong>
-                                </div>
-                              </div>
-                            </div>
-                            <div>
-                              <label className="float-left">
-                                <b>Output</b>
-                              </label>
-                              <span className="float-right text-muted">
-                                Balance:{" "}
-                                <CountUp
-                                  duration={2.7}
-                                  start={-10}
-                                  separator=""
-                                  decimals={2}
-                                  decimal="."
-                                  end={0}
-                                />
-                              </span>
-                            </div>
-                            <div className="input-group mb-2">
-                              <input
-                                type="text"
-                                className="form-control form-control-lg"
-                                placeholder="0"
-                                value={this.state.output}
-                                disabled
-                              />
-                              <div className="input-group-append">
-                                <div className="input-group-text waviii">
-                                  <strong>&nbsp;&nbsp;</strong>
-                                  <img src={tokenLogo} height="29" alt="" />
-                                  <strong>&nbsp; waviii</strong>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="mb-5">
-                              <span className="float-left text-muted">
-                                Exchange Rate
-                              </span>
-                              <span className="float-right text-muted waviii responsive3">
-                                1 ETH = 100 waviii
-                              </span>
-                            </div>
-                            <button
-                              type="submit"
-                              disabled
-                              className="btn btn-primary btn-block btn-lg waviii"
-                            >
-                              locked
-                            </button>
-                          </form>
-                        </FadeIn>
-                      </div>
-                    </div>
-                    <br />
-                  <FadeIn>
-                    <a
-                      href="https://metamask.io/download.html"
-                      className="noEth"
-                    >
-                      <center>Blockchain browser not detected! Install MetaMask to use
-                      waviii.</center>
-                    </a>
-                  </FadeIn>
-                  </div>
-                </FadeIn>
-              </CardBody>
-            </FadeIn>
-          </FadeIn>
-        );
-      } else {
-        content = (
-          <p id="loader" className="text-center">
-            <WaveTopBottomLoading color={"#2c91c7"} />
-          </p>
-        );
-      }
-    } else {
-      content = (
-        <BuySell
-          ethBalance={this.state.ethBalance}
-          tokenBalance={this.state.tokenBalance}
-          buyTokens={this.buyTokens}
-          sellTokens={this.sellTokens}
-        />
-      );
-    }
-
-    return (
-      <>
-        <div className="content">
-          <Row>
-            <Col md="12">
-              <Card>
-                <FadeIn>
-                  <CardHeader className="responsive2">
-                    <a
-                      className="waviii3 responsive2"
-                      href={`https://etherscan.io/address/${this.state.account}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <span>{this.state.account}</span>
-                    </a>
-                  </CardHeader>
-                </FadeIn>
-                <CardBody className="all-icons">
-                  <div
-                    className="content mr-auto ml-auto"
-                    style={{ width: "90%" }}
-                  >
-                    {content}
-                  </div>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
+  let content;
+  if (w.status === "detecting") {
+    content = (
+      <div className="dex-loader">
+        <WaveTopBottomLoading color="#2c91c7" />
+      </div>
+    );
+  } else if (w.status === "no-provider") {
+    content = (
+      <FadeIn>
+        <div className="dex-empty">
+          <div className="dex-empty-title waviii">Wallet not detected</div>
+          <div className="dex-empty-sub">
+            Install MetaMask to trade waviii.
+          </div>
+          <a
+            className="dex-btn dex-btn-primary"
+            href="https://metamask.io/download.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Install MetaMask
+          </a>
         </div>
-      </>
+      </FadeIn>
+    );
+  } else if (w.status === "disconnected" || !w.account) {
+    content = (
+      <FadeIn>
+        <div className="dex-empty">
+          <div className="dex-empty-title waviii">Connect to swap</div>
+          <div className="dex-empty-sub">
+            Connect your wallet to buy or sell waviii on Ethereum.
+          </div>
+          <button className="dex-btn dex-btn-primary" onClick={w.connect}>
+            {w.status === "connecting" ? "Connecting…" : "Connect Wallet"}
+          </button>
+        </div>
+      </FadeIn>
+    );
+  } else if (w.status === "wrong-chain" || !w.isMainnet) {
+    content = (
+      <FadeIn>
+        <div className="dex-empty">
+          <div className="dex-empty-title waviii">Wrong network</div>
+          <div className="dex-empty-sub">
+            You're on {chainName(w.chainId)}. Switch to Ethereum Mainnet to
+            continue.
+          </div>
+          <button className="dex-btn dex-btn-primary" onClick={w.switchMainnet}>
+            Switch to Ethereum
+          </button>
+        </div>
+      </FadeIn>
+    );
+  } else {
+    content = (
+      <FadeIn>
+        <div className="dex-swap-tabs" role="tablist">
+          <button
+            type="button"
+            className={`dex-tab ${mode === "buy" ? "is-active" : ""}`}
+            onClick={() => setMode("buy")}
+          >
+            Buy
+          </button>
+          <button
+            type="button"
+            className={`dex-tab ${mode === "sell" ? "is-active" : ""}`}
+            onClick={() => setMode("sell")}
+          >
+            Sell
+          </button>
+        </div>
+
+        <form className="dex-swap-form" onSubmit={onSubmit}>
+          <div className="dex-swap-panel">
+            <div className="dex-swap-panel-top">
+              <span className="dex-field-label">From</span>
+              <button type="button" className="dex-link-btn" onClick={setMax}>
+                Balance:{" "}
+                {fromBalanceEth.toLocaleString(undefined, {
+                  maximumFractionDigits: 6,
+                })}
+              </button>
+            </div>
+            <div className="dex-swap-panel-row">
+              <input
+                type="text"
+                inputMode="decimal"
+                className="dex-swap-input"
+                placeholder="0"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                autoComplete="off"
+                spellCheck="false"
+              />
+              <div className="dex-token-chip">
+                <img src={fromLogo} alt="" />
+                <span>{fromSym}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="dex-swap-flip-wrap">
+            <button
+              type="button"
+              className="dex-swap-flip"
+              onClick={() => setMode(mode === "buy" ? "sell" : "buy")}
+              aria-label="Flip direction"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M7 4v16" />
+                <path d="M3 8l4-4 4 4" />
+                <path d="M17 20V4" />
+                <path d="M21 16l-4 4-4-4" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="dex-swap-panel">
+            <div className="dex-swap-panel-top">
+              <span className="dex-field-label">To</span>
+              <span className="dex-field-label dex-muted">
+                Balance:{" "}
+                {toBalanceEth.toLocaleString(undefined, {
+                  maximumFractionDigits: 6,
+                })}
+              </span>
+            </div>
+            <div className="dex-swap-panel-row">
+              <div className="dex-swap-output dex-mono">
+                <CountUp
+                  duration={0.6}
+                  preserveValue
+                  end={outputNum}
+                  decimals={mode === "buy" ? 2 : 6}
+                  decimal="."
+                  separator=","
+                />
+              </div>
+              <div className="dex-token-chip">
+                <img src={toLogo} alt="" />
+                <span>{toSym}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="dex-swap-meta">
+            <div>
+              <span className="dex-muted">Rate</span>
+              <span className="dex-mono">1 ETH = {RATE} waviii</span>
+            </div>
+            <div>
+              <span className="dex-muted">Fee</span>
+              <span className="dex-mono">0%</span>
+            </div>
+          </div>
+
+          {localError && <div className="dex-error">{localError}</div>}
+          {w.tx.error && <div className="dex-error">{w.tx.error}</div>}
+
+          <button
+            type="submit"
+            disabled={disabled}
+            className="dex-btn dex-btn-primary dex-btn-block"
+          >
+            {btnLabel}
+          </button>
+
+          {w.tx.hash && busy && (
+            <a
+              className="dex-tx-link"
+              href={`https://etherscan.io/tx/${w.tx.hash}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View pending transaction ↗
+            </a>
+          )}
+        </form>
+      </FadeIn>
     );
   }
-}
 
-export default Swap;
+  return (
+    <div className="content dex-page">
+      <Row>
+        <Col md="12">
+          <Card className="dex-card dex-swap-card">
+            <CardBody className="dex-page-body">{content}</CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </div>
+  );
+}

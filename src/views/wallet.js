@@ -1,383 +1,261 @@
-import React from "react";
-import Web3 from "web3";
-import waviiiLogo from "../assets/img/i3.png";
-import waviii from "./abis/waviii2.json";
+import React, { useEffect, useState } from "react";
+import FadeIn from "react-fade-in";
 import CountUp from "react-countup";
 import { WaveTopBottomLoading } from "react-loadingg";
-import FadeIn from "react-fade-in";
-
-// reactstrap components
 import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
+import waviiiLogo from "../assets/img/i3.png";
+import ActivityTable from "../components/Activity/ActivityTable";
+import { useWallet } from "../providers/WalletProvider";
+import { shortAddress, copyToClipboard, chainName } from "../utils/wallet";
 
-class Wallet extends React.Component {
-  async componentWillMount() {
-    await this.loadWeb3();
-    await this.loadBlockchainData();
+const toEth = (wei) => {
+  try {
+    return Number(window.web3.utils.fromWei(String(wei || "0"), "Ether"));
+  } catch {
+    return 0;
   }
+};
 
-  async loadWeb3() {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      // window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!');
-      this.setState({ loading: true });
-      this.setState({ noEth: true });
+export default function Wallet() {
+  const w = useWallet();
+  const [recipient, setRecipient] = useState("");
+  const [amount, setAmount] = useState("");
+  const [txs, setTxs] = useState([]);
+  const [loadingTxs, setLoadingTxs] = useState(false);
+  const [localError, setLocalError] = useState(null);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (w.status !== "ready" || !w.account) {
+      setTxs([]);
+      return;
     }
-  }
-
-  async loadBlockchainData() {
-    if (this.state.loading) {
-      return false;
-    } else {
-      const web3 = window.web3;
-      const accounts = await web3.eth.getAccounts();
-      this.setState({ account: accounts[0] });
-      const TokenAddress = "0x9cc6754d16b98a32ec9137df6453ba84597b9965"; // mainnet waviii Token Contract Address
-      const waviiiToken = new web3.eth.Contract(waviii.abi, TokenAddress);
-      this.setState({ waviiiToken: waviiiToken });
-      const balance = await waviiiToken.methods
-        .balanceOf(this.state.account)
-        .call();
-      this.setState({
-        balance: web3.utils.fromWei(balance.toString(), "Ether"),
-      });
-      const transactions = (
-        await Promise.all([
-          waviiiToken.getPastEvents("Transfer", {
-            fromBlock: 0,
-            toBlock: "latest",
-            filter: { from: this.state.account },
-          }),
-          waviiiToken.getPastEvents("Transfer", {
-            fromBlock: 0,
-            toBlock: "latest",
-            filter: { to: this.state.account },
-          }),
-        ])
-      ).flat();
-      this.setState({ transactions: transactions });
-      // console.log(transactions);
-    }
-  }
-
-  transfer(recipient, amount) {
-    this.state.waviiiToken.methods
-      .transfer(recipient, amount)
-      .send({ from: this.state.account })
-      .on("transactionHash", (hash) => {
-        this.setState({ loading: true });
-      })
-      .on("confirmation", (reciept) => {
-        this.setState({ loading: false });
-        window.location.reload();
-      });
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      account: "",
-      waviiiToken: null,
-      balance: 0,
-      transactions: [],
-      loading: undefined,
-    };
-
-    this.transfer = this.transfer.bind(this);
-  }
-
-  render() {
-    let content;
-    if (this.state.loading) {
-      if (this.state.noEth) {
-        content = (
-          <div className="mt-3">
-            <div className="row">
-              <main role="main" className="col-lg-12 d-flex text-center">
-                <div
-                  className="content mr-auto ml-auto"
-                  style={{ width: "90%" }}
-                >
-                  <FadeIn>
-                    <img src={waviiiLogo} width="150" alt="waviii Logo" />
-                  </FadeIn>
-                  <br />
-                  <br />
-                  <FadeIn>
-                    <h1 className="waviii">
-                      <strong>
-                        <CountUp
-                          duration={1.7}
-                          start={-10}
-                          separator=""
-                          decimals={2}
-                          decimal="."
-                          end={this.state.balance}
-                        />{" "}
-                        waviii
-                      </strong>
-                    </h1>
-                  </FadeIn>
-                  <div className="card mb-4">
-                    <div className="card-body">
-                      <form
-                        className="mb-3"
-                        onSubmit={(event) => {
-                          event.preventDefault();
-                          const recipient = this.recipient.value;
-                          const amount = window.web3.utils.toWei(
-                            this.amount.value,
-                            "Ether"
-                          );
-                          this.transfer(recipient, amount);
-                        }}
-                      >
-                        <div className="form-group">
-                          <input
-                            id="recipient"
-                            type="text"
-                            ref={(input) => {
-                              this.recipient = input;
-                            }}
-                            className="form-control form-control-lg"
-                            placeholder="Recipient Address"
-                            disabled
-                          />
-                        </div>
-                        <div className="form-group">
-                          <input
-                            id="amount"
-                            type="text"
-                            ref={(input) => {
-                              this.amount = input;
-                            }}
-                            className="form-control form-control-lg"
-                            placeholder="Amount"
-                            disabled
-                          />
-                        </div>
-                        <button
-                          type="text"
-                          className="btn btn-primary btn-block btn-lg waviii"
-                          disabled
-                        >
-                          <strong>locked</strong>
-                        </button>
-                      </form>
-
-                      <table className="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">Recipient</th>
-                            <th scope="col">value</th>
-                          </tr>
-                        </thead>
-                      </table>
-                    </div>
-                  </div><br />
-                  <FadeIn>
-                    <a
-                      href="https://metamask.io/download.html"
-                      className="noEth"
-                    >
-                      Blockchain browser not detected! Install MetaMask to use
-                      waviii.
-                    </a><br />
-                  </FadeIn>
-                </div>
-              </main>
-            </div>
-          </div>
-        );
-      } else {
-        content = (
-          <p id="loader" className="text-center">
-            <WaveTopBottomLoading />
-          </p>
-        );
+    let cancelled = false;
+    setLoadingTxs(true);
+    w.getTransferEvents().then((events) => {
+      if (!cancelled) {
+        setTxs(events);
+        setLoadingTxs(false);
       }
-    } else {
-      content = (
-        <div className="mt-3">
-          <div className="row">
-            <main role="main" className="col-lg-12 d-flex text-center">
-              <div className="content mr-auto ml-auto" style={{ width: "90%" }}>
-                <FadeIn>
-                  <img src={waviiiLogo} width="150" alt="waviii Logo" />
-                </FadeIn>
-                <br />
-                <br />
-                <FadeIn>
-                  <h1 className="waviii">
-                    <strong>
-                      <CountUp
-                        duration={1.7}
-                        start={0}
-                        separator=""
-                        decimals={2}
-                        decimal="."
-                        end={this.state.balance}
-                      />{" "}
-                      waviii
-                    </strong>
-                  </h1>
-                </FadeIn>
-                <div className="card mb-4">
-                  <div className="card-body">
-                    <form
-                      className="mb-3"
-                      onSubmit={(event) => {
-                        event.preventDefault();
-                        const recipient = this.recipient.value;
-                        const amount = window.web3.utils.toWei(
-                          this.amount.value,
-                          "Ether"
-                        );
-                        this.transfer(recipient, amount);
-                      }}
-                    >
-                      <div className="form-group">
-                        <input
-                          id="recipient"
-                          type="text"
-                          ref={(input) => {
-                            this.recipient = input;
-                          }}
-                          className="form-control form-control-lg"
-                          placeholder="Recipient Address"
-                          required
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          id="amount"
-                          type="text"
-                          ref={(input) => {
-                            this.amount = input;
-                          }}
-                          className="form-control form-control-lg"
-                          placeholder="Amount"
-                          required
-                        />
-                      </div>
-                      <button
-                        type="submit"
-                        className="btn btn-primary btn-block btn-lg waviii"
-                      >
-                        <strong>Send</strong>
-                      </button>
-                    </form>
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [w.status, w.account, w.tx.phase]); // eslint-disable-line react-hooks/exhaustive-deps
 
-                    <table className="table hide">
-                      <thead>
-                        <tr>
-                          <th scope="col">Recipient</th>
-                          <th scope="col">value</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {this.state.transactions
-                          .sort((a, b) => a.blockNumber < b.blockNumber)
-                          .map((tx, key) => {
-                            return (
-                              <tr key={key}>
-                                <td>
-                                  <a
-                                    className="title responsive"
-                                    href={`https://etherscan.io/address/${tx.hash}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    <span className="waviii text-muted">
-                                      {tx.returnValues.to}
-                                    </span>
-                                  </a>
-                                </td>
-                                {tx.returnValues.to !== this.state.account && (
-                                  <td>
-                                    <span className="waviii responsive">
-                                      -
-                                      <CountUp
-                                        duration={2.7}
-                                        start={0}
-                                        separator=""
-                                        decimals={2}
-                                        decimal="."
-                                        end={window.web3.utils.fromWei(
-                                          tx.returnValues.value.toString(),
-                                          "Ether"
-                                        )}
-                                      />
-                                    </span>
-                                  </td>
-                                )}
-                                {tx.returnValues.to === this.state.account && (
-                                  <td>
-                                    <span className="waviii2 responsive">
-                                      +
-                                      <CountUp
-                                        duration={2.7}
-                                        start={0}
-                                        separator=""
-                                        decimals={2}
-                                        decimal="."
-                                        end={window.web3.utils.fromWei(
-                                          tx.returnValues.value.toString(),
-                                          "Ether"
-                                        )}
-                                      />
-                                    </span>
-                                  </td>
-                                )}
-                              </tr>
-                            );
-                          })}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </main>
-          </div>
-        </div>
-      );
+  const onCopy = async () => {
+    const ok = await copyToClipboard(w.account);
+    if (ok) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1200);
     }
+  };
 
-    return (
-      <>
-        <div className="content">
-          <FadeIn>
-            <Row>
-              <Col md="12">
-                <Card>
-                  <FadeIn>
-                    <CardHeader className="responsive2">
-                      <a
-                        className="waviii3 responsive2"
-                        href={`https://etherscan.io/address/${this.state.account}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <span>{this.state.account}</span>
-                      </a>
-                    </CardHeader>
-                  </FadeIn>
-                  <CardBody className="all-icons">
-                    <FadeIn>
-                      <div>{content}</div>
-                    </FadeIn>
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>
-          </FadeIn>
+  const balance = toEth(w.tokenBalance);
+  const busy = w.tx.phase !== "idle";
+
+  const onSend = async (e) => {
+    e.preventDefault();
+    setLocalError(null);
+    const to = recipient.trim();
+    const amt = amount.trim();
+    if (!window.web3.utils.isAddress(to)) {
+      setLocalError("Invalid recipient address");
+      return;
+    }
+    const n = parseFloat(amt);
+    if (!isFinite(n) || n <= 0) {
+      setLocalError("Enter an amount greater than 0");
+      return;
+    }
+    if (n > balance) {
+      setLocalError("Insufficient balance");
+      return;
+    }
+    const wei = window.web3.utils.toWei(String(n), "Ether");
+    const ok = await w.sendTransfer(to, wei);
+    if (ok) {
+      setRecipient("");
+      setAmount("");
+    }
+  };
+
+  let content;
+  if (w.status === "detecting") {
+    content = (
+      <div className="dex-loader">
+        <WaveTopBottomLoading color="#2c91c7" />
+      </div>
+    );
+  } else if (w.status === "no-provider") {
+    content = (
+      <FadeIn>
+        <div className="dex-empty">
+          <img src={waviiiLogo} alt="waviii" className="dex-empty-logo" />
+          <div className="dex-empty-title waviii">Wallet not detected</div>
+          <div className="dex-empty-sub">
+            Install MetaMask to view balance, send waviii, and see your activity.
+          </div>
+          <a
+            className="dex-btn dex-btn-primary"
+            href="https://metamask.io/download.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Install MetaMask
+          </a>
         </div>
+      </FadeIn>
+    );
+  } else if (w.status === "disconnected" || !w.account) {
+    content = (
+      <FadeIn>
+        <div className="dex-empty">
+          <img src={waviiiLogo} alt="waviii" className="dex-empty-logo" />
+          <div className="dex-empty-title waviii">Wallet not connected</div>
+          <div className="dex-empty-sub">Connect your wallet to continue.</div>
+          <button className="dex-btn dex-btn-primary" onClick={w.connect}>
+            {w.status === "connecting" ? "Connecting…" : "Connect Wallet"}
+          </button>
+        </div>
+      </FadeIn>
+    );
+  } else if (!w.isMainnet) {
+    content = (
+      <FadeIn>
+        <div className="dex-empty">
+          <div className="dex-empty-title waviii">Wrong network</div>
+          <div className="dex-empty-sub">
+            You're on {chainName(w.chainId)}. Switch to Ethereum Mainnet to continue.
+          </div>
+          <button className="dex-btn dex-btn-primary" onClick={w.switchMainnet}>
+            Switch to Ethereum
+          </button>
+        </div>
+      </FadeIn>
+    );
+  } else {
+    content = (
+      <>
+        <FadeIn>
+          <div className="dex-balance-hero">
+            <img src={waviiiLogo} alt="waviii" className="dex-balance-logo" />
+            <div className="dex-balance-num waviii">
+              <CountUp
+                duration={1.4}
+                start={0}
+                end={balance}
+                decimals={2}
+                decimal="."
+                separator=","
+                preserveValue
+              />
+            </div>
+            <div className="dex-balance-ticker">waviii</div>
+            <button
+              type="button"
+              className={`dex-address-chip ${copied ? "is-copied" : ""}`}
+              onClick={onCopy}
+              title="Copy address"
+            >
+              <span className="dex-mono">{shortAddress(w.account)}</span>
+              <span className="dex-copy-hint">{copied ? "Copied" : "Copy"}</span>
+            </button>
+          </div>
+        </FadeIn>
+
+        <FadeIn>
+          <Card className="dex-card">
+            <CardBody>
+              <div className="dex-send-title waviii">Send waviii</div>
+              <form className="dex-send-form" onSubmit={onSend}>
+                <div className="dex-field">
+                  <label className="dex-field-label">Recipient</label>
+                  <input
+                    className="dex-input dex-mono"
+                    placeholder="0x…"
+                    value={recipient}
+                    onChange={(e) => setRecipient(e.target.value)}
+                    autoComplete="off"
+                    spellCheck="false"
+                  />
+                </div>
+                <div className="dex-field">
+                  <div className="dex-field-top">
+                    <label className="dex-field-label">Amount</label>
+                    <button
+                      type="button"
+                      className="dex-link-btn"
+                      onClick={() => setAmount(String(balance))}
+                    >
+                      Max{" "}
+                      {balance.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                    </button>
+                  </div>
+                  <input
+                    className="dex-input"
+                    placeholder="0.00"
+                    type="text"
+                    inputMode="decimal"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                  />
+                </div>
+                {localError && <div className="dex-error">{localError}</div>}
+                {w.tx.error && <div className="dex-error">{w.tx.error}</div>}
+                <button
+                  type="submit"
+                  disabled={busy}
+                  className="dex-btn dex-btn-primary dex-btn-block"
+                >
+                  {w.tx.phase === "sending" ? "Sending…" : "Send"}
+                </button>
+                {w.tx.hash && busy && (
+                  <a
+                    className="dex-tx-link"
+                    href={`https://etherscan.io/tx/${w.tx.hash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View pending transaction ↗
+                  </a>
+                )}
+              </form>
+            </CardBody>
+          </Card>
+        </FadeIn>
+
+        <FadeIn>
+          <Card className="dex-card">
+            <CardHeader>
+              <div className="dex-section-title waviii">
+                <span className="drop-item">Activity</span>
+              </div>
+            </CardHeader>
+            <CardBody>
+              {loadingTxs ? (
+                <div className="dex-activity-empty">Loading activity…</div>
+              ) : (
+                <ActivityTable account={w.account} transactions={txs} />
+              )}
+            </CardBody>
+          </Card>
+        </FadeIn>
       </>
     );
   }
-}
 
-export default Wallet;
+  return (
+    <div className="content dex-page">
+      <Row>
+        <Col md="12">
+          <Card className="dex-card dex-wallet-card">
+            <CardBody className="dex-page-body">{content}</CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </div>
+  );
+}

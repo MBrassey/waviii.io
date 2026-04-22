@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(aws ssm get-command-invocation *)",
+      "Bash(pnpm typecheck)",
+      "Bash(aws ssm describe-instance-information *)",
+      "Bash(journalctl *)",
+      "Bash(aws sts get-caller-identity *)",
+      "Bash(gh search repos *)",
+      "Bash(aws ec2 describe-instances *)",
+      "Bash(aws grafana list-workspaces *)",
+      "Bash(aws grafana list-workspace-service-accounts *)",
+      "Bash(aws secretsmanager get-secret-value *)",
+      "Bash(aws events list-rules *)",
+      "Bash(aws ec2 describe-vpcs *)"
+    ]
+  }
+}

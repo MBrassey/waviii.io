@@ -12,7 +12,7 @@ var routes = [
   },
   {
     path: "/Swap",
-    name: "Buy & Sell waviii",
+    name: "Buy & Sell",
     icon: "wav-icons icon-coins",
     component: Swap,
     layout: "/admin"
